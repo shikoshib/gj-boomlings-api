@@ -9,8 +9,8 @@ This package gets info from RobTop's servers (boomlings.com) and converts it int
 So basically this function downloads the entire level and converts the response into JSON.
 
 ```js
-const gd = require("gj-boomlings-api")
-gd.dlLevel(42584142).then(console.log)
+const gd = require("gj-boomlings-api");
+gd.dlLevel(42584142).then(console.log);
 ```
 
 Returns:
@@ -58,8 +58,8 @@ Returns:
 With this function, you can get an info about a custom song by its ID (unless it's on Newgrounds).
 
 ```js
-const gd = require("gj-boomlings-api")
-gd.getSongInfo(1099128).then(console.log)
+const gd = require("gj-boomlings-api");
+gd.getSongInfo(1099128).then(console.log);
 ```
 
 Returns:
@@ -80,9 +80,9 @@ Returns:
 Basically the same thing as ```getSongInfo()```, but for official songs.
 
 ```js
-const gd = require("gj-boomlings-api")
+const gd = require("gj-boomlings-api");
 const song = gd.getOfficialSongInfo(14);
-console.log(song)
+console.log(song);
 ```
 
 Returns:
