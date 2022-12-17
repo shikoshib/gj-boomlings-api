@@ -1,0 +1,27 @@
+{
+  "name": "gj-boomlings-api",
+  "version": "0.1.0",
+  "description": "A Node.js module that allows you to fetch boomlings.com easily",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "author": "shikoshib",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shikoshib/gj-boomlings-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shikoshib/gj-boomlings-api/issues"
+  },
+  "homepage": "https://github.com/shikoshib/gj-boomlings-api",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.2.1",
+    "crypto": "^1.0.1",
+    "js-base64": "^3.7.3",
+    "node-fetch": "^2.6.7",
+    "xor-crypt": "^1.1.1"
+  }
+}
