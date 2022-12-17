@@ -64,7 +64,7 @@ gd.getSongInfo(1099128).then(console.log)
 
 Returns:
 
-```json
+```
 {
   name: 'Dynamics',
   id: 1099128,
@@ -87,7 +87,7 @@ console.log(song)
 
 Returns:
 
-```json
+```
 {
   name: 'Clubstep',
   id: 'Level 14',
