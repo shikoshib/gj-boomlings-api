@@ -55,7 +55,7 @@ Returns:
 
 **getSongInfo(song)**
 
-With this function, you can get an info about a custom song by its ID (unless it's on Newgrounds).
+With this function, you can get an info about a custom song by its ID (but only if it's on Newgrounds).
 
 ```js
 const gd = require("gj-boomlings-api")
