@@ -2,15 +2,15 @@
 
 This package gets info from RobTop's servers (boomlings.com) and converts it into pure and beautiful JSON.
 
-# Functions
+## Functions
 
-**dlLevel(id)**
+### dlLevel(id)
 
 So basically this function downloads the entire level and converts the response into JSON.
 
 ```js
-const gd = require("gj-boomlings-api")
-gd.dlLevel(42584142).then(console.log)
+const gd = require("gj-boomlings-api");
+gd.dlLevel(42584142).then(console.log);
 ```
 
 Returns:
@@ -53,13 +53,13 @@ Returns:
 }
 ```
 
-**getSongInfo(song)**
+### getSongInfo(song)
 
-With this function, you can get an info about a custom song by its ID (but only if it's on Newgrounds).
+With this function, you can get an info about a custom song by its ID (unless it's on Newgrounds).
 
 ```js
-const gd = require("gj-boomlings-api")
-gd.getSongInfo(1099128).then(console.log)
+const gd = require("gj-boomlings-api");
+gd.getSongInfo(1099128).then(console.log);
 ```
 
 Returns:
@@ -75,14 +75,14 @@ Returns:
 }
 ```
 
-**getOfficialSongInfo(song)**
+### getOfficialSongInfo(song)
 
 Basically the same thing as ```getSongInfo()```, but for official songs.
 
 ```js
-const gd = require("gj-boomlings-api")
+const gd = require("gj-boomlings-api");
 const song = gd.getOfficialSongInfo(14);
-console.log(song)
+console.log(song);
 ```
 
 Returns:
@@ -92,7 +92,9 @@ Returns:
   name: 'Clubstep',
   id: 'Level 14',
   artist: 'DJ-Nate',
-  fileSize: '0MB',
+  fileSize: '0 MB',
   link: 'https://www.newgrounds.com/audio/listen/396093'
 }
 ```
+
+Inspired by [GDBrowser](https://github.com/GDColon/GDBrowser/). Thanks to [Wireshark](https://www.wireshark.org/) and [GDDocs](https://github.com/gd-programming/gd.docs/) for helping me in creating this package.

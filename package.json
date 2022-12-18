@@ -1,6 +1,6 @@
 {
   "name": "gj-boomlings-api",
-  "version": "0.1.0",
+  "version": "0.1.5",
   "description": "A Node.js module that allows you to fetch boomlings.com easily",
   "main": "index.js",
   "scripts": {
@@ -20,8 +20,6 @@
   "dependencies": {
     "axios": "^1.2.1",
     "crypto": "^1.0.1",
-    "js-base64": "^3.7.3",
-    "node-fetch": "^2.6.7",
-    "xor-crypt": "^1.1.1"
+    "js-base64": "^3.7.3"
   }
 }
