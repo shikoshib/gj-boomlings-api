@@ -53,9 +53,42 @@ Returns:
 }
 ```
 
+### getProfile(user)
+
+With this function, you can get somebody's profile info. You can use a player ID (not the account ID) or a name string, it doesn't matter.
+
+```js
+const gd = require("gj-boomlings-api");
+gd.getProfile(16).then(console.log);
+```
+
+Returns:
+
+```
+{
+  username: 'RobTop',
+  playerID: 16,
+  accountID: 71,
+  rank: 219796,
+  stars: 2375,
+  diamonds: 2170,
+  secretCoins: 3,
+  userCoins: 140,
+  demons: 5,
+  creatorPoints: 0,
+  messages: 'none',
+  friendRequests: 'none',
+  commentHistory: 'all',
+  mod: 'elder',
+  youtube: 'https://youtube.com/channel/UCz_yk8mDSAnxJq0ar66L4sw1231',
+  twitter: 'https://twitter.com/RobTopGames',
+  twitch: 'https://twitch.tv/robtopgames'
+}
+```
+
 ### getSongInfo(song)
 
-With this function, you can get an info about a custom song by its ID (unless it's on Newgrounds).
+With this function, you can get an info about a custom song by its ID (but only if it's on Newgrounds).
 
 ```js
 const gd = require("gj-boomlings-api");

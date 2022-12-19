@@ -1,7 +1,8 @@
 module.exports = {
     getSongInfo:
         async function(song) {
-            if(isNaN(song)) throw new Error("A song id must be a number.")
+            if(!song) throw new Error("Please provide a song ID.");
+            if(isNaN(song)) throw new Error("A song ID must be a number.")
             const axios = require("axios")
             const {headers} = require("../config.json")
 
@@ -15,7 +16,7 @@ module.exports = {
             })
 
                 if(res.data == -2) throw new Error(`-2. Couldn't find a song with ID ${song}.`)
-                if(res.data == "Error code: 1005") throw new Error("1005 error: Your IP address has been blocked from sending requests to a server. It's recommended to use locally (directly from a PC).")
+                if(res.data.toLowerCase() == "error code: 1005") throw new Error("1005 error: Your IP address has been blocked from sending requests to a server. It's recommended to use locally (directly from a PC).")
     
                 const result = {
                     "name": res.data.split("|~2~|~")[1].split("~|~3~|~")[0],

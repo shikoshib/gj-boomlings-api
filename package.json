@@ -1,6 +1,6 @@
 {
   "name": "gj-boomlings-api",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A Node.js module that allows you to fetch boomlings.com easily",
   "main": "index.js",
   "scripts": {
@@ -16,6 +16,14 @@
     "url": "https://github.com/shikoshib/gj-boomlings-api/issues"
   },
   "homepage": "https://github.com/shikoshib/gj-boomlings-api",
+  "keywords": [
+    "geometrydash",
+    "gd",
+    "gj",
+    "boomlings",
+    "api",
+    "gaming"
+  ],
   "license": "ISC",
   "dependencies": {
     "axios": "^1.2.1",

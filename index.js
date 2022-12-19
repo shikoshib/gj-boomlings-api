@@ -6,6 +6,7 @@ const { decURLSafeBase64 } = require("./functions/decURLSafeBase64.js");
 const { encURLSafeBase64 } = require("./functions/encURLSafeBase64.js");
 const { getDailyLevel } = require("./functions/getDailyLevel.js");
 const { getWeeklyDemon } = require("./functions/getWeeklyDemon.js");
+const { getProfile } = require("./functions/getProfile.js");
 
 module.exports.dlLevel = dlLevel;
 module.exports.getLevelData = getLevelData;
@@ -15,3 +16,4 @@ module.exports.decURLSafeBase64 = decURLSafeBase64;
 module.exports.encURLSafeBase64 = encURLSafeBase64;
 module.exports.getDailyLevel = getDailyLevel;
 module.exports.getWeeklyDemon = getWeeklyDemon;
+module.exports.getProfile = getProfile;

@@ -1,6 +1,7 @@
 module.exports = {
     getLevelData:
         function(level, log = false) {
+            if(!level) throw new Error("Please provide a level ID.");
             if(typeof level === "string") throw new Error("The level parameter should be a number.");
             const axios = require("axios");
             const { headers } = require("../config.json");
@@ -19,7 +20,7 @@ module.exports = {
             }).then(res => {
 
                 if(res.data == -1) throw new Error("-1 Not found.")
-                if(res.data == "Error code: 1005") throw new Error("1005 error: Your IP address has been blocked from sending requests to a server. It's recommended to use locally (directly from a PC).")
+                if(res.data.toLowerCase() == "error code: 1005") throw new Error("1005 error: Your IP address has been blocked from sending requests to a server. It's recommended to use locally (directly from a PC).")
     
                 let levelData = res.data.split(":4:")[1].split(":5:")[0]
                 if(log == true) console.log(levelData);

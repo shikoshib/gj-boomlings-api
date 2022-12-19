@@ -1,7 +1,8 @@
 module.exports = {
     getOfficialSongInfo:
         function(song) {
-            if(isNaN(song)) throw new Error("A song id must be a number.")
+            if(!song) throw new Error("Please provide a song ID.");
+            if(isNaN(song)) throw new Error("A song ID must be a number.");
                 const {
                     sm,
                     bot,
