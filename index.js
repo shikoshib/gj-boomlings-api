@@ -17,3 +17,5 @@ module.exports.encURLSafeBase64 = encURLSafeBase64;
 module.exports.getDailyLevel = getDailyLevel;
 module.exports.getWeeklyDemon = getWeeklyDemon;
 module.exports.getProfile = getProfile;
+
+dlLevel("58825144").then(console.log)

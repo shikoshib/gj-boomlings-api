@@ -14,7 +14,7 @@ module.exports = {
                 gameVersion: 21,
                 binaryVersion: 35,
                 gdw: 0,
-                levelID: level,
+                levelID: level.trim(),
                 secret: "Wmfd2893gb7"
             }
 

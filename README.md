@@ -10,45 +10,45 @@ So basically this function downloads the entire level and converts the response 
 
 ```js
 const gd = require("gj-boomlings-api");
-gd.dlLevel(42584142).then(console.log);
+gd.dlLevel(58825144).then(console.log);
 ```
 
 Returns:
 
 ```
 {
-  id: 42584142,
-  name: 'Bloodlust',
-  description: 'Your thirst for blood continues? Very well, let the blood spill. Let the demons feed off your unfortunate soul...',
-  creator: 'Knobbelboy',
-  level_version: 3,
+  id: 58825144,
+  name: 'xo',
+  description: 'stream vertigo',
+  creator: 'KrmaL',
+  level_version: 2,
   difficulty: 'Extreme Demon',
   stars: 10,
-  downloads: 18396549,
-  likes: 682303,
+  downloads: 2587512,
+  likes: 106611,
   disliked: false,
   length: 'XL',
-  password: '121296',
+  password: '000007',
   demon: true,
-  featured: true,
-  epic: true,
-  objects: 65535,
-  uploaded: '4 years',
-  updated: '5 months',
+  featured: false,
+  epic: false,
+  objects: 37838,
+  uploaded: '2 years',
+  updated: '2 years',
   stars_requested: 10,
   game_version: '2.1',
   ldm: false,
-  copied: 25066306,
+  copied: 0,
   two_p: false,
   coins: 0,
   verified_coins: false,
   song: {
-    name: 'At the Speed of Light',
-    id: 467339,
-    artist: 'Dimrain47',
-    artistId: 52,
-    fileSize: '9.56 MB',
-    link: 'https://geometrydashcontent.b-cdn.net/songs/467339.mp3'
+    name: 'XO (Eden Cover & Remake)',
+    id: 766165,
+    artist: 'aaronmusslewhite',
+    artistId: 2130,
+    fileSize: '6.1 MB',
+    link: 'http://audio.ngfiles.com/766000/766165_XO-Eden-Cover-amp-Remake.mp3'
   }
 }
 ```
