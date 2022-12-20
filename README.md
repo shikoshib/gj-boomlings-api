@@ -80,7 +80,7 @@ Returns:
   friendRequests: 'none',
   commentHistory: 'all',
   mod: 'elder',
-  youtube: 'https://youtube.com/channel/UCz_yk8mDSAnxJq0ar66L4sw1231',
+  youtube: 'https://youtube.com/channel/UCz_yk8mDSAnxJq0ar66L4sw',
   twitter: 'https://twitter.com/RobTopGames',
   twitch: 'https://twitch.tv/robtopgames'
 }

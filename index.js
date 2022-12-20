@@ -7,6 +7,8 @@ const { encURLSafeBase64 } = require("./functions/encURLSafeBase64.js");
 const { getDailyLevel } = require("./functions/getDailyLevel.js");
 const { getWeeklyDemon } = require("./functions/getWeeklyDemon.js");
 const { getProfile } = require("./functions/getProfile.js");
+const { reportLevel } = require("./functions/reportLevel.js");
+const { getComments } = require("./functions/getComments.js");
 
 module.exports.dlLevel = dlLevel;
 module.exports.getLevelData = getLevelData;
@@ -17,5 +19,5 @@ module.exports.encURLSafeBase64 = encURLSafeBase64;
 module.exports.getDailyLevel = getDailyLevel;
 module.exports.getWeeklyDemon = getWeeklyDemon;
 module.exports.getProfile = getProfile;
-
-dlLevel("58825144").then(console.log)
+module.exports.reportLevel = reportLevel;
+module.exports.getComments = getComments;
