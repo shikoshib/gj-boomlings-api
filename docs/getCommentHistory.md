@@ -4,7 +4,9 @@ Gets a comment history from a specified player.
 
 ## Parameters
 `user` - the player's username or a player ID.
+
 `page` (optional) - the page of the comment history. Defaults to 1.
+
 `mode` (optional) - the mode of fetching the comment history. `1` is the most liked and `0` is the most recent. Defaults to 1.
 
 ## Example
