@@ -16,8 +16,13 @@ Used by `getOfficialSongInfo()` and `getSongInfo()`.
 
 ## Properties
 ```name``` - the song name.
+
 ```id``` - the song ID.
+
 ```artist``` - the song artist.
+
 ```artistId``` - the artist's Newgrounds ID.
+
 ```fileSize``` - the size of the song in megabytes, rounded to two decimals.
+
 ```link``` - the link to a file of the song.
