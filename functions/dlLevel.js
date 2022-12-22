@@ -2,10 +2,10 @@ module.exports = {
     dlLevel:
         async function(level) {
             const bs = require("js-base64")
-            if(!level) throw new Error("Please provide a level ID.");
+            if(!level || level == "") throw new Error("Please provide a level ID.");
             if(isNaN(level)) throw new Error("The level parameter should be a number.");
             const axios = require("axios");
-            const { headers } = require("../config.json");
+            const { headers, server } = require("../config.json");
 
             const XOR = require("../misc/xor.js");
             let xor = new XOR()
@@ -14,11 +14,11 @@ module.exports = {
                 gameVersion: 21,
                 binaryVersion: 35,
                 gdw: 0,
-                levelID: level.trim(),
+                levelID: level.toString().trim(),
                 secret: "Wmfd2893gb7"
             }
 
-            let res = await axios.post('http://www.boomlings.com/database/downloadGJLevel22.php', data, {
+            let res = await axios.post(server + 'downloadGJLevel22.php', data, {
                 headers: headers
             })
 
@@ -126,7 +126,7 @@ module.exports = {
                 str: split23.split(":8:")[0],
                 secret: "Wmfd2893gb7"
             }
-            let auth = await axios.post("http://www.boomlings.com/database/getGJUsers20.php", authData, {
+            let auth = await axios.post(server + "getGJUsers20.php", authData, {
                 headers: headers
             })
             let authname;
@@ -169,7 +169,7 @@ module.exports = {
                 try {
                     song = await getSongInfo(split26.split(":36:")[0]);
                 } catch(err) {
-                    let songReq = await axios.post('http://www.boomlings.com/database/getGJLevels21.php', {
+                    let songReq = await axios.post(server + 'getGJLevels21.php', {
                         gameVersion: 21,
                         binaryVersion: 35,
                         gdw: 0,
@@ -208,7 +208,7 @@ module.exports = {
                 const result = {
                     "id": Number(split1.split(":2:")[0]),
                     "name": split2.split(":3:")[0].toString(),
-                    "description": desc,
+                    "description": desc.trim(),
                     "creator": authname,
                     "level_version": Number(split4.split(":6:")[0]),
                     "difficulty": difficultyDecoding[split5.split(":10:")[0]].toString(),

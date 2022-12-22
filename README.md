@@ -10,7 +10,7 @@ So basically this function downloads the entire level and converts the response 
 
 ```js
 const gd = require("gj-boomlings-api");
-gd.dlLevel(58825144).then(console.log);
+gd.dlLevel(58825144).then(console.log); // returns "xo"
 ```
 
 Returns:
@@ -59,7 +59,7 @@ With this function, you can get somebody's profile info. You can use a player ID
 
 ```js
 const gd = require("gj-boomlings-api");
-gd.getProfile(16).then(console.log);
+gd.getProfile(16).then(console.log); // returns RobTop's info
 ```
 
 Returns:
@@ -86,48 +86,8 @@ Returns:
 }
 ```
 
-### getSongInfo(song)
+Check out [docs](./docs/) for more info.
 
-With this function, you can get an info about a custom song by its ID (but only if it's on Newgrounds).
-
-```js
-const gd = require("gj-boomlings-api");
-gd.getSongInfo(1099128).then(console.log);
-```
-
-Returns:
-
-```
-{
-  name: 'Dynamics',
-  id: 1099128,
-  artist: 'shikoshib',
-  artistId: 10001037,
-  fileSize: '5.74 MB',
-  link: 'https://audio.ngfiles.com/1099000/1099128_Dynamics.mp3?f1640426773'
-}
-```
-
-### getOfficialSongInfo(song)
-
-Basically the same thing as ```getSongInfo()```, but for official songs.
-
-```js
-const gd = require("gj-boomlings-api");
-const song = gd.getOfficialSongInfo(14);
-console.log(song);
-```
-
-Returns:
-
-```
-{
-  name: 'Clubstep',
-  id: 'Level 14',
-  artist: 'DJ-Nate',
-  fileSize: '0 MB',
-  link: 'https://www.newgrounds.com/audio/listen/396093'
-}
-```
+---
 
 Inspired by [GDBrowser](https://github.com/GDColon/GDBrowser/). Thanks to [Wireshark](https://www.wireshark.org/) and [GDDocs](https://github.com/gd-programming/gd.docs/) for helping me in creating this package.

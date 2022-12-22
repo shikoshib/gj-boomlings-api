@@ -1,9 +1,9 @@
 module.exports = {
     getProfile:
         async function(str) {
-            if(!str) throw new Error("Please provide a user ID or name!");
+            if(!str || str == "") throw new Error("Please provide a user ID or name!");
             const axios = require("axios");
-            const { headers } = require("../config.json");
+            const { headers, server } = require("../config.json");
 
             const data = {
                 gameVersion: 21,
@@ -13,7 +13,7 @@ module.exports = {
                 secret: "Wmfd2893gb7"
             };
 
-            let r = await axios.post("http://www.boomlings.com/database/getGJUsers20.php", data, {
+            let r = await axios.post(server + "getGJUsers20.php", data, {
                 headers: headers
             })
 
@@ -28,7 +28,7 @@ module.exports = {
                 secret: "Wmfd2893gb7"
             };
 
-            let res = await axios.post("http://www.boomlings.com/database/getGJUserInfo20.php", GJUI20data, {
+            let res = await axios.post(server + "getGJUserInfo20.php", GJUI20data, {
                 headers: headers
             })
             

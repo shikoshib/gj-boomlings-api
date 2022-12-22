@@ -1,18 +1,18 @@
 module.exports = {
     reportLevel:
         async function(level) {
-            if(!level) throw new Error("Please provide a level ID.");
+            if(!level || level == "") throw new Error("Please provide a level ID.");
             if(isNaN(Number(level))) throw new Error("The level ID should be a number.");
 
             const axios = require("axios")
-            const {headers} = require("../config.json");
+            const {headers, server} = require("../config.json");
 
             const data = {
-                levelID: Number(level),
+                levelID: level.toString().trim(),
                 secret: "Wmfd2893gb7"
             }
 
-            let res = await axios.post("http://www.boomlings.com/database/reportGJLevel.php", data, {
+            let res = await axios.post(server + "reportGJLevel.php", data, {
                 headers: headers
             })
 

@@ -1,5 +1,4 @@
 const { dlLevel } = require("./functions/dlLevel.js");
-const { getLevelData } = require("./functions/getLevelData.js");
 const { getSongInfo } = require("./functions/getSongInfo.js");
 const { getOfficialSongInfo } = require("./functions/getOfficialSongInfo.js");
 const { decURLSafeBase64 } = require("./functions/decURLSafeBase64.js");
@@ -9,9 +8,10 @@ const { getWeeklyDemon } = require("./functions/getWeeklyDemon.js");
 const { getProfile } = require("./functions/getProfile.js");
 const { reportLevel } = require("./functions/reportLevel.js");
 const { getComments } = require("./functions/getComments.js");
+const { getCommentHistory } = require("./functions/getCommentHistory.js");
+const { getGauntlets } = require("./functions/getGauntlets.js");
 
 module.exports.dlLevel = dlLevel;
-module.exports.getLevelData = getLevelData;
 module.exports.getSongInfo = getSongInfo;
 module.exports.getOfficialSongInfo = getOfficialSongInfo;
 module.exports.decURLSafeBase64 = decURLSafeBase64;
@@ -21,3 +21,5 @@ module.exports.getWeeklyDemon = getWeeklyDemon;
 module.exports.getProfile = getProfile;
 module.exports.reportLevel = reportLevel;
 module.exports.getComments = getComments;
+module.exports.getCommentHistory = getCommentHistory;
+module.exports.getGauntlets = getGauntlets;

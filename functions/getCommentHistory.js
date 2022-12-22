@@ -1,23 +1,40 @@
 module.exports = {
-    getComments:
-        async function(level, page = 1, mode = 1) {
-            if(!level || level == "") throw new Error("Please provide a level ID!");
-            if(isNaN(level)) throw new Error("A level ID should be a number.");
+    getCommentHistory:
+        async function(str, page = 1, mode = 1) {
+            if(!str || str == "") throw new Error("Please provide a player ID or name!");
             const axios = require("axios");
             const {headers, server} = require("../config.json");
-            const { decodeGJComment } = require("../misc/decodeGJComment.js");
+            const {decCommentFromHistory} = require("../misc/decCommentFromHistory.js");
+            const {getProfile} = require("./getProfile.js");
 
-            const data = {
-                levelID: level,
-                page: page - 1,
-                mode: mode,
-                secret: "Wmfd2893gb7",
+            const userData = {
                 gameVersion: 21,
                 binaryVersion: 35,
-                gdw: 0
+                gdw: 0,
+                str: str,
+                secret: "Wmfd2893gb7"
             }
 
-            let res = await axios.post(server + "getGJComments21.php", data, {
+            let r = await axios.post(server + "getGJUsers20.php", userData, {
+                headers: headers
+            })
+
+            let id = r.data.split(":2:")[1].split(":13:")[0];
+
+            const user = await getProfile(id);
+            if(user.commentHistory != "all") throw new Error("Whoops! This user has disabled viewing his comment history!")
+
+            const CHData = {
+                gameVersion: 21,
+                binaryVersion: 35,
+                gdw: 0,
+                secret: "Wmfd2893gb7",
+                userID: id,
+                page: page - 1,
+                mode: 1
+            }
+
+            let res = await axios.post(server + "getGJCommentHistory.php", CHData, {
                 headers: headers
             })
 
@@ -32,19 +49,19 @@ module.exports = {
             let ninthComment;
             let tenthComment;
 
-            let result = [decodeGJComment(firstComment)]
+            let result = [decCommentFromHistory(firstComment)]
 
             if(res.data.split("|").length - 1 == 1) {
                 firstComment = res.data.split("|")[0];
                 secondComment = res.data.split("|")[1].split("|")[0];
-                result.push(decodeGJComment(secondComment))
+                result.push(decCommentFromHistory(secondComment))
             }
 
             if(res.data.split("|").length - 1 == 2) {
                 firstComment = res.data.split("|")[0];
                 secondComment = res.data.split("|")[1].split("|")[0];
                 thirdComment = res.data.split("|")[2].split("|")[0];
-                result.push(decodeGJComment(secondComment),decodeGJComment(thirdComment))
+                result.push(decCommentFromHistory(secondComment),decCommentFromHistory(thirdComment))
             }
 
             if(res.data.split("|").length - 1 == 3) {
@@ -52,7 +69,7 @@ module.exports = {
                 secondComment = res.data.split("|")[1].split("|")[0];
                 thirdComment = res.data.split("|")[2].split("|")[0];
                 fourthComment = res.data.split("|")[3].split("|")[0];
-                result.push(decodeGJComment(secondComment),decodeGJComment(thirdComment),decodeGJComment(fourthComment))
+                result.push(decCommentFromHistory(secondComment),decCommentFromHistory(thirdComment),decCommentFromHistory(fourthComment))
             }
 
             if(res.data.split("|").length - 1 == 4) {
@@ -61,7 +78,7 @@ module.exports = {
                 thirdComment = res.data.split("|")[2].split("|")[0];
                 fourthComment = res.data.split("|")[3].split("|")[0];
                 fifthComment = res.data.split("|")[4].split("|")[0];
-                result.push(decodeGJComment(secondComment),decodeGJComment(thirdComment),decodeGJComment(fourthComment),decodeGJComment(fifthComment))
+                result.push(decCommentFromHistory(secondComment),decCommentFromHistory(thirdComment),decCommentFromHistory(fourthComment),decCommentFromHistory(fifthComment))
             }
 
             if(res.data.split("|").length - 1 == 5) {
@@ -71,7 +88,7 @@ module.exports = {
                 fourthComment = res.data.split("|")[3].split("|")[0];
                 fifthComment = res.data.split("|")[4].split("|")[0];
                 sixthComment = res.data.split("|")[5].split("|")[0];
-                result.push(decodeGJComment(secondComment),decodeGJComment(thirdComment),decodeGJComment(fourthComment),decodeGJComment(fifthComment),decodeGJComment(sixthComment))
+                result.push(decCommentFromHistory(secondComment),decCommentFromHistory(thirdComment),decCommentFromHistory(fourthComment),decCommentFromHistory(fifthComment),decCommentFromHistory(sixthComment))
             }
 
             if(res.data.split("|").length - 1 == 6) {
@@ -82,7 +99,7 @@ module.exports = {
                 fifthComment = res.data.split("|")[4].split("|")[0];
                 sixthComment = res.data.split("|")[5].split("|")[0];
                 seventhComment = res.data.split("|")[6].split("|")[0];
-                result.push(decodeGJComment(secondComment),decodeGJComment(thirdComment),decodeGJComment(fourthComment),decodeGJComment(fifthComment),decodeGJComment(sixthComment),decodeGJComment(seventhComment))
+                result.push(decCommentFromHistory(secondComment),decCommentFromHistory(thirdComment),decCommentFromHistory(fourthComment),decCommentFromHistory(fifthComment),decCommentFromHistory(sixthComment),decCommentFromHistory(seventhComment))
             }
 
             if(res.data.split("|").length - 1 == 7) {
@@ -94,7 +111,7 @@ module.exports = {
                 sixthComment = res.data.split("|")[5].split("|")[0];
                 seventhComment = res.data.split("|")[6].split("|")[0];
                 eighthComment = res.data.split("|")[7].split("|")[0];
-                result.push(decodeGJComment(secondComment),decodeGJComment(thirdComment),decodeGJComment(fourthComment),decodeGJComment(fifthComment),decodeGJComment(sixthComment),decodeGJComment(seventhComment),decodeGJComment(eighthComment))
+                result.push(decCommentFromHistory(secondComment),decCommentFromHistory(thirdComment),decCommentFromHistory(fourthComment),decCommentFromHistory(fifthComment),decCommentFromHistory(sixthComment),decCommentFromHistory(seventhComment),decCommentFromHistory(eighthComment))
             }
 
             if(res.data.split("|").length - 1 == 8) {
@@ -107,7 +124,7 @@ module.exports = {
                 seventhComment = res.data.split("|")[6].split("|")[0];
                 eighthComment = res.data.split("|")[7].split("|")[0];
                 ninthComment = res.data.split("|")[8].split("|")[0];
-                result.push(decodeGJComment(secondComment),decodeGJComment(thirdComment),decodeGJComment(fourthComment),decodeGJComment(fifthComment),decodeGJComment(sixthComment),decodeGJComment(seventhComment),decodeGJComment(eighthComment),decodeGJComment(ninthComment))
+                result.push(decCommentFromHistory(secondComment),decCommentFromHistory(thirdComment),decCommentFromHistory(fourthComment),decCommentFromHistory(fifthComment),decCommentFromHistory(sixthComment),decCommentFromHistory(seventhComment),decCommentFromHistory(eighthComment),decCommentFromHistory(ninthComment))
             }
 
             if(res.data.split("|").length - 1 == 9) {
@@ -121,7 +138,7 @@ module.exports = {
                 eighthComment = res.data.split("|")[7].split("|")[0];
                 ninthComment = res.data.split("|")[8].split("|")[0];
                 tenthComment = res.data.split("|")[9].split("|")[0];
-                result.push(decodeGJComment(secondComment),decodeGJComment(thirdComment),decodeGJComment(fourthComment),decodeGJComment(fifthComment),decodeGJComment(sixthComment),decodeGJComment(seventhComment),decodeGJComment(eighthComment),decodeGJComment(ninthComment),decodeGJComment(tenthComment))
+                result.push(decCommentFromHistory(secondComment),decCommentFromHistory(thirdComment),decCommentFromHistory(fourthComment),decCommentFromHistory(fifthComment),decCommentFromHistory(sixthComment),decCommentFromHistory(seventhComment),decCommentFromHistory(eighthComment),decCommentFromHistory(ninthComment),decCommentFromHistory(tenthComment))
             }
 
             return result;
