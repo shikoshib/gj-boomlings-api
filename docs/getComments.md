@@ -4,7 +4,9 @@ Gets a list of comments from a specified level.
 
 ## Parameters
 `level` - the level whose comments we want to check.
+
 `page` (optional) - the page of the comments. Defaults to 1.
+
 `mode` (optional) - the mode of fetching the comments. `1` is the most liked and `0` is the most recent. Defaults to 1.
 
 ## Example
