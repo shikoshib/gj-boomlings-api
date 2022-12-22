@@ -77,4 +77,5 @@ This function returns an array of gauntlets.
 
 ### Properties
 `name` - the gauntlet name.
+
 `levels` - the array of levels in a gauntlet.
