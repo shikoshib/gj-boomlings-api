@@ -10,6 +10,8 @@ const { reportLevel } = require("./functions/reportLevel.js");
 const { getComments } = require("./functions/getComments.js");
 const { getCommentHistory } = require("./functions/getCommentHistory.js");
 const { getGauntlets } = require("./functions/getGauntlets.js");
+const { getAccountPosts } = require("./functions/getAccountPosts.js");
+const { uploadAccountPost } = require("./functions/uploadAccountPost.js");
 
 module.exports.dlLevel = dlLevel;
 module.exports.getSongInfo = getSongInfo;
@@ -23,3 +25,5 @@ module.exports.reportLevel = reportLevel;
 module.exports.getComments = getComments;
 module.exports.getCommentHistory = getCommentHistory;
 module.exports.getGauntlets = getGauntlets;
+module.exports.getAccountPosts = getAccountPosts;
+module.exports.uploadAccountPost = uploadAccountPost;

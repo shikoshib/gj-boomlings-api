@@ -3,7 +3,7 @@ module.exports = {
         function(string) {
             const bs = require("js-base64");
             if(!string || string == "") throw new Error("No string provided!")
-            let str = bs.encode(string, true);
+            let str = bs.encode(string).replace(/\//g, '_').replace(/w+/g, '-');
             return str;
         }
 }
