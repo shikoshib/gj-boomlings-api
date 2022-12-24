@@ -12,14 +12,14 @@ Posts a comment to a profile.
 ## Example
 ```js
 const gd = require("gj-boomlings-api");
-gd.uploadAccountPost("i'm a furry", "colon", "*********").then(console.log);
-// basically this function posts the "i'm a furry" message to Colon's profile
+gd.uploadAccountPost("I love gj-boomlings-api!", "gmdshxdow", "*********").then(console.log);
 ```
 
 ## Response
 ```js
 1
 ```
+
 Returns `1` if the comment was successfully posted.
 
 ---

@@ -73,7 +73,7 @@ gd.getGauntlets().then(console.log);
   }
 ]
 ```
-This function returns an array of gauntlets.
+This function returns an array of gauntlet objects.
 
 ### Properties
 `name` - the gauntlet name.

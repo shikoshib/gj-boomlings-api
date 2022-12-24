@@ -73,13 +73,14 @@ module.exports = {
             } else {
                 stars = stars;
             }
-            if(dataWoSkins.split("3:")[3] != undefined || dataWoSkins.split("3:")[3] != "") {
+
+            if(dataWoSkins.split("3:")[3] !== undefined) {
                 if(dataWoSkins.split("3:")[3].split(":46:")[0] == "") {
                     stars = dataWoSkins.split("3:")[4].split(":46:")[0];
                 } else {
                     stars = stars;
                 }
-            }
+            } 
 
             let ytLnk = `htps://youtube.com/channel/${youtube}`;
             let twitterLnk = `https://twitter.com/${twitter}`;

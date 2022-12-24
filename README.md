@@ -1,5 +1,5 @@
-# gj-boomlings-api
 <div align="center">
+  <a href="https://www.npmjs.com/package/gj-boomlings-api"><img src="https://shikoshib.github.io/font1.png" width="600"></a><hr>
   <a href="https://www.npmjs.com/package/gj-boomlings-api"><img src="https://img.shields.io/npm/v/gj-boomlings-api.svg?maxAge=3600" alt="npm version" /></a>
   <a href="https://www.npmjs.com/package/gj-boomlings-api"><img src="https://img.shields.io/npm/dt/gj-boomlings-api.svg?maxAge=3600" alt="npm downloads" /></a>
   <a href="https://snyk.io/test/github/shikoshib/gj-boomlings-api"><img src="https://snyk.io/test/github/shikoshib/gj-boomlings-api/badge.svg" alt="Known Vulnerabilities" /></a>
@@ -57,7 +57,6 @@ Returns:
   }
 }
 ```
-
 ### getProfile(user)
 
 With this function, you can get somebody's profile info. You can use a player ID (not the account ID) or a name string, it doesn't matter.
@@ -90,8 +89,20 @@ Returns:
   twitch: 'https://twitch.tv/robtopgames'
 }
 ```
+### uploadComment(comment, id, user, password, percent)
 
-Check out [docs](./docs/) for more info.
+You can post comments with this function.
+
+For example,
+```js
+const gd = require("gj-boomlings-api");
+gd.uploadComment("I love gj-boomlings-api!", 83925274, "gmdshxdow", "*********", 99).then(console.log);
+// of course you need to replace the asterisks with your password
+```
+
+Posts a comment on the level with the ID of 83925274, with 99 percent, on gmdshxdow's behalf.
+
+**Check out [docs](./docs/) for more info.**
 
 ---
 
