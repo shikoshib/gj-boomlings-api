@@ -3,7 +3,7 @@
 Gets the list of gauntlets and decodes it.
 
 ## Parameters
-No parameters!
+None!
 
 ## Example
 ```js

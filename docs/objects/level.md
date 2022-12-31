@@ -80,7 +80,7 @@ Used by ```dlLevel()```.
 
 ```stars_requested``` - basically how many stars the creator has requested. Returns ```0``` if no stars have been requested.
 
-```game_version``` - the version required to play the level.
+```game_version``` - the version required to play the level. Returns `Pre-1.7` if the level has been uploaded or last updated earlier, than 1.7 came out.
 
 ```ldm``` - a boolean that shows if the level has a "Low Detail Mode" checkbox.
 

@@ -39,9 +39,6 @@ module.exports = {
                     e,
                     round,
                     mdo,
-                    ps,
-                    ne,
-                    pt,
                     unknown
                 } = require("../misc/officialsongs.json");
                 const jsons = {
@@ -79,10 +76,7 @@ module.exports = {
                     32: s,
                     33: e,
                     34: round,
-                    35: mdo,
-                    36: ps,
-                    37: ne,
-                    38: pt
+                    35: mdo
                 }
                 let result = jsons[Number(song)];
                 if(result == undefined) result = unknown;

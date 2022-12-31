@@ -33,6 +33,7 @@ module.exports = {
             })
             
             if(res.data == -1) throw new Error("-1 Not found.")
+            if(res.data.toLowerCase() == "error code: 1020") throw new Error("1020 error: Request denied.");
             if(res.data.toLowerCase() == "error code: 1005") throw new Error("1005 error: Your IP address has been blocked from sending requests to a server. It's recommended to use locally (directly from a PC).")
 
             let dataWoSkins = `${res.data.split("21:")[0]}${res.data.split(":48:")[1]}`;

@@ -58,6 +58,8 @@ module.exports = {
                 if(edata == '') edata = "Whoops, the servers have rejected your request!"
                 throw new Error(edata)
             })
+            
+            if(res.data.toLowerCase() == "error code: 1020") throw new Error("1020 error: Request denied.");
 
             return 1;
         }

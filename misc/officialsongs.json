@@ -207,24 +207,6 @@
     "artist": "F-777",
     "link": "https://www.youtube.com/watch?v=B8YkwDbGBr8"
 },
-"ps": {
-    "name": "Press Start",
-    "id": "Level 1 (Geometry Dash: SubZero)",
-    "artist": "MDK",
-    "link": "https://www.youtube.com/watch?v=XoLouT7TqZY"
-},
-"ne": {
-    "name": "Nock Em",
-    "id": "Level 2 (Geometry Dash: SubZero)",
-    "artist": "Bossfight",
-    "link": "https://www.youtube.com/watch?v=ePv2X_CCaGg"
-},
-"pt": {
-    "name": "Power Trip",
-    "id": "Level 3 (Geometry Dash: SubZero)",
-    "artist": "Boom Kitty",
-    "link": "https://www.youtube.com/watch?v=l6OsF7RlQb4"
-},
 "unknown": {
     "name": "Unknown",
     "id": "This song is not defined by RobTop. In game it returns \"Back on Track\".",

@@ -16,6 +16,7 @@ module.exports = {
             })
 
                 if(res.data == -2) throw new Error(`-2. Couldn't find a song with ID ${song}.`)
+                if(res.data.toLowerCase() == "error code: 1020") throw new Error("1020 error: Request denied.");
                 if(res.data.toLowerCase() == "error code: 1005") throw new Error("1005 error: Your IP address has been blocked from sending requests to a server. It's recommended to use locally (directly from a PC).")
     
                 const result = {
