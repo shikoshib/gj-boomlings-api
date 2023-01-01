@@ -13,20 +13,20 @@ module.exports = {
 
             let res = await axios.post(server + 'getGJSongInfo.php', data, {
                 headers: headers
+            }).catch(e => {
+                if(e.response.data == -2) throw new Error(`-2. Couldn't find a song with ID ${song}.`)
+                throw new Error(e.response.data);
             })
 
-                if(res.data == -2) throw new Error(`-2. Couldn't find a song with ID ${song}.`)
-                if(res.data.toLowerCase() == "error code: 1020") throw new Error("1020 error: Request denied.");
-                if(res.data.toLowerCase() == "error code: 1005") throw new Error("1005 error: Your IP address has been blocked from sending requests to a server. It's recommended to use locally (directly from a PC).")
-    
-                const result = {
-                    "name": res.data.split("|~2~|~")[1].split("~|~3~|~")[0],
-                    "id": Number(res.data.split("1~|~")[1].split("~|~2~|")[0]),
-                    "artist": res.data.split("~|~4~|~")[1].split("~|~5~|~")[0],
-                    "artistId": Number(res.data.split("~|~3~|~")[1].split("~|~4~|~")[0]),
-                    "fileSize": `${res.data.split("~|~5~|~")[1].split("~|~6~|~")[0]} MB`,
-                    "link": decodeURIComponent(res.data.split("~|~10~|~")[1].split("~|~7~|~")[0])
-                }
-                return result;
+            const result = {
+                "name": res.data.split("|~2~|~")[1].split("~|~3~|~")[0],
+                "id": Number(res.data.split("1~|~")[1].split("~|~2~|")[0]),
+                "artist": res.data.split("~|~4~|~")[1].split("~|~5~|~")[0],
+                "artistId": Number(res.data.split("~|~3~|~")[1].split("~|~4~|~")[0]),
+                "fileSize": `${res.data.split("~|~5~|~")[1].split("~|~6~|~")[0]} MB`,
+                "link": decodeURIComponent(res.data.split("~|~10~|~")[1].split("~|~7~|~")[0])
+            }
+
+            return result;
         }
 }

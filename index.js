@@ -23,14 +23,14 @@ const { deleteAccountPost } = require("./functions/deleteAccountPost.js");
 const { getUserLevels } = require("./functions/getUserLevels.js");
 const { searchLevels } = require("./functions/searchLevels.js");
 
-module.exports.dlLevel = dlLevel;
+module.exports.dlLevel = dlLevel; // to fix
 module.exports.getSongInfo = getSongInfo;
 module.exports.getOfficialSongInfo = getOfficialSongInfo;
 module.exports.decURLSafeBase64 = decURLSafeBase64;
 module.exports.encURLSafeBase64 = encURLSafeBase64;
 module.exports.getDailyLevel = getDailyLevel;
 module.exports.getWeeklyDemon = getWeeklyDemon;
-module.exports.getProfile = getProfile;
+module.exports.getProfile = getProfile; // to fix
 module.exports.reportLevel = reportLevel;
 module.exports.getComments = getComments;
 module.exports.getCommentHistory = getCommentHistory;

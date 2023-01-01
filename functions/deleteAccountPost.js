@@ -20,10 +20,9 @@ module.exports = {
             let r = await axios.post(server + "getGJUsers20.php", data, {
                 headers: headers
             }).catch(e => {
+                if(e.response.data == -1) throw new Error("-1 This user is not found.");
                 throw new Error(e.response.data);
             })
-
-            if(r.data == -1) throw new Error("-1 This user is not found.")
 
             let accId = r.data.split(":16:")[1].split(":3:")[0];
             if(Number(accId) < 71 || accId.includes(":")) accId = r.data.split(":16:")[2].split(":3:")[0];

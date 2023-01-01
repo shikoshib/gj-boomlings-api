@@ -19,12 +19,11 @@ module.exports = {
 
             let res = await axios.post(server + "getGJComments21.php", data, {
                 headers: headers
+            }).catch(e => {
+                if(e.response.data == -1) throw new Error("-1 This user is not found.");
+                throw new Error(e.response.data);
             })
             
-            if(res.data == -1) throw new Error("-1 Not found.");
-            if(res.data.toLowerCase() == "error code: 1020") throw new Error("1020 error: Request denied.");
-            if(res.data.toLowerCase() == "error code: 1005") throw new Error("1005 error: Your IP address has been blocked from sending requests to a server. It's recommended to use locally (directly from a PC).")
-
             let firstComment = res.data;
             let secondComment;
             let thirdComment;

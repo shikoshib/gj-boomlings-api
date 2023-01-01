@@ -3,6 +3,7 @@
   <a href="https://www.npmjs.com/package/gj-boomlings-api"><img src="https://img.shields.io/npm/v/gj-boomlings-api.svg?maxAge=3600" alt="npm version" /></a>
   <a href="https://www.npmjs.com/package/gj-boomlings-api"><img src="https://img.shields.io/npm/dt/gj-boomlings-api.svg?maxAge=3600" alt="npm downloads" /></a>
   <a href="https://snyk.io/test/github/shikoshib/gj-boomlings-api"><img src="https://snyk.io/test/github/shikoshib/gj-boomlings-api/badge.svg" alt="Known Vulnerabilities" /></a>
+  <a href="https://packagequality.com/#?package=gj-boomlings-api"><img src="https://packagequality.com/shield/gj-boomlings-api.svg"/></a>
 </div>
 
 This package gets info from RobTop's servers (boomlings.com) and converts it into pure and beautiful JSON.

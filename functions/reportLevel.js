@@ -14,12 +14,9 @@ module.exports = {
 
             let res = await axios.post(server + "reportGJLevel.php", data, {
                 headers: headers
+            }).catch(e => {
+                throw new Error(e.response.data)
             })
-
-            if(res.data == -1) throw new Error("-1 Request denied.");
-            if(res.data.toLowerCase() == "error code: 1020") throw new Error("1020 error: Request denied.");
-            if(res.data.toString().toLowerCase() == "error code: 1005") throw new Error("1005 error: Your IP address has been blocked from sending requests to a server. It's recommended to use locally (directly from a PC).")
-
             return res.data;
         }
 }

@@ -18,9 +18,11 @@ module.exports = {
 
             let r = await axios.post(server + "getGJUsers20.php", data, {
                 headers: headers
+            }).catch(e => {
+                if(e.response.data == -1) throw new Error("-1 This user is not found.");
+                throw new Error(e.response.data);
             })
 
-            if(r.data == -1) throw new Error("-1 This user is not found.")
             let id = r.data.split(":16:")[1].split(":3:")[0];
             if(Number(id) < 71 || id.includes(":")) id = r.data.split(":16:")[2].split(":3:")[0];
 
@@ -44,10 +46,8 @@ module.exports = {
                 headers: headers
             }).catch(e => {
                 if(e.response.status == 500) throw new Error("500 Error: couldn't post!");
+                throw new Error(e.response.data);
             })
-            
-            if(res.data.toLowerCase() == "error code: 1020") throw new Error("1020 error: Request denied.");
-            if(res.data.toString().toLowerCase() == "error code: 1005") throw new Error("1005 error: Your IP address has been blocked from sending requests to a server. It's recommended to use locally (directly from a PC).")
 
             return 1;
         }
