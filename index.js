@@ -1,3 +1,6 @@
+console.log('\x1b[32m%s\x1b[40m', 'Thanks for using gj-boomlings-api!\nhttps://github.com/shikoshib/gj-boomlings-api');
+console.log('\x1b[37m%s\x1b[0m', '');
+
 const { dlLevel } = require("./functions/dlLevel.js");
 const { getSongInfo } = require("./functions/getSongInfo.js");
 const { getOfficialSongInfo } = require("./functions/getOfficialSongInfo.js");
@@ -23,7 +26,7 @@ const { deleteAccountPost } = require("./functions/deleteAccountPost.js");
 const { getUserLevels } = require("./functions/getUserLevels.js");
 const { searchLevels } = require("./functions/searchLevels.js");
 
-module.exports.dlLevel = dlLevel; // to fix
+module.exports.dlLevel = dlLevel;
 module.exports.getSongInfo = getSongInfo;
 module.exports.getOfficialSongInfo = getOfficialSongInfo;
 module.exports.decURLSafeBase64 = decURLSafeBase64;

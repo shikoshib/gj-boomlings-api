@@ -1,19 +1,27 @@
 module.exports = {
     decodeMapPack:
         function(mp) {
-            let name = mp.split(":2:")[1].split(":3:")[0];
-            let unarrayedList = mp.split(":3:")[1].split(":4:")[0].split(":4")[0];
-            let stars = mp.split(":4:")[1].split(":5:")[0];
-            let coins = mp.split(":5:")[1].split(":6:")[0];
-            let difficulty = mp.split(":6:")[1].split(":7:")[0];
 
-            if(unarrayedList.includes(":")) unarrayedList = mp.split(":3:")[2].split(":4:")[0]
+            let spl = mp.split(':');
+            let mpInfo = [];
+            for(let i =0;i<spl.length;i++) {
+                if(i%2!=0) {
+                    mpInfo.push(spl[i-1]+`:`+spl[i]);
+                }
+            }
 
+            let mappackID = mpInfo[0].split("1:")[1];
+            let name = mpInfo[1].split("2:")[1];
+            let unarrayedList = mpInfo[2].split("3:")[1];
+            let stars = mpInfo[3].split("4:")[1];
+            let coins = mpInfo[4].split("5:")[1];
+            let difficulty = mpInfo[5].split("6:")[1];
+            let txtCol = mpInfo[6].split("7:")[1];
+            let barCol = mpInfo[7].split("8:")[1];
+            
             let firstLvl = unarrayedList.split(",")[0];
             let secondLvl = unarrayedList.split(",")[1].split(",")[0];
             let thirdLvl = unarrayedList.split(",")[2].split(",")[0];
-
-            if(name.includes(":")) name = name.split("2:")[1]
 
             let difficultyDecoder = {
                 "0": "Auto",
@@ -29,25 +37,29 @@ module.exports = {
                 "10": "Extreme Demon",
             }
 
-            if(coins.startsWith("5:")) {
-                coins = coins.split("5:")[1];
-            }
+            function rgbToHEX(color) {
+                let r = color.split(",")[0];
+                let g = color.split(",")[1].split(",")[0];
+                let b = color.split(",")[2];
 
-            if(mp.split(":5:")[2] !== undefined) {
-                if(coins.includes(":")) {
-                    coins = mp.split(":5:")[2].split(":6:")[0];
-                }
-            }
+                if(b.includes("#")) b = b.split("#")[0]
 
-            if(coins.startsWith("5:")) coins = coins.split("5:")[1];
-            if(coins.startsWith("7:")) coins = mp.split(":5:")[1].split(":6:")[0];
-            if(coins.endsWith(":6")) coins = coins.split(":6")[0];
+                let rHex = Number(r).toString(16);
+                let gHex = Number(g).toString(16);
+                let bHex = Number(b).toString(16); 
+
+                return `#${rHex.length == 1 ? "0" + rHex : rHex}${gHex.length == 1 ? "0" + gHex : gHex}${bHex.length == 1 ? "0" + bHex : bHex}`.toUpperCase();
+            }
 
             const result = {
                 name: name,
+                id: Number(mappackID),
                 levels: [Number(firstLvl),Number(secondLvl),Number(thirdLvl)],
                 stars: Number(stars),
-                coins: Number(coins)
+                coins: Number(coins),
+                difficulty: difficultyDecoder[difficulty],
+                textColor: rgbToHEX(txtCol),
+                barColor: rgbToHEX(barCol)
             }
 
             return result;

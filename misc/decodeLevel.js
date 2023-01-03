@@ -87,8 +87,6 @@ module.exports = {
                 "4": "XL"
             }
 
-            if(lengthDecoding[length] == undefined) length = level.split(":15:")[2].split(":30")[0];
-
             const decodeGameVersion = {
                 "1": "Pre-1.7",
                 "2": "Pre-1.7",
