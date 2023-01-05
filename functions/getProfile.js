@@ -36,52 +36,33 @@ module.exports = {
             if(res.data.toLowerCase() == "error code: 1020") throw new Error("1020 error: Request denied.");
             if(res.data.toLowerCase() == "error code: 1005") throw new Error("1005 error: Your IP address has been blocked from sending requests to a server. It's recommended to use locally (directly from a PC).")
 
-            let dataWoSkins = `${res.data.split("21:")[0]}${res.data.split(":48:")[1]}`;
-
-            let username = dataWoSkins.split("1:")[1].split(":2:")[0];
-            let playerID = dataWoSkins.split(":2:")[1].split(":13:")[0];
-            let goldCoins = dataWoSkins.split(":13:")[1].split(":17:")[0];
-            let silverCoins = dataWoSkins.split(":17:")[1].split(":10:")[0];
-            let stars = dataWoSkins.split(":3:")[1].split(":46:")[0];
-            let diamonds = dataWoSkins.split(":46:")[1].split(":4:")[0];
-            let demons = dataWoSkins.split(":4:")[1].split(":8:")[0];
-            let cps = dataWoSkins.split(":8:")[1].split(":18:")[0];         // clicks per second lmao
-            let msgState = dataWoSkins.split(":18:")[1].split(":19:")[0];
-            let friendsState = dataWoSkins.split(":19:")[1].split(":50:")[0];
-            let commentHistoryState = dataWoSkins.split(":50:")[1].split(":20:")[0];
-            let youtube = dataWoSkins.split(":20:")[1].split(":")[0];
-            let rank = dataWoSkins.split(":30:")[1].split(":16:")[0];
-            let accountID = dataWoSkins.split(":16:")[1].split(":31:")[0];
-            let twitter = dataWoSkins.split(":44:")[1].split(":45:")[0];
-            let twitch = dataWoSkins.split(":45:")[1].split(":49:")[0];
-            let modState = dataWoSkins.split(":49:")[1].split(":29:")[0];
-
-            if(youtube.includes(":")) youtube = dataWoSkins.split(":20:")[1].split(":")[0];
-            if(twitter.includes(":")) twitter = dataWoSkins.split(":44:")[2].split(":45:")[0];
-            if(twitch.includes(":")) twitch = dataWoSkins.split(":45:")[2].split(":49:")[0];
-            if(goldCoins.includes(":")) goldCoins = dataWoSkins.split(":13:")[2].split(":17:")[0];
-            if(goldCoins == "") goldCoins = dataWoSkins.split(":13:")[1].split(":17:")[1];
-            if(silverCoins.includes(":")) silverCoins = dataWoSkins.split("17:")[2].split(":10:")[0];
-            if(rank.includes(":")) rank = dataWoSkins.split(":30:")[2].split(":16:")[0];
-            if(accountID.includes(":")) accountID = dataWoSkins.split(":16:")[2].split(":31:")[0];
-            if(demons.includes(":")) demons = dataWoSkins.split(":4:")[2].split(":8:")[0];
-            if(msgState.includes(":")) msgState = dataWoSkins.split(":18:")[2].split(":19:")[0];
-            if(stars.includes(":")) stars = dataWoSkins.split("3:")[2].split(":46:")[0];
-            if(modState.includes(":")) modState = dataWoSkins.split(":49:")[2].split(":29:")[0];
-            if(dataWoSkins.split(":3:")[1].split(":46:")[0].startsWith("3:")) stars = dataWoSkins.split(":3:")[1].split("3:")[1].split(":46:")[0];
-            if(dataWoSkins.split("3:")[2].split(":46:")[0].includes(":")) {
-                stars = dataWoSkins.split("3:")[3].split(":46:")[0];
-            } else {
-                stars = stars;
+            let spl = res.data.split(':');
+            let userInfo = [];
+            for(let i =0;i<spl.length;i++) {
+              if(i%2!=0) {
+                userInfo.push(spl[i-1]+`:`+spl[i]);
+              }
             }
 
-            if(dataWoSkins.split("3:")[3] !== undefined) {
-                if(dataWoSkins.split("3:")[3].split(":46:")[0] == "") {
-                    stars = dataWoSkins.split("3:")[4].split(":46:")[0];
-                } else {
-                    stars = stars;
-                }
-            } 
+            let username = userInfo[0].split("1:")[1];
+            let playerID = userInfo[1].split("2:")[1];
+            let goldCoins = userInfo[2].split("13:")[1];
+            let silverCoins = userInfo[3].split("17:")[1];
+            let p1col = userInfo[4].split("10:")[1];
+            let p2col = userInfo[5].split("11:")[1];
+            let stars = userInfo[6].split("3:")[1];
+            let diamonds = userInfo[7].split("46:")[1];
+            let demons = userInfo[8].split("4:")[1];
+            let cps = userInfo[9].split("8:")[1];         // clicks per second lmao
+            let msgState = userInfo[10].split("18:")[1];
+            let friendsState = userInfo[11].split("19:")[1];
+            let commentHistoryState = userInfo[12].split("50:")[1];
+            let youtube = userInfo[13].split("20:")[1];
+            let rank = userInfo[23].split("30:")[1];
+            let accountID = userInfo[24].split("16:")[1];
+            let twitter = userInfo[26].split("44:")[1];
+            let twitch = userInfo[27].split("45:")[1];
+            let modState = userInfo[28].split("49:")[1];
 
             let ytLnk = `htps://youtube.com/channel/${youtube}`;
             let twitterLnk = `https://twitter.com/${twitter}`;
@@ -116,6 +97,8 @@ module.exports = {
                 playerID: Number(playerID),
                 accountID: Number(accountID),
                 rank: Number(rank),
+                color1: Number(p1col),
+                color2: Number(p2col),
                 stars: Number(stars),
                 diamonds: Number(diamonds),
                 secretCoins: Number(goldCoins),

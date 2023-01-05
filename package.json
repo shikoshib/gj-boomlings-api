@@ -1,6 +1,6 @@
 {
   "name": "gj-boomlings-api",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Node.js module that allows you to fetch boomlings.com easily",
   "main": "index.js",
   "scripts": {
