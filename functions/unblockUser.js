@@ -1,5 +1,5 @@
 module.exports = {
-    blockUser:
+    unblockUser:
         async function(target, username, password) {
             if(!target || target == "") throw new Error("Please provide a target's player ID or username!");
             if(!username || username == "") throw new Error("Please provide your player ID or username!");
@@ -50,7 +50,7 @@ module.exports = {
                 gjp: gjp(password)
             }
 
-            let res = await axios.post(server + "blockGJUser20.php", blockData, {
+            let res = await axios.post(server + "unblockGJUser20.php", blockData, {
                 headers: headers
             }).catch(e => {
                 if(res.data.toString().toLowerCase() == "error code: 1020") throw new Error("1020 error: Request denied.");
