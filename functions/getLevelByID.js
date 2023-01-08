@@ -24,6 +24,6 @@ module.exports = {
                 throw new Error(e.response.data);
             })
 
-            return decodeLevel(res.data);
+            return await decodeLevel(res.data);
         }
 }

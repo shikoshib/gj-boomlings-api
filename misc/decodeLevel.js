@@ -1,6 +1,6 @@
 module.exports = {
     decodeLevel:
-        function(level){
+        async function(level){
             const bs = require("js-base64");
             
             let spl = level.split(':');
@@ -134,30 +134,62 @@ module.exports = {
                 song = songinfo;
             }
 
-            const result = {
-                id: Number(id),
-                name: name,
-                description: bs.decode(desc), //.replace(/-/g, "+").replace(/_/g, "/")
-                creator: author,
-                level_version: Number(version),
-                difficulty: difficultyDecoding[difficulty],
-                stars: Number(stars),
-                downloads: Number(downloads),
-                likes: Number(likes),
-                disliked: disliked,
-                length: lengthDecoding[length],
-                demon: demonBoolDecoding[demonBool],
-                featured: featured,
-                epic: demonBoolDecoding[epic],
-                objects: Number(objs),
-                stars_requested: Number(starsRequested),
-                game_version: decodeGameVersion[gameVersion],
-                copied: Number(copiedID),
-                two_p: demonBoolDecoding[twoPlayer],
-                coins: Number(coins),
-                verified_coins: verifiedCoins,
-                song: song,
+            let result;
+            const { demonlist } = require("./demonlist.js");
+            let dlist = await demonlist(name);
+            
+            if(dlist != null) {
+                result = {
+                    id: Number(id),
+                    name: name,
+                    description: bs.decode(desc),
+                    creator: author,
+                    level_version: Number(version),
+                    difficulty: difficultyDecoding[difficulty],
+                    stars: Number(stars),
+                    downloads: Number(downloads),
+                    likes: Number(likes),
+                    disliked: disliked,
+                    length: lengthDecoding[length],
+                    demon: demonBoolDecoding[demonBool],
+                    featured: featured,
+                    epic: demonBoolDecoding[epic],
+                    objects: Number(objs),
+                    stars_requested: Number(starsRequested),
+                    game_version: decodeGameVersion[gameVersion],
+                    copied: Number(copiedID),
+                    two_p: demonBoolDecoding[twoPlayer],
+                    coins: Number(coins),
+                    verified_coins: verifiedCoins,
+                    song: song,
+                    pointercrate: dlist
+                }
+            } else {
+                result = {
+                    id: Number(id),
+                    name: name,
+                    description: bs.decode(desc),
+                    creator: author,
+                    level_version: Number(version),
+                    difficulty: difficultyDecoding[difficulty],
+                    stars: Number(stars),
+                    downloads: Number(downloads),
+                    likes: Number(likes),
+                    disliked: disliked,
+                    length: lengthDecoding[length],
+                    demon: demonBoolDecoding[demonBool],
+                    featured: featured,
+                    epic: demonBoolDecoding[epic],
+                    objects: Number(objs),
+                    stars_requested: Number(starsRequested),
+                    game_version: decodeGameVersion[gameVersion],
+                    copied: Number(copiedID),
+                    two_p: demonBoolDecoding[twoPlayer],
+                    coins: Number(coins),
+                    verified_coins: verifiedCoins,
+                    song: song
             }
+        }
 
             return result;
         }
