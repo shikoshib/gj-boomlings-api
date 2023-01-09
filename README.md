@@ -16,45 +16,50 @@ So basically this function downloads the entire level and converts the response 
 
 ```js
 const gd = require("gj-boomlings-api");
-gd.dlLevel(58825144).then(console.log); // returns "xo"
+gd.dlLevel(42584142).then(console.log);
 ```
 
 Returns:
 
 ```
 {
-  id: 58825144,
-  name: 'xo',
-  description: 'stream vertigo',
-  creator: 'KrmaL',
-  level_version: 2,
+  id: 42584142,
+  name: 'Bloodlust',
+  description: 'Your thirst for blood continues? Very well, let the blood spill. Let the demons feed off your unfortunate soul...',
+  creator: 'Knobbelboy',
+  level_version: 3,
   difficulty: 'Extreme Demon',
   stars: 10,
-  downloads: 2587512,
-  likes: 106611,
+  downloads: 18914789,
+  likes: 697155,
   disliked: false,
   length: 'XL',
-  password: '000007',
+  password: '121296',
   demon: true,
-  featured: false,
-  epic: false,
-  objects: 37838,
-  uploaded: '2 years',
-  updated: '2 years',
+  featured: true,
+  epic: true,
+  objects: 170739,
+  uploaded: '4 years',
+  updated: '6 months',
   stars_requested: 10,
   game_version: '2.1',
   ldm: false,
-  copied: 0,
+  copied: 25066306,
   two_p: false,
   coins: 0,
   verified_coins: false,
   song: {
-    name: 'XO (Eden Cover & Remake)',
-    id: 766165,
-    artist: 'aaronmusslewhite',
-    artistId: 2130,
-    fileSize: '6.1 MB',
-    link: 'http://audio.ngfiles.com/766000/766165_XO-Eden-Cover-amp-Remake.mp3'
+    name: 'At the Speed of Light',
+    id: 467339,
+    artist: 'Dimrain47',
+    artistId: 52,
+    fileSize: '9.56 MB',
+    link: 'https://geometrydashcontent.b-cdn.net/songs/467339.mp3'
+  },
+  pointercrate: { 
+    position: 49,
+    publisher: 'knobbelboy',
+    verifier: 'knobbelboy'
   }
 }
 ```
@@ -102,9 +107,74 @@ gd.uploadComment("I love gj-boomlings-api!", 83925274, "gmdshxdow", "*********",
 ```
 
 Posts a comment on the level with the ID of 83925274, with 99 percent, on gmdshxdow's behalf.
+### getMapPacks(page)
+
+This function gets the info about the map packs on a specified page (if left out, defaults to 1).
+
+```js
+const gd = require("gj-boomlings-api");
+gd.getMapPacks(7).then(console.log);
+```
+
+Returns:
+
+```
+[
+  {
+    name: 'Demon Pack 13',
+    id: 49,
+    levels: [ 764038, 897837, 848722 ],
+    stars: 10,
+    coins: 2,
+    difficulty: 'Hard Demon',
+    textColor: '#00FF00',
+    barColor: '#00FF00'
+  },
+  {
+    name: 'Demon Pack 14',
+    id: 50,
+    levels: [ 840397, 413504, 839175 ],
+    stars: 10,
+    coins: 2,
+    difficulty: 'Hard Demon',
+    textColor: '#00FFFF',
+    barColor: '#00FFFF'
+  },
+  {
+    name: 'Demon Pack 15',
+    id: 64,
+    levels: [ 1018758, 1326086, 1698428 ],
+    stars: 10,
+    coins: 2,
+    difficulty: 'Hard Demon',
+    textColor: '#FF0000',
+    barColor: '#FF0000'
+  },
+  {
+    name: 'Demon Pack 16',
+    id: 65,
+    levels: [ 1668421, 1703546, 923264 ],
+    stars: 10,
+    coins: 2,
+    difficulty: 'Hard Demon',
+    textColor: '#FFFF00',
+    barColor: '#FFFF00'
+  },
+  {
+    name: 'Demon Pack 17',
+    id: 66,
+    levels: [ 1650666, 1474319, 1777565 ],
+    stars: 10,
+    coins: 2,
+    difficulty: 'Hard Demon',
+    textColor: '#96FF96',
+    barColor: '#96FF96'
+  }
+]
+```
 
 **Check out [docs](./docs/) for more info.**
 
 ---
 
-Inspired by [GDBrowser](https://github.com/GDColon/GDBrowser/). Thanks to [Wireshark](https://www.wireshark.org/) and [GDDocs](https://github.com/gd-programming/gd.docs/) for helping me in creating this package.
+Inspired by [GDBrowser](https://github.com/GDColon/GDBrowser/). Thanks to [Wireshark](https://www.wireshark.org/) and [GD Docs](https://github.com/gd-programming/gd.docs/) for helping me in creating this package.

@@ -1,7 +1,7 @@
 {
   "name": "gj-boomlings-api",
-  "version": "1.2.0",
-  "description": "A Node.js module that allows you to fetch boomlings.com easily",
+  "version": "1.2.1",
+  "description": "A light-weight Geometry Dash API wrapper",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

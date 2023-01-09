@@ -1,7 +1,8 @@
 module.exports = {
     dlLevel:
         async function(level) {
-            const bs = require("js-base64")
+            const bs = require("js-base64");
+            const zlib = require("zlib");
             if(!level || level == "") throw new Error("Please provide a level ID.");
             if(isNaN(level)) throw new Error("The level parameter should be a number.");
 
@@ -37,6 +38,7 @@ module.exports = {
             let id = levelInfo[0].split("1:")[1];
             let name = levelInfo[1].split("2:")[1];
             let description = bs.decode(levelInfo[2].split("3:")[1])
+            let levelStr = levelInfo[3].split("4:")[1];
             let version = levelInfo[4].split("5:")[1];
             let difficulty = levelInfo[7].split("9:")[1];
             let downloads = levelInfo[8].split("10:")[1];
@@ -47,7 +49,6 @@ module.exports = {
             let stars = levelInfo[15].split("18:")[1];
             let ftrd = levelInfo[16].split("19:")[1];
             let epic = levelInfo[17].split("42:")[1];
-            let objects = levelInfo[18].split("45:")[1];
             let length = levelInfo[19].split("15:")[1];
             let copiedID = levelInfo[20].split("30:")[1];
             let twoPlayer = levelInfo[21].split("31:")[1];
@@ -124,6 +125,15 @@ module.exports = {
                 "21": "2.1"
             }
 
+            let objects;
+
+            zlib.unzip(Buffer.from(levelStr, "base64"), (err, buffer) => {
+                const raw_data = buffer.toString();
+                const objArray = raw_data.split(";");
+                objArray.shift();
+                objects = objArray.length - 1;
+            });
+
             if(description == '') description = "(No description provided)";
 
             const { getLevelByID } = require("./getLevelByID.js");
@@ -144,7 +154,7 @@ module.exports = {
                 demon: demonBoolDecoding[demonBool],
                 featured: featured,
                 epic: demonBoolDecoding[epic],
-                objects: Number(objects),
+                objects: objects,
                 uploaded: uploaded,
                 updated: updated,
                 stars_requested: Number(starsRequested),
@@ -156,6 +166,7 @@ module.exports = {
                 verified_coins: verifiedCoins,
                 song: basicInfoAboutLevel.song,
             }
+            
             if(basicInfoAboutLevel.pointercrate != undefined) {
                 result = {
                     id: Number(id),
@@ -173,7 +184,7 @@ module.exports = {
                     demon: demonBoolDecoding[demonBool],
                     featured: featured,
                     epic: demonBoolDecoding[epic],
-                    objects: Number(objects),
+                    objects: objects,
                     uploaded: uploaded,
                     updated: updated,
                     stars_requested: Number(starsRequested),

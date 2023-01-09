@@ -6,7 +6,7 @@ module.exports = {
             const { headers, server } = require("../config.json");
             const data = {
                 secret: "Wmfd2893gb7",
-                page: page - 1
+                page: Number(page) - 1
             }
 
             let res = await axios.post(server + "getGJMapPacks21.php", data, {
