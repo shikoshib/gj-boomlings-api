@@ -5,6 +5,7 @@ module.exports = {
             if(!content || content == "") throw new Error("Please provide an account post content!");
             if(!str || str == "") throw new Error("Please provide a user ID or name!");
             if(!password || password == "") throw new Error("Please provide a password!");
+            
             const axios = require("axios");
             const { headers, server } = require("../config.json");
 

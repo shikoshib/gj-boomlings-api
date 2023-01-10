@@ -61,6 +61,8 @@ module.exports = {
             let ldm = levelInfo[31].split("40:")[1];
             let password = xor.decrypt(levelInfo[32].split("27:")[1].split("#")[0], 26364);
 
+            if(password.length == 7) password = password.replace("1", "");
+
             let disliked = false;
             if(likes.includes("-")) disliked = true;
 
@@ -137,12 +139,12 @@ module.exports = {
             if(description == '') description = "(No description provided)";
 
             const { getLevelByID } = require("./getLevelByID.js");
-            let basicInfoAboutLevel = await getLevelByID(id);
+            let getLvl = await getLevelByID(id);
             let result = {
                 id: Number(id),
                 name: name,
                 description: description,
-                creator: basicInfoAboutLevel.creator,
+                creator: getLvl.creator,
                 level_version: Number(version),
                 difficulty: difficultyDecoding[difficulty],
                 stars: Number(stars),
@@ -150,7 +152,7 @@ module.exports = {
                 likes: Number(likes),
                 disliked: disliked,
                 length: lengthDecoding[length],
-                password: password.replace("1", ""), 
+                password: password, 
                 demon: demonBoolDecoding[demonBool],
                 featured: featured,
                 epic: demonBoolDecoding[epic],
@@ -164,15 +166,15 @@ module.exports = {
                 two_p: demonBoolDecoding[twoPlayer],
                 coins: Number(coins),
                 verified_coins: verifiedCoins,
-                song: basicInfoAboutLevel.song,
+                song: getLvl.song,
             }
             
-            if(basicInfoAboutLevel.pointercrate != undefined) {
+            if(getLvl.pointercrate != undefined) {
                 result = {
                     id: Number(id),
                     name: name,
                     description: description,
-                    creator: basicInfoAboutLevel.creator,
+                    creator: getLvl.creator,
                     level_version: Number(version),
                     difficulty: difficultyDecoding[difficulty],
                     stars: Number(stars),
@@ -194,8 +196,8 @@ module.exports = {
                     two_p: demonBoolDecoding[twoPlayer],
                     coins: Number(coins),
                     verified_coins: verifiedCoins,
-                    song: basicInfoAboutLevel.song,
-                    pointercrate: basicInfoAboutLevel.pointercrate
+                    song: getLvl.song,
+                    pointercrate: getLvl.pointercrate
                 }
             }
 

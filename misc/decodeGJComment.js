@@ -2,25 +2,32 @@ module.exports = {
     decodeGJComment:
         function(comment) {
             const bs = require("js-base64");
-
-            let commentContent = comment.split("2~")[1].split("~3~")[0];
-            let playerID = comment.split("~3~")[1].split("~4~")[0];
-            let likes = comment.split("~4~")[1].split("~7~")[0];
-            let percent = comment.split("~10~")[1].split("~9~")[0];
-            let age = comment.split("~9~")[1].split("~6~")[0];
-            let messageID = comment.split("~6~")[1].split(":1~")[0];
-            let username = comment.split(":1~")[1].split("~9~")[0];
-
-            if(messageID.includes("~")) messageID = comment.split("~6~")[1].split("~11~")[0];
-            if(playerID.includes("~")) playerID = comment.split("~3~")[1].split("~4~")[0].split("~")[0];
             
+            let spl = comment.split("~");
+            let cmnt = [];
+            for(let i =0;i<spl.length;i++) {
+              if(i%2!=0) {
+                cmnt.push(spl[i-1]+`~`+spl[i]);
+              }
+            }
+
+            let commentContent = cmnt[0].split("2~")[1];
+            let playerID = cmnt[1].split("3~")[1];
+            let likes = cmnt[2].split("4~")[1];
+            let percent = cmnt[4].split("10~")[1];
+            let age = cmnt[5].split("9~")[1];
+            let msgID = cmnt[6].split("6~")[1];
+            let username = comment.split(":1~")[1].split("~9")[0];
+            
+            if(msgID.includes(":")) msgID = msgID.split(":")[0];
+
             const res = {
                 username: username,
                 content: bs.decode(commentContent.replace(/_/g, '/').replace(/-/g, '+')),
                 playerID: Number(playerID),
                 likes: Number(likes),
                 percent: Number(percent),
-                id: Number(messageID),
+                id: Number(msgID),
                 age: age
             }
             

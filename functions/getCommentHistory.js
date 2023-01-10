@@ -43,109 +43,12 @@ module.exports = {
                 if(e.response.data == -1) throw new Error("-1 Not found.");
                 throw new Error(e.response.data);
             })
-
-            let firstComment = res.data;
-            let secondComment;
-            let thirdComment;
-            let fourthComment;
-            let fifthComment;
-            let sixthComment;
-            let seventhComment;
-            let eighthComment;
-            let ninthComment;
-            let tenthComment;
-
-            let result = [decCommentFromHistory(firstComment)]
-
-            if(res.data.split("|").length - 1 == 1) {
-                firstComment = res.data.split("|")[0];
-                secondComment = res.data.split("|")[1].split("|")[0];
-                result.push(decCommentFromHistory(secondComment))
-            }
-
-            if(res.data.split("|").length - 1 == 2) {
-                firstComment = res.data.split("|")[0];
-                secondComment = res.data.split("|")[1].split("|")[0];
-                thirdComment = res.data.split("|")[2].split("|")[0];
-                result.push(decCommentFromHistory(secondComment),decCommentFromHistory(thirdComment))
-            }
-
-            if(res.data.split("|").length - 1 == 3) {
-                firstComment = res.data.split("|")[0];
-                secondComment = res.data.split("|")[1].split("|")[0];
-                thirdComment = res.data.split("|")[2].split("|")[0];
-                fourthComment = res.data.split("|")[3].split("|")[0];
-                result.push(decCommentFromHistory(secondComment),decCommentFromHistory(thirdComment),decCommentFromHistory(fourthComment))
-            }
-
-            if(res.data.split("|").length - 1 == 4) {
-                firstComment = res.data.split("|")[0];
-                secondComment = res.data.split("|")[1].split("|")[0];
-                thirdComment = res.data.split("|")[2].split("|")[0];
-                fourthComment = res.data.split("|")[3].split("|")[0];
-                fifthComment = res.data.split("|")[4].split("|")[0];
-                result.push(decCommentFromHistory(secondComment),decCommentFromHistory(thirdComment),decCommentFromHistory(fourthComment),decCommentFromHistory(fifthComment))
-            }
-
-            if(res.data.split("|").length - 1 == 5) {
-                firstComment = res.data.split("|")[0];
-                secondComment = res.data.split("|")[1].split("|")[0];
-                thirdComment = res.data.split("|")[2].split("|")[0];
-                fourthComment = res.data.split("|")[3].split("|")[0];
-                fifthComment = res.data.split("|")[4].split("|")[0];
-                sixthComment = res.data.split("|")[5].split("|")[0];
-                result.push(decCommentFromHistory(secondComment),decCommentFromHistory(thirdComment),decCommentFromHistory(fourthComment),decCommentFromHistory(fifthComment),decCommentFromHistory(sixthComment))
-            }
-
-            if(res.data.split("|").length - 1 == 6) {
-                firstComment = res.data.split("|")[0];
-                secondComment = res.data.split("|")[1].split("|")[0];
-                thirdComment = res.data.split("|")[2].split("|")[0];
-                fourthComment = res.data.split("|")[3].split("|")[0];
-                fifthComment = res.data.split("|")[4].split("|")[0];
-                sixthComment = res.data.split("|")[5].split("|")[0];
-                seventhComment = res.data.split("|")[6].split("|")[0];
-                result.push(decCommentFromHistory(secondComment),decCommentFromHistory(thirdComment),decCommentFromHistory(fourthComment),decCommentFromHistory(fifthComment),decCommentFromHistory(sixthComment),decCommentFromHistory(seventhComment))
-            }
-
-            if(res.data.split("|").length - 1 == 7) {
-                firstComment = res.data.split("|")[0];
-                secondComment = res.data.split("|")[1].split("|")[0];
-                thirdComment = res.data.split("|")[2].split("|")[0];
-                fourthComment = res.data.split("|")[3].split("|")[0];
-                fifthComment = res.data.split("|")[4].split("|")[0];
-                sixthComment = res.data.split("|")[5].split("|")[0];
-                seventhComment = res.data.split("|")[6].split("|")[0];
-                eighthComment = res.data.split("|")[7].split("|")[0];
-                result.push(decCommentFromHistory(secondComment),decCommentFromHistory(thirdComment),decCommentFromHistory(fourthComment),decCommentFromHistory(fifthComment),decCommentFromHistory(sixthComment),decCommentFromHistory(seventhComment),decCommentFromHistory(eighthComment))
-            }
-
-            if(res.data.split("|").length - 1 == 8) {
-                firstComment = res.data.split("|")[0];
-                secondComment = res.data.split("|")[1].split("|")[0];
-                thirdComment = res.data.split("|")[2].split("|")[0];
-                fourthComment = res.data.split("|")[3].split("|")[0];
-                fifthComment = res.data.split("|")[4].split("|")[0];
-                sixthComment = res.data.split("|")[5].split("|")[0];
-                seventhComment = res.data.split("|")[6].split("|")[0];
-                eighthComment = res.data.split("|")[7].split("|")[0];
-                ninthComment = res.data.split("|")[8].split("|")[0];
-                result.push(decCommentFromHistory(secondComment),decCommentFromHistory(thirdComment),decCommentFromHistory(fourthComment),decCommentFromHistory(fifthComment),decCommentFromHistory(sixthComment),decCommentFromHistory(seventhComment),decCommentFromHistory(eighthComment),decCommentFromHistory(ninthComment))
-            }
-
-            if(res.data.split("|").length - 1 == 9) {
-                firstComment = res.data.split("|")[0];
-                secondComment = res.data.split("|")[1].split("|")[0];
-                thirdComment = res.data.split("|")[2].split("|")[0];
-                fourthComment = res.data.split("|")[3].split("|")[0];
-                fifthComment = res.data.split("|")[4].split("|")[0];
-                sixthComment = res.data.split("|")[5].split("|")[0];
-                seventhComment = res.data.split("|")[6].split("|")[0];
-                eighthComment = res.data.split("|")[7].split("|")[0];
-                ninthComment = res.data.split("|")[8].split("|")[0];
-                tenthComment = res.data.split("|")[9].split("|")[0];
-                result.push(decCommentFromHistory(secondComment),decCommentFromHistory(thirdComment),decCommentFromHistory(fourthComment),decCommentFromHistory(fifthComment),decCommentFromHistory(sixthComment),decCommentFromHistory(seventhComment),decCommentFromHistory(eighthComment),decCommentFromHistory(ninthComment),decCommentFromHistory(tenthComment))
-            }
+            
+            let comments = res.data.split("|");
+            let result = [];
+            comments.forEach(c => {
+                result.push(decCommentFromHistory(c));
+            })
 
             return result;
         }

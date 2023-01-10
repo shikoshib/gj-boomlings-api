@@ -1,14 +1,14 @@
 module.exports = {
     decodeUserResult:
         function(user) {
-          let spl = user.split(':');
+            let spl = user.split(':');
             let userInfo = [];
             for(let i =0;i<spl.length;i++) {
               if(i%2!=0) {
                 userInfo.push(spl[i-1]+`:`+spl[i]);
               }
             }
-            
+
             let name = userInfo[0].split("1:")[1];
             let playerID = userInfo[1].split("2:")[1];
             let coins = userInfo[2].split("13:")[1];
@@ -22,13 +22,16 @@ module.exports = {
             let diamonds = userInfo[13].split("46:")[1];
             let demons = userInfo[14].split("4:")[1];
 
+            let colors = require("./colors.json");
+            const { rgbToHEX } = require("./rgbToHEX.js");
+
             const result = {
                 username: name.trim(),
                 playerID: Number(playerID),
                 accountID: Number(accID),
                 rank: Number(rank),
-                color1: Number(p1col),
-                color2: Number(p2col),
+                color1: rgbToHEX(colors[p1col]),
+                color2: rgbToHEX(colors[p2col]),
                 stars: Number(stars),
                 diamonds: Number(diamonds),
                 secretCoins: Number(coins),

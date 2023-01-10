@@ -94,13 +94,16 @@ module.exports = {
                 "2": "elder"
             }
 
+            let colors = require("../misc/colors.json");
+            const { rgbToHEX } = require("../misc/rgbToHEX.js");
+
             const result = {
                 username: username,
                 playerID: Number(playerID),
                 accountID: Number(accountID),
                 rank: Number(rank),
-                color1: Number(p1col),
-                color2: Number(p2col),
+                color1: rgbToHEX(colors[p1col]),
+                color2: rgbToHEX(colors[p2col]),
                 stars: Number(stars),
                 diamonds: Number(diamonds),
                 secretCoins: Number(goldCoins),

@@ -24,108 +24,11 @@ module.exports = {
                 throw new Error(e.response.data);
             })
             
-            let firstComment = res.data;
-            let secondComment;
-            let thirdComment;
-            let fourthComment;
-            let fifthComment;
-            let sixthComment;
-            let seventhComment;
-            let eighthComment;
-            let ninthComment;
-            let tenthComment;
-
-            let result = [decodeGJComment(firstComment)]
-
-            if(res.data.split("|").length - 1 == 1) {
-                firstComment = res.data.split("|")[0];
-                secondComment = res.data.split("|")[1].split("|")[0];
-                result.push(decodeGJComment(secondComment))
-            }
-
-            if(res.data.split("|").length - 1 == 2) {
-                firstComment = res.data.split("|")[0];
-                secondComment = res.data.split("|")[1].split("|")[0];
-                thirdComment = res.data.split("|")[2].split("|")[0];
-                result.push(decodeGJComment(secondComment),decodeGJComment(thirdComment))
-            }
-
-            if(res.data.split("|").length - 1 == 3) {
-                firstComment = res.data.split("|")[0];
-                secondComment = res.data.split("|")[1].split("|")[0];
-                thirdComment = res.data.split("|")[2].split("|")[0];
-                fourthComment = res.data.split("|")[3].split("|")[0];
-                result.push(decodeGJComment(secondComment),decodeGJComment(thirdComment),decodeGJComment(fourthComment))
-            }
-
-            if(res.data.split("|").length - 1 == 4) {
-                firstComment = res.data.split("|")[0];
-                secondComment = res.data.split("|")[1].split("|")[0];
-                thirdComment = res.data.split("|")[2].split("|")[0];
-                fourthComment = res.data.split("|")[3].split("|")[0];
-                fifthComment = res.data.split("|")[4].split("|")[0];
-                result.push(decodeGJComment(secondComment),decodeGJComment(thirdComment),decodeGJComment(fourthComment),decodeGJComment(fifthComment))
-            }
-
-            if(res.data.split("|").length - 1 == 5) {
-                firstComment = res.data.split("|")[0];
-                secondComment = res.data.split("|")[1].split("|")[0];
-                thirdComment = res.data.split("|")[2].split("|")[0];
-                fourthComment = res.data.split("|")[3].split("|")[0];
-                fifthComment = res.data.split("|")[4].split("|")[0];
-                sixthComment = res.data.split("|")[5].split("|")[0];
-                result.push(decodeGJComment(secondComment),decodeGJComment(thirdComment),decodeGJComment(fourthComment),decodeGJComment(fifthComment),decodeGJComment(sixthComment))
-            }
-
-            if(res.data.split("|").length - 1 == 6) {
-                firstComment = res.data.split("|")[0];
-                secondComment = res.data.split("|")[1].split("|")[0];
-                thirdComment = res.data.split("|")[2].split("|")[0];
-                fourthComment = res.data.split("|")[3].split("|")[0];
-                fifthComment = res.data.split("|")[4].split("|")[0];
-                sixthComment = res.data.split("|")[5].split("|")[0];
-                seventhComment = res.data.split("|")[6].split("|")[0];
-                result.push(decodeGJComment(secondComment),decodeGJComment(thirdComment),decodeGJComment(fourthComment),decodeGJComment(fifthComment),decodeGJComment(sixthComment),decodeGJComment(seventhComment))
-            }
-
-            if(res.data.split("|").length - 1 == 7) {
-                firstComment = res.data.split("|")[0];
-                secondComment = res.data.split("|")[1].split("|")[0];
-                thirdComment = res.data.split("|")[2].split("|")[0];
-                fourthComment = res.data.split("|")[3].split("|")[0];
-                fifthComment = res.data.split("|")[4].split("|")[0];
-                sixthComment = res.data.split("|")[5].split("|")[0];
-                seventhComment = res.data.split("|")[6].split("|")[0];
-                eighthComment = res.data.split("|")[7].split("|")[0];
-                result.push(decodeGJComment(secondComment),decodeGJComment(thirdComment),decodeGJComment(fourthComment),decodeGJComment(fifthComment),decodeGJComment(sixthComment),decodeGJComment(seventhComment),decodeGJComment(eighthComment))
-            }
-
-            if(res.data.split("|").length - 1 == 8) {
-                firstComment = res.data.split("|")[0];
-                secondComment = res.data.split("|")[1].split("|")[0];
-                thirdComment = res.data.split("|")[2].split("|")[0];
-                fourthComment = res.data.split("|")[3].split("|")[0];
-                fifthComment = res.data.split("|")[4].split("|")[0];
-                sixthComment = res.data.split("|")[5].split("|")[0];
-                seventhComment = res.data.split("|")[6].split("|")[0];
-                eighthComment = res.data.split("|")[7].split("|")[0];
-                ninthComment = res.data.split("|")[8].split("|")[0];
-                result.push(decodeGJComment(secondComment),decodeGJComment(thirdComment),decodeGJComment(fourthComment),decodeGJComment(fifthComment),decodeGJComment(sixthComment),decodeGJComment(seventhComment),decodeGJComment(eighthComment),decodeGJComment(ninthComment))
-            }
-
-            if(res.data.split("|").length - 1 == 9) {
-                firstComment = res.data.split("|")[0];
-                secondComment = res.data.split("|")[1].split("|")[0];
-                thirdComment = res.data.split("|")[2].split("|")[0];
-                fourthComment = res.data.split("|")[3].split("|")[0];
-                fifthComment = res.data.split("|")[4].split("|")[0];
-                sixthComment = res.data.split("|")[5].split("|")[0];
-                seventhComment = res.data.split("|")[6].split("|")[0];
-                eighthComment = res.data.split("|")[7].split("|")[0];
-                ninthComment = res.data.split("|")[8].split("|")[0];
-                tenthComment = res.data.split("|")[9].split("|")[0];
-                result.push(decodeGJComment(secondComment),decodeGJComment(thirdComment),decodeGJComment(fourthComment),decodeGJComment(fifthComment),decodeGJComment(sixthComment),decodeGJComment(seventhComment),decodeGJComment(eighthComment),decodeGJComment(ninthComment),decodeGJComment(tenthComment))
-            }
+            let comments = res.data.split("|");
+            let result = [];
+            comments.forEach(c => {
+                result.push(decodeGJComment(c));
+            })
 
             return result;
         }
