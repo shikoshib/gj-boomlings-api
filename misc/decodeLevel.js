@@ -41,6 +41,8 @@ module.exports = {
             let disliked = false;
             if(likes.includes("-")) disliked = true;
 
+            if(bs.decode(desc) == '') desc = "KE5vIGRlc2NyaXB0aW9uIHByb3ZpZGVkKQ=="
+
             if(verifiedCoins == "0") verifiedCoins = false;
             if(verifiedCoins == "1") verifiedCoins = true;
 

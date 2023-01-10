@@ -1,13 +1,14 @@
 {
   "name": "gj-boomlings-api",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "A light-weight Geometry Dash API wrapper",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node .",
     "start": "node ."
   },
   "author": "shikoshib",
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shikoshib/gj-boomlings-api.git"
@@ -25,7 +26,6 @@
     "gaming",
     "robtop"
   ],
-  "license": "ISC",
   "dependencies": {
     "axios": "^1.2.1",
     "js-base64": "^3.7.3"

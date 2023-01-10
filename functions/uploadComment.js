@@ -57,7 +57,9 @@ module.exports = {
                 headers: headers
             }).catch(e => {
                 let edata = e.response.data;
-                if(edata == '') edata = "Whoops, the servers have rejected your request!"
+                if(edata == -10) edata = "You're permanently banned from commenting by RobTop!";
+                if(edata.startsWith("temp_")) edata = `You're temporarily banned from commenting by RobTop or Elder Moderators!\nRemaining duration: ${edata.split("_")[1].split("_")[0]}\nReason: ${edata.split("_")[2]}`;
+                if(edata == '') edata = "Whoops, the servers have rejected your request!";
                 throw new Error(edata)
             })
 
