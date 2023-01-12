@@ -9,7 +9,7 @@ module.exports = {
             const { searchUsers } = require("./searchUsers.js");
             
             let user = await searchUsers(username);
-            let target = await searchUsers(target);
+            let targetObj = await searchUsers(target);
 
             const {gjp} = require("../misc/gjp.js");
             
@@ -18,7 +18,7 @@ module.exports = {
                 binaryVersion: 35,
                 gdw: 0,
                 secret: "Wmfd2893gb7",
-                targetAccountID: target.accountID,
+                targetAccountID: targetObj.accountID,
                 accountID: user.accountID,
                 gjp: gjp(password)
             }
