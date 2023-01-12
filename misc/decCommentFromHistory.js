@@ -1,7 +1,7 @@
 module.exports = {
     decCommentFromHistory:
         function(comment) {
-            const decB64 = require("./decB64.js");
+            const {decB64} = require("./decB64.js");
             
             let levelID = comment.split("~1~")[1].split("~3~")[0];
             let commentContent = comment.split("2~")[1].split("~1~")[0];

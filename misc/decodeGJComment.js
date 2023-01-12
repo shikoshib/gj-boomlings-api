@@ -1,7 +1,7 @@
 module.exports = {
     decodeGJComment:
         function(comment) {
-            const decB64 = require("./decB64.js");
+            const {decB64} = require("./decB64.js");
             
             let spl = comment.split("~");
             let cmnt = [];

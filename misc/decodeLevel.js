@@ -1,7 +1,7 @@
 module.exports = {
     decodeLevel:
         async function(level){
-            const decB64 = require("./decB64.js");
+            const {decB64} = require("./decB64.js");
             
             let spl = level.split(':');
             let levelInfo = [];
