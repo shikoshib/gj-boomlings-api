@@ -1,7 +1,7 @@
 module.exports = {
     decodeAccountPost:
         function(post) {
-            const bs = require("js-base64");
+            const {decB64} = require("./decB64.js");
 
             let postContent = post.split("2~")[1].split("~4~")[0];
             let likes = post.split("~4~")[1].split("~9~")[0];
@@ -12,7 +12,7 @@ module.exports = {
             if(id.includes("#")) id = id.split("#")[0];
 
             const result = {
-                content: bs.decode(postContent.replace(/_/g, '/').replace(/-/g, '+')).trim(),
+                content: decB64(postContent).trim(),
                 likes: Number(likes),
                 age: age,
                 id: Number(id)

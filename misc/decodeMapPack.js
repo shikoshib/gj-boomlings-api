@@ -1,7 +1,6 @@
 module.exports = {
     decodeMapPack:
         function(mp) {
-
             let spl = mp.split(':');
             let mpInfo = [];
             for(let i =0;i<spl.length;i++) {

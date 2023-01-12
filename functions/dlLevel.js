@@ -1,7 +1,7 @@
 module.exports = {
     dlLevel:
         async function(level) {
-            const bs = require("js-base64");
+            const {decB64} = require("../misc/decB64.js");
             const zlib = require("zlib");
             if(!level || level == "") throw new Error("Please provide a level ID.");
             if(isNaN(level)) throw new Error("The level parameter should be a number.");
@@ -37,12 +37,11 @@ module.exports = {
 
             let id = levelInfo[0].split("1:")[1];
             let name = levelInfo[1].split("2:")[1];
-            let description = bs.decode(levelInfo[2].split("3:")[1])
+            let description = decB64(levelInfo[2].split("3:")[1])
             let levelStr = levelInfo[3].split("4:")[1];
             let version = levelInfo[4].split("5:")[1];
             let difficulty = levelInfo[7].split("9:")[1];
             let downloads = levelInfo[8].split("10:")[1];
-            let officialSong = levelInfo[9].split("12:")[1];
             let gameVersion = levelInfo[10].split("13:")[1];
             let likes = levelInfo[11].split("14:")[1];
             let demonBool = levelInfo[12].split("17:")[1];
@@ -54,7 +53,6 @@ module.exports = {
             let twoPlayer = levelInfo[21].split("31:")[1];
             let uploaded = levelInfo[22].split("28:")[1];
             let updated = levelInfo[23].split("29:")[1];
-            let customSong = levelInfo[24].split("35:")[1];
             let coins = levelInfo[26].split("37:")[1];
             let verifiedCoins = levelInfo[27].split("38:")[1];
             let starsRequested = levelInfo[28].split("39:")[1];

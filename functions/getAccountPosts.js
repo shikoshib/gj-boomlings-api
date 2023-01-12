@@ -5,30 +5,15 @@ module.exports = {
             const { decodeAccountPost } = require("../misc/decodeAccountPost.js");
             const axios = require("axios");
             const { headers, server } = require("../config.json");
+            const { searchUsers } = require("./searchUsers.js");
 
-            const data = {
-                gameVersion: 21,
-                binaryVersion: 35,
-                gdw: 0,
-                str: str,
-                secret: "Wmfd2893gb7"
-            };
-
-            let r = await axios.post(server + "getGJUsers20.php", data, {
-                headers: headers
-            }).catch(e => {
-                if(e.response.data == -1) throw new Error("-1 This user is not found.");
-                throw new Error(e.response.data);
-            })
-
-            let id = r.data.split(":16:")[1].split(":3:")[0];
-            if(Number(id) < 71 || id.includes(":")) id = r.data.split(":16:")[2].split(":3:")[0];
+            let user = await searchUsers(str);
 
             let ACdata = {
                 gameVersion: 21,
                 binaryVersion: 35,
                 gdw: 0,
-                accountID: id,
+                accountID: user.accountID,
                 secret: "Wmfd2893gb7",
                 page: page - 1
             };

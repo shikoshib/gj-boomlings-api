@@ -1,7 +1,7 @@
 module.exports = {
     getCreatorScores:
         async function() {
-            const { decodeUserResult } = require("../misc/decodeUserResult.js");
+            const { decScoresUser } = require("../misc/decScoresUser.js");
             const axios = require("axios");
             const { headers, server, secret } = require("../config.json");
 
@@ -22,7 +22,7 @@ module.exports = {
 
             let result = [];
             players.forEach(p => {
-                result.push(decodeUserResult(p));
+                result.push(decScoresUser(p));
             });
 
             return result;

@@ -1,7 +1,7 @@
 module.exports = {
     decodeLevel:
         async function(level){
-            const bs = require("js-base64");
+            const decB64 = require("./decB64.js");
             
             let spl = level.split(':');
             let levelInfo = [];
@@ -41,7 +41,7 @@ module.exports = {
             let disliked = false;
             if(likes.includes("-")) disliked = true;
 
-            if(bs.decode(desc) == '') desc = "KE5vIGRlc2NyaXB0aW9uIHByb3ZpZGVkKQ=="
+            if(decB64(desc) == '') desc = "KE5vIGRlc2NyaXB0aW9uIHByb3ZpZGVkKQ=="
 
             if(verifiedCoins == "0") verifiedCoins = false;
             if(verifiedCoins == "1") verifiedCoins = true;
@@ -144,7 +144,7 @@ module.exports = {
                 result = {
                     id: Number(id),
                     name: name,
-                    description: bs.decode(desc),
+                    description: decB64(desc),
                     creator: author,
                     level_version: Number(version),
                     difficulty: difficultyDecoding[difficulty],
@@ -170,7 +170,7 @@ module.exports = {
                 result = {
                     id: Number(id),
                     name: name,
-                    description: bs.decode(desc),
+                    description: decB64(desc),
                     creator: author,
                     level_version: Number(version),
                     difficulty: difficultyDecoding[difficulty],

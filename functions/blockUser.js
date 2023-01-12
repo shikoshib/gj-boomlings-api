@@ -5,38 +5,11 @@ module.exports = {
             if(!username || username == "") throw new Error("Please provide your player ID or username!");
             if(!password || password == "") throw new Error("Please provide your password!");
             const axios = require("axios");
+            const { searchUsers } = require("./searchUsers.js");
             const {headers, server} = require("../config.json");
             
-            let resp = await axios.post(server + "getGJUsers20.php", {
-                gameVersion: 21,
-                binaryVersion: 35,
-                gdw: 0,
-                str: username,
-                secret: "Wmfd2893gb7"
-            }, {
-                headers: headers
-            }).catch(e => {
-                if(e.response.data == -1) throw new Error(`Couldn't find a "${username}" user.`)
-                throw new Error(e.response.data)
-            })
-
-            let accID = resp.data.split(":16:")[1].split(":3:")[0];
-
-            const userData = {
-                gameVersion: 21,
-                binaryVersion: 35,
-                gdw: 0,
-                str: target,
-                secret: "Wmfd2893gb7"
-            }
-
-            let r = await axios.post(server + "getGJUsers20.php", userData, {
-                headers: headers
-            }).catch(e => {
-                if(e.response.data == -1) throw new Error(`Couldn't find a "${username}" user.`)
-                throw new Error(e.response.data)
-            })
-            let targetId = r.data.split(":16:")[1].split(":3:")[0];
+            let user = await searchUsers(username);
+            let targetObj = await searchUsers(username);
 
             const {gjp} = require("../misc/gjp.js");
             
@@ -45,8 +18,8 @@ module.exports = {
                 binaryVersion: 35,
                 gdw: 0,
                 secret: "Wmfd2893gb7",
-                targetAccountID: targetId,
-                accountID: accID,
+                targetAccountID: targetObj.accountID,
+                accountID: user.accountID,
                 gjp: gjp(password)
             }
 

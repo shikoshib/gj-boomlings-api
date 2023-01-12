@@ -11,32 +11,18 @@ module.exports = {
             
             const axios = require("axios");
             const { headers, server, secret } = require("../config.json");
+            const { searchUsers } = require("./searchUsers.js");
 
-            const data = {
-                gameVersion: 21,
-                binaryVersion: 35,
-                gdw: 0,
-                str: user,
-                secret: secret
-            };
-
-            let r = await axios.post(server + "getGJUsers20.php", data, {
-                headers: headers
-            }).catch(e => {
-                throw new Error(e.response.data);
-            })
-
-            let id = r.data.split(":16:")[1].split(":3:")[0];
-            if(Number(id) < 71 || id.includes(":")) id = r.data.split(":16:")[2].split(":3:")[0];
+            let userObj = await searchUsers(user);
 
             const { gjp } = require("../misc/gjp.js");
-            const { encURLSafeBase64 } = require("./encURLSafeBase64.js");
+            const { encB64 } = require("../misc/encB64.js");
 
             const uLDdata = {
-                accountID: id,
+                accountID: userObj.accountID,
                 gjp: gjp(password),
                 levelID: level,
-                levelDesc: encURLSafeBase64(desc),
+                levelDesc: encB64(desc),
                 secret: secret
             }
 

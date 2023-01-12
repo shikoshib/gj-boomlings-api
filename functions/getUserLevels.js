@@ -7,22 +7,6 @@ module.exports = {
             const { headers, secret, server } = require("../config.json");
             const { getLevelByID } = require("../functions/getLevelByID.js");
 
-            const userdata = {
-                gameVersion: 21,
-                binaryVersion: 35,
-                gdw: 0,
-                str: str,
-                secret: "Wmfd2893gb7"
-            };
-
-            let r = await axios.post(server + "getGJUsers20.php", userdata, {
-                headers: headers
-            }).catch(e => {
-                throw new Error(e.response.data);
-            })
-
-            let id = r.data.split(":2:")[1].split(":13:")[0];
-
             const data = {
                 type: 5,
                 str: id,

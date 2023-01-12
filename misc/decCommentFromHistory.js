@@ -1,7 +1,7 @@
 module.exports = {
     decCommentFromHistory:
         function(comment) {
-            const bs = require("js-base64");
+            const decB64 = require("./decB64.js");
             
             let levelID = comment.split("~1~")[1].split("~3~")[0];
             let commentContent = comment.split("2~")[1].split("~1~")[0];
@@ -17,7 +17,7 @@ module.exports = {
             
             const res = {
                 username: username,
-                content: bs.decode(commentContent.replace(/_/g, '/').replace(/-/g, '+')),
+                content: decB64(commentContent),
                 levelID: Number(levelID),
                 playerID: Number(playerID),
                 likes: Number(likes),

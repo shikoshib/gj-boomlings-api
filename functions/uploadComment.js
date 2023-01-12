@@ -8,45 +8,29 @@ module.exports = {
             if(Number(percent) > 100) throw new Error("The percentage cannot be more than 100!");
 
             const { gjp } = require("../misc/gjp.js");
-            const { encURLSafeBase64 } = require("./encURLSafeBase64.js");
+            const { encB64 } = require("../misc/encB64.js");
             const axios = require("axios");
             const { headers, server } = require("../config.json");
             const crypto = require('crypto')
+            const { searchUsers } = require("./searchUsers.js");
 
             function sha1(data) {
                 return crypto.createHash("sha1").update(data, "binary").digest("hex");
             }
 
-            const data = {
-                gameVersion: 21,
-                binaryVersion: 35,
-                gdw: 0,
-                str: user,
-                secret: "Wmfd2893gb7"
-            };
-
-            let r = await axios.post(server + "getGJUsers20.php", data, {
-                headers: headers
-            }).catch(e => {
-                if(r.data == -1) throw new Error("-1 This user is not found.")
-                throw new Error(e.response.data)
-            })
-
-            let username = r.data.split("1:")[1].split(":2:")[0];
-            let accID = r.data.split(":16:")[1].split(":3:")[0];
-            if(Number(accID) < 71 || accID.includes(":")) accID = r.data.split(":16:")[2].split(":3:")[0];
+            let userObj = await searchUsers(user);
             
             const XOR = require("../misc/xor.js");
             const xor = new XOR();
 
-            let chkStr = username + encURLSafeBase64(comment) + Number(id) + Number(percent) + "0xPT6iUrtws0J";
+            let chkStr = userObj.username + encB64(comment) + Number(id) + Number(percent) + "0xPT6iUrtws0J";
             let chk = xor.encrypt(sha1(chkStr), 29481);
 
             const uCdata = {
-                accountID: accID,
+                accountID: userObj.accountID,
                 gjp: gjp(password),
-                userName: username,
-                comment: encURLSafeBase64(comment),
+                userName: userObj.username,
+                comment: encB64(comment),
                 levelID: id,
                 percent: percent,
                 chk: chk,
