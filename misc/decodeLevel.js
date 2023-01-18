@@ -41,6 +41,7 @@ module.exports = {
             let disliked = false;
             if(likes.includes("-")) disliked = true;
 
+            if(desc.includes("/")) desc = desc.split("/")[0];
             if(decB64(desc) == '') desc = "KE5vIGRlc2NyaXB0aW9uIHByb3ZpZGVkKQ=="
 
             if(verifiedCoins == "0") verifiedCoins = false;
@@ -160,6 +161,7 @@ module.exports = {
                     stars_requested: Number(starsRequested),
                     game_version: decodeGameVersion[gameVersion],
                     copied: Number(copiedID),
+                    large: Number(objs) > 40000 ? true : false,
                     two_p: demonBoolDecoding[twoPlayer],
                     coins: Number(coins),
                     verified_coins: verifiedCoins,
@@ -186,6 +188,7 @@ module.exports = {
                     stars_requested: Number(starsRequested),
                     game_version: decodeGameVersion[gameVersion],
                     copied: Number(copiedID),
+                    large: Number(objs) > 40000 ? true : false,
                     two_p: demonBoolDecoding[twoPlayer],
                     coins: Number(coins),
                     verified_coins: verifiedCoins,

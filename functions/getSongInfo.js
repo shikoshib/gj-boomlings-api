@@ -13,10 +13,9 @@ module.exports = {
 
             let res = await axios.post(server + 'getGJSongInfo.php', data, {
                 headers: headers
-            }).catch(e => {
-                if(e.response.data == -2) throw new Error(`-2. Couldn't find a song with ID ${song}.`)
-                throw new Error(e.response.data);
             })
+
+            if(res.data == -2) throw new Error(`-2. Couldn't find a song with ID ${song}.`)
 
             const result = {
                 "name": res.data.split("|~2~|~")[1].split("~|~3~|~")[0],

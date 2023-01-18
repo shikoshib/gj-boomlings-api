@@ -2,18 +2,23 @@ module.exports = {
     decCommentFromHistory:
         function(comment) {
             const {decB64} = require("./decB64.js");
-            
-            let levelID = comment.split("~1~")[1].split("~3~")[0];
-            let commentContent = comment.split("2~")[1].split("~1~")[0];
-            let playerID = comment.split("~3~")[1].split("~4~")[0];
-            let likes = comment.split("~4~")[1].split("~10~")[0];
-            let percent = comment.split("~10~")[1].split("~9~")[0];
-            let age = comment.split("~9~")[1].split("~6~")[0];
-            let messageID = comment.split("~6~")[1].split(":1~")[0];
-            let username = comment.split(":1~")[1].split("~9~")[0];
 
-            if(messageID.includes("~")) messageID = comment.split("~6~")[1].split("~11~")[0];
-            if(playerID.includes("~")) playerID = comment.split("~3~")[1].split("~4~")[0].split("~")[0];
+            let spl = comment.split('~');
+            let cmnt = [];
+            for(let i =0;i<spl.length;i++) {
+              if(i%2!=0) {
+                cmnt.push(spl[i-1]+`~`+spl[i]);
+              }
+            }
+
+            let levelID = cmnt[1].split("~")[1];
+            let commentContent = cmnt[0].split("~")[1];
+            let playerID = cmnt[2].split("~")[1];
+            let likes = cmnt[3].split("~")[1];
+            let percent = cmnt[4].split("~")[1];
+            let age = cmnt[5].split("~")[1];
+            let messageID = cmnt[6].split("~")[1].split(":")[0];
+            let username = cmnt[7].split("~")[0];
             
             const res = {
                 username: username,

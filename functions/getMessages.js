@@ -26,6 +26,8 @@ module.exports = {
                 throw new Error(e.response.data)
             })
 
+            if(res.data == -1) throw new Error(-1);
+
             let msgs = res.data.split("|");
             let result = [];
             msgs.forEach(m => {

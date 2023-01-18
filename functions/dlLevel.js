@@ -1,5 +1,10 @@
 module.exports = {
     dlLevel:
+    /**
+    * Downloads the level by its ID.
+    * 
+    * @param {number} level - The level ID.
+    */
         async function(level) {
             const {decB64} = require("../misc/decB64.js");
             const zlib = require("zlib");
@@ -23,9 +28,10 @@ module.exports = {
             let res = await axios.post(server + 'downloadGJLevel22.php', data, {
                 headers: headers
             }).catch(e => {
-                if(e.response.data == -1) throw new Error("-1 This user is not found.");
                 throw new Error(e.response.data);
             })
+
+            if(res.data == -1) throw new Error("-1 This level is not found.");
 
             let spl = res.data.split(":");
             let levelInfo = [];
@@ -48,6 +54,7 @@ module.exports = {
             let stars = levelInfo[15].split("18:")[1];
             let ftrd = levelInfo[16].split("19:")[1];
             let epic = levelInfo[17].split("42:")[1];
+            let objs = levelInfo[18].split("45:")[1];
             let length = levelInfo[19].split("15:")[1];
             let copiedID = levelInfo[20].split("30:")[1];
             let twoPlayer = levelInfo[21].split("31:")[1];
@@ -161,13 +168,14 @@ module.exports = {
                 game_version: decodeGameVersion[gameVersion],
                 ldm: demonBoolDecoding[ldm],
                 copied: Number(copiedID),
+                large: Number(objs) > 40000 ? true : false,
                 two_p: demonBoolDecoding[twoPlayer],
                 coins: Number(coins),
                 verified_coins: verifiedCoins,
                 song: getLvl.song,
             }
             
-            if(getLvl.pointercrate != undefined) {
+            if(getLvl.pointercrate != undefined && server.includes("boomlings.com/database")) {
                 result = {
                     id: Number(id),
                     name: name,
@@ -191,6 +199,7 @@ module.exports = {
                     game_version: decodeGameVersion[gameVersion],
                     ldm: demonBoolDecoding[ldm],
                     copied: Number(copiedID),
+                    large: Number(objs) > 40000 ? true : false,
                     two_p: demonBoolDecoding[twoPlayer],
                     coins: Number(coins),
                     verified_coins: verifiedCoins,

@@ -30,7 +30,7 @@ const { dlMessage } = require("./functions/dlMessage.js");
 const { uploadMessage } = require("./functions/uploadMessage.js");
 const { searchUsers } = require("./functions/searchUsers.js");
 
-module.exports.dlLevel = dlLevel;
+module.exports.dlLevel = dlLevel
 module.exports.getSongInfo = getSongInfo;
 module.exports.getOfficialSongInfo = getOfficialSongInfo;
 module.exports.getDailyLevel = getDailyLevel;

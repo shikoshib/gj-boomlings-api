@@ -1,12 +1,13 @@
 <div align="center">
-  <a href="https://www.npmjs.com/package/gj-boomlings-api"><img src="https://shikoshib.github.io/font1.png" width="600"></a><hr>
+  <h1>
+    <a href="https://www.npmjs.com/package/gj-boomlings-api"><img src="https://shikoshib.github.io/font1.png" width="576"></a>
+  </h1>
+  A light-weight Geometry Dash API wrapper<br><br>
   <a href="https://www.npmjs.com/package/gj-boomlings-api"><img src="https://img.shields.io/npm/v/gj-boomlings-api.svg?maxAge=3600" alt="npm version" /></a>
-  <a href="https://www.npmjs.com/package/gj-boomlings-api"><img src="https://img.shields.io/npm/dm/gj-boomlings-api.svg?maxAge=2592000" /></a>
+  <a href="https://www.npmjs.com/package/gj-boomlings-api"><img src="https://img.shields.io/npm/dt/gj-boomlings-api" /></a>
   <a href="https://snyk.io/test/github/shikoshib/gj-boomlings-api"><img src="https://snyk.io/test/github/shikoshib/gj-boomlings-api/badge.svg" alt="Known Vulnerabilities" /></a>
   <a href="https://packagequality.com/#?package=gj-boomlings-api"><img src="https://packagequality.com/shield/gj-boomlings-api.svg"/></a>
 </div>
-
-This package gets info from RobTop's servers (boomlings.com) and converts it into pure and beautiful JSON.
 
 ## Functions
 
@@ -30,11 +31,11 @@ Returns:
   level_version: 3,
   difficulty: 'Extreme Demon',
   stars: 10,
-  downloads: 18914789,
-  likes: 697155,
+  downloads: 19055472,
+  likes: 701448,
   disliked: false,
   length: 'XL',
-  password: '121296',
+  password: '21296',
   demon: true,
   featured: true,
   epic: true,
@@ -45,6 +46,7 @@ Returns:
   game_version: '2.1',
   ldm: false,
   copied: 25066306,
+  large: true,
   two_p: false,
   coins: 0,
   verified_coins: false,
@@ -56,8 +58,8 @@ Returns:
     fileSize: '9.56 MB',
     link: 'https://geometrydashcontent.b-cdn.net/songs/467339.mp3'
   },
-  pointercrate: { 
-    position: 49,
+  pointercrate: {
+    position: 50,
     publisher: 'knobbelboy',
     verifier: 'knobbelboy'
   }
@@ -79,9 +81,11 @@ Returns:
   username: 'RobTop',
   playerID: 16,
   accountID: 71,
-  rank: 219796,
-  stars: 2375,
-  diamonds: 2170,
+  rank: 220553,
+  color1: '#7D00FF',
+  color2: '#00FFFF',
+  stars: 2389,
+  diamonds: 2169,
   secretCoins: 3,
   userCoins: 140,
   demons: 5,

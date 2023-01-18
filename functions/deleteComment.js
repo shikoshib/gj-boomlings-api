@@ -1,5 +1,13 @@
 module.exports = {
     deleteComment:
+    /**
+    * Deletes the comment.
+    * 
+    * @param {number} id - The comment ID (returned by `uploadComment()` function).
+    * @param {number} lvl - The ID of a level the comment is posted on.
+    * @param {string} str - The deleting person's player ID or username.
+    * @param {string} password - The deleting person's password.
+    */
         async function(id, lvl, str, password) {
             if(!id || id == "") throw new Error("Please provide a comment ID!");
             if(!lvl || lvl == "") throw new Error("Please provide a level ID!");
@@ -28,6 +36,8 @@ module.exports = {
             }).catch(e => {
                 throw new Error(e.response.data);
             })
+
+            if(res.data == -1) throw new Error(-1);
 
             return 1;
         }

@@ -35,6 +35,6 @@ module.exports = {
                 throw new Error(e.response.data);
             })
 
-            return 1;
+            return res.data;
         }
 }

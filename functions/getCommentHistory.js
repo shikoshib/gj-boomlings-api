@@ -7,7 +7,7 @@ module.exports = {
             const {decCommentFromHistory} = require("../misc/decCommentFromHistory.js");
             const {getProfile} = require("./getProfile.js");
             
-            const user = await getProfile(id);
+            const user = await getProfile(str);
             if(user.commentHistory != "all") throw new Error("Whoops! This user has disabled viewing his comment history!")
 
             const CHData = {
@@ -15,7 +15,7 @@ module.exports = {
                 binaryVersion: 35,
                 gdw: 0,
                 secret: "Wmfd2893gb7",
-                userID: id,
+                userID: user.playerID,
                 page: page - 1,
                 mode: 1
             }
@@ -23,9 +23,10 @@ module.exports = {
             let res = await axios.post(server + "getGJCommentHistory.php", CHData, {
                 headers: headers
             }).catch(e => {
-                if(e.response.data == -1) throw new Error("-1 Not found.");
                 throw new Error(e.response.data);
             })
+
+            if(res.data == -1) throw new Error("-1 Not found.");
             
             let comments = res.data.split("|");
             let result = [];

@@ -20,9 +20,10 @@ module.exports = {
             let res = await axios.post(server + "getGJComments21.php", data, {
                 headers: headers
             }).catch(e => {
-                if(e.response.data == -1) throw new Error("-1 This user is not found.");
                 throw new Error(e.response.data);
             })
+
+            if(res.data.startsWith("#")) throw new Error("-1 No comments have been found.");
             
             let comments = res.data.split("|");
             let result = [];

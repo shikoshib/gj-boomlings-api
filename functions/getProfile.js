@@ -19,9 +19,10 @@ module.exports = {
             let res = await axios.post(server + "getGJUserInfo20.php", data, {
                 headers: headers
             }).catch(e => {
-                if(e.response.data == -1) throw new Error("-1 This user is not found.");
                 throw new Error(e.response.data);
             })
+
+            if(res.data == -1) throw new Error("-1 This user is not found.");
 
             let spl = res.data.split(':');
             let userInfo = [];
@@ -51,7 +52,7 @@ module.exports = {
             let twitch = userInfo[27].split("45:")[1];
             let modState = userInfo[28].split("49:")[1];
 
-            let ytLnk = `htps://youtube.com/channel/${youtube}`;
+            let ytLnk = `https://youtube.com/channel/${youtube}`;
             let twitterLnk = `https://twitter.com/${twitter}`;
             let twitchLnk = `https://twitch.tv/${twitch}`;
             

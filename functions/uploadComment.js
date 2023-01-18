@@ -47,6 +47,8 @@ module.exports = {
                 throw new Error(edata)
             })
 
-            return 1;
+            if(res.data == -1) throw new Error("Whoops, the servers have rejected your request!");
+
+            return res.data;
         }
 }

@@ -13,9 +13,10 @@ module.exports = {
             }, {
                 headers: headers
             }).catch(e => {
-                if(e.response.data == -1) throw new Error(`Couldn't find a "${username}" user.`)
                 throw new Error(e.response.data)
             });
+
+            if(res.data == -1) throw new Error(`Couldn't find a "${str}" user.`)
 
             return decodeUserResult(res.data);
         }
