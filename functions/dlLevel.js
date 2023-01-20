@@ -1,10 +1,5 @@
 module.exports = {
     dlLevel:
-    /**
-    * Downloads the level by its ID.
-    * 
-    * @param {number} level - The level ID.
-    */
         async function(level) {
             const {decB64} = require("../misc/decB64.js");
             const zlib = require("zlib");

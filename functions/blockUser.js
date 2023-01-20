@@ -1,12 +1,4 @@
 module.exports = {
-    blockUser:
-    /**
-    * Blocks the user.
-    * 
-    * @param {string} target - The target's player ID or username.
-    * @param {string} username - The blocking person's player ID or username.
-    * @param {string} password - The blocking person's password.
-    */
         async function(target, username, password) {
             if(!target || target == "") throw new Error("Please provide a target's player ID or username!");
             if(!username || username == "") throw new Error("Please provide your player ID or username!");

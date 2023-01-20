@@ -1,12 +1,5 @@
 module.exports = {
     deleteAccountPost:
-    /**
-    * Deletes the account post.
-    * 
-    * @param {number} id - The account post ID (returned by `uploadAccountPost()` function).
-    * @param {string} str - The deleting person's player ID or username.
-    * @param {string} password - The deleting person's password.
-    */
         async function(id, str, password) {
             if(!id || id == "") throw new Error("Please provide an account post ID!");
             if(!str || str == "") throw new Error("Please provide a user ID or name!");
