@@ -1,4 +1,5 @@
 module.exports = {
+    blockUser:
         async function(target, username, password) {
             if(!target || target == "") throw new Error("Please provide a target's player ID or username!");
             if(!username || username == "") throw new Error("Please provide your player ID or username!");
