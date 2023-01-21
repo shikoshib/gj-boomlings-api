@@ -1,6 +1,6 @@
 module.exports = {
-    decodeLevel:
-        async function(level){
+    decodeLevelRes:
+        function(level){
             const {decB64} = require("./decB64.js");
             
             let spl = level.split(':');
@@ -14,6 +14,7 @@ module.exports = {
             let id = levelInfo[0].split("1:")[1];
             let name = levelInfo[1].split("2:")[1];
             let version = levelInfo[2].split("5:")[1];
+            let playerID = levelInfo[3].split("6:")[1];
             let difficulty = levelInfo[5].split("9:")[1];
             let downloads = levelInfo[6].split("10:")[1];
             let officialSong = levelInfo[7].split("12:")[1];
@@ -32,11 +33,6 @@ module.exports = {
             let verifiedCoins = levelInfo[22].split("38:")[1];
             let starsRequested = levelInfo[23].split("39:")[1];
             let customSong = levelInfo[26].split("35:")[1].split("#")[0];
-            let author = "-";
-            
-            if(levelInfo.length == 29) {
-                author = levelInfo[27].split(":")[0];
-            }
 
             let disliked = false;
             if(likes.includes("-")) disliked = true;
@@ -104,40 +100,11 @@ module.exports = {
                 "20": "2.0",
                 "21": "2.1"
             }
-            
-            const { getOfficialSongInfo } = require("../functions/getOfficialSongInfo.js");
-            
-            let song;
-            if(Number(officialSong) > 0) song = getOfficialSongInfo(Number(officialSong) + 1);
-            if(Number(officialSong) == 0 && Number(customSong) == 0) song = getOfficialSongInfo(1);
-            if(Number(customSong) > 0) {
-                let songName = level.split("~|~2~|~")[1].split("~|~3~|~")[0]
-                let songId = Number(level.split("#1~|~")[1].split("~|~2~|~")[0])
-                let artist = level.split("~|~4~|~")[1].split("~|~5~|~")[0]
-                let artistId = Number(level.split("~|~3~|~")[1].split("~|~4~|~")[0])
-                let size = `${level.split("~|~5~|~")[1].split("~|~6~|~")[0]} MB`
-                let link = decodeURIComponent(level.split("~|~10~|~")[1].split("~|~7~|~")[0])
 
-                let songinfo = {
-                    "name": songName,
-                    "id": songId,
-                    "artist": artist,
-                    "artistId": artistId,
-                    "fileSize": size,
-                    "link": link
-                }
-
-                song = songinfo;
-            }
-
-            const { demonlist } = require("./demonlist.js");
-            let dlist = await demonlist(name);
-            
             let result = {
                 id: Number(id),
                 name: name,
                 description: decB64(desc),
-                creator: author,
                 level_version: Number(version),
                 difficulty: difficultyDecoding[difficulty],
                 stars: Number(stars),
@@ -155,14 +122,14 @@ module.exports = {
                 large: Number(objs) > 40000 ? true : false,
                 two_p: demonBoolDecoding[twoPlayer],
                 coins: Number(coins),
-                verified_coins: verifiedCoins,
-                song: song
+                verified_coins: verifiedCoins
             }
 
-            if(dlist != null) {
-                result['pointercrate'] = dlist;
-            }
-
-            return result;
+            return {
+                    res: result, 
+                    playerID: playerID, 
+                    officialSong: officialSong, 
+                    customSong: customSong
+                };
         }
 }

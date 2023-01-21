@@ -2,7 +2,7 @@
   <h1>
     <a href="https://www.npmjs.com/package/gj-boomlings-api"><img src="https://shikoshib.github.io/font1.png" width="576"></a>
   </h1>
-  A light-weight Geometry Dash API wrapper<br><br>
+  A light-weight Geometry Dash API wrapper<br><br><a href="https://shikoshib.github.io/gj-boomlings-api"><b>Documentation (coming soon)</b></a><br><br>
   <a href="https://www.npmjs.com/package/gj-boomlings-api"><img src="https://img.shields.io/npm/v/gj-boomlings-api.svg?maxAge=3600" alt="npm version" /></a>
   <a href="https://www.npmjs.com/package/gj-boomlings-api"><img src="https://img.shields.io/npm/dt/gj-boomlings-api" /></a>
   <a href="https://snyk.io/test/github/shikoshib/gj-boomlings-api"><img src="https://snyk.io/test/github/shikoshib/gj-boomlings-api/badge.svg" alt="Known Vulnerabilities" /></a>
