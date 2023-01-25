@@ -9,8 +9,8 @@ module.exports = {
 
             const { gjp } = require("../misc/gjp.js");
             const { encB64 } = require("../misc/encB64.js");
-            const axios = require("axios");
-            const { headers, server, secret } = require("../config.json");
+            const {gjReq} = require("../misc/gjReq.js");
+            const { secret } = require("../config.json");
             const { searchUsers } = require("./searchUsers.js");
             
             let receiverObj = await searchUsers(receiver);
@@ -19,7 +19,7 @@ module.exports = {
             const XOR = require("../misc/xor.js");
             const xor = new XOR();
 
-            const uMdata = {
+            const data = {
                 accountID: userObj.accountID,
                 toAccountID: receiverObj.accountID,
                 gjp: gjp(pass),
@@ -28,12 +28,7 @@ module.exports = {
                 secret: secret
             }
 
-            let res = await axios.post(server + "uploadGJMessage20.php", uMdata, {
-                headers: headers
-            }).catch(e => {
-                throw new Error(e.response.data)
-            });
-
+            let res = await gjReq("uploadGJMessage20", data);
             if(res.data == -1) throw new Error(-1);
 
             return 1;

@@ -1,14 +1,14 @@
 module.exports = {
     demonlist:
         async function(name) {
-            const axios = require("axios");
-            let r = await axios.get(`https://pointercrate.com/api/v2/demons/?name=${name}`);
-            if(r.data[0] == undefined) return null;
+            let r = await fetch(`https://pointercrate.com/api/v2/demons/?name=${name}`);
+            let lvlObj = await r.json();
+            if(lvlObj == undefined) return null;
             
             const res = {
-                "position": r.data[0].position,
-                "publisher": r.data[0].publisher.name,
-                "verifier": r.data[0].verifier.name,
+                "position": lvlObj[0].position,
+                "publisher": lvlObj[0].publisher.name,
+                "verifier": lvlObj[0].verifier.name,
             }
                 
             return res;

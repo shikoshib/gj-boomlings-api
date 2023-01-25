@@ -6,27 +6,22 @@ module.exports = {
             if(!user || user == "") throw new Error("Please provide your player ID or username!");
             if(!pass || pass == "") throw new Error("Please provide your password!");
             
-            const axios = require("axios");
-            const {headers, server, secret} = require("../config.json");
+            const {gjReq} = require("../misc/gjReq.js");
+            const {secret} = require("../config.json");
             const { searchUsers } = require("./searchUsers.js");
             const {gjp} = require("../misc/gjp.js");
             const {decMessage} = require("../misc/decMessage.js");
 
             let userObj = await searchUsers(user);
 
-            const msgData = {
+            const data = {
                 accountID: userObj.accountID,
                 gjp: gjp(pass),
                 secret: secret,
                 messageID: id
             }
 
-            let res = await axios.post(server + "downloadGJMessage20.php", msgData, {
-                headers: headers
-            }).catch(e => {
-                throw new Error(e.response.data)
-            })
-
+            let res = await gjReq("downloadGJMessage20", data);
             if(res.data == -1) throw new Error(-1);
 
             return decMessage(res.data);

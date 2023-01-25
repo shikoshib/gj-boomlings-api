@@ -6,8 +6,8 @@ module.exports = {
             if(!level || level == "") throw new Error("Please provide a level ID.");
             if(isNaN(level)) throw new Error("The level parameter should be a number.");
 
-            const axios = require("axios");
-            const { headers, server } = require("../config.json");
+            const {gjReq} = require("../misc/gjReq.js");
+            const { server } = require("../config.json");
 
             const XOR = require("../misc/xor.js");
             let xor = new XOR()
@@ -20,12 +20,7 @@ module.exports = {
                 secret: "Wmfd2893gb7"
             }
 
-            let res = await axios.post(server + 'downloadGJLevel22.php', data, {
-                headers: headers
-            }).catch(e => {
-                throw new Error(e.response.data);
-            })
-
+            let res = await gjReq('downloadGJLevel22', data);
             if(res.data == -1) throw new Error("-1 This level is not found.");
 
             let spl = res.data.split(":");
@@ -63,8 +58,7 @@ module.exports = {
 
             if(password.length == 7) password = password.replace("1", "");
 
-            let disliked = false;
-            if(likes.includes("-")) disliked = true;
+            let disliked = likes.includes("-") ? true : false;
 
             if(verifiedCoins == "0") verifiedCoins = false;
             if(verifiedCoins == "1") verifiedCoins = true;
@@ -171,36 +165,7 @@ module.exports = {
             }
             
             if(getLvl.pointercrate != undefined && server.includes("boomlings.com/database")) {
-                result = {
-                    id: Number(id),
-                    name: name,
-                    description: description,
-                    creator: getLvl.creator,
-                    level_version: Number(version),
-                    difficulty: difficultyDecoding[difficulty],
-                    stars: Number(stars),
-                    downloads: Number(downloads),
-                    likes: Number(likes),
-                    disliked: disliked,
-                    length: lengthDecoding[length],
-                    password: password.replace("1", ""), 
-                    demon: demonBoolDecoding[demonBool],
-                    featured: featured,
-                    epic: demonBoolDecoding[epic],
-                    objects: objects,
-                    uploaded: uploaded,
-                    updated: updated,
-                    stars_requested: Number(starsRequested),
-                    game_version: decodeGameVersion[gameVersion],
-                    ldm: demonBoolDecoding[ldm],
-                    copied: Number(copiedID),
-                    large: Number(objs) > 40000 ? true : false,
-                    two_p: demonBoolDecoding[twoPlayer],
-                    coins: Number(coins),
-                    verified_coins: verifiedCoins,
-                    song: getLvl.song,
-                    pointercrate: getLvl.pointercrate
-                }
+                result.pointercrate = getLvl.pointercrate;
             }
 
           return result;

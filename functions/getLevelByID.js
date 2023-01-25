@@ -5,8 +5,8 @@ module.exports = {
             if(isNaN(id)) throw new Error("The level ID should be a number!");
 
             const {decodeLevel} = require("../misc/decodeLevel.js");
-            const axios = require("axios");
-            const {headers, server, secret} = require("../config.json");
+            const {gjReq} = require("../misc/gjReq.js");
+            const {secret} = require("../config.json");
 
             const data = {
                 secret: secret,
@@ -17,12 +17,7 @@ module.exports = {
                 type: 0
             }
 
-            let res = await axios.post(server + "getGJLevels21.php", data, {
-                headers: headers
-            }).catch(e => {
-                throw new Error(e.response.data);
-            })
-
+            let res = await gjReq("getGJLevels21", data);
             if(res.data == -1) throw new Error("-1 Not found.");
 
             return await decodeLevel(res.data);

@@ -2,8 +2,7 @@ module.exports = {
     getProfile:
         async function(str) {
             if(!str || str == "") throw new Error("Please provide a user ID or name!");
-            const axios = require("axios");
-            const { headers, server } = require("../config.json");
+            const {gjReq} = require("../misc/gjReq.js");
             const { searchUsers } = require("./searchUsers.js");
 
             let user = await searchUsers(str);
@@ -16,12 +15,7 @@ module.exports = {
                 secret: "Wmfd2893gb7"
             };
 
-            let res = await axios.post(server + "getGJUserInfo20.php", data, {
-                headers: headers
-            }).catch(e => {
-                throw new Error(e.response.data);
-            })
-
+            let res = await gjReq("getGJUserInfo20", data);
             if(res.data == -1) throw new Error("-1 This user is not found.");
 
             let spl = res.data.split(':');
@@ -52,13 +46,10 @@ module.exports = {
             let twitch = userInfo[27].split("45:")[1];
             let modState = userInfo[28].split("49:")[1];
 
-            let ytLnk = `https://youtube.com/channel/${youtube}`;
-            let twitterLnk = `https://twitter.com/${twitter}`;
-            let twitchLnk = `https://twitch.tv/${twitch}`;
-            
-            if(youtube == "") ytLnk = null;
-            if(twitter == "") twitterLnk = null;
-            if(twitch == "") twitchLnk = null;
+            let ytLnk = youtube != "" ? `https://youtube.com/channel/${youtube}` : null;
+            let twitterLnk = twitter != "" ? `https://twitter.com/${twitter}` : null;
+            let twitchLnk = twitch != "" ? `https://twitch.tv/${twitch}` : null;
+
             if(youtube.endsWith("123")) ytLnk = `https://youtube.com/channel/${youtube.split("123")[0]}`;
             if(twitter.endsWith("123")) twitterLnk = `https://twitter.com/${twitter.split("123")[0]}`;
             if(twitch.endsWith("123")) twitchLnk = `https://twitch.tv/${twitch.split("123")[0]}`;

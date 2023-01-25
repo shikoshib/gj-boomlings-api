@@ -2,8 +2,8 @@ module.exports = {
     getCreatorScores:
         async function() {
             const { decScoresUser } = require("../misc/decScoresUser.js");
-            const axios = require("axios");
-            const { headers, server, secret } = require("../config.json");
+            const {gjReq} = require("../misc/gjReq.js");
+            const { secret } = require("../config.json");
 
             const data = {
                 secret: secret,
@@ -11,9 +11,7 @@ module.exports = {
                 count: 100
             }
 
-            let res = await axios.post(server + "getGJScores20.php", data, {
-                headers: headers
-            })
+            let res = await gjReq("getGJScores20", data);
 
             let players = res.data.split("|");
             let emptyElem = players.indexOf(100);

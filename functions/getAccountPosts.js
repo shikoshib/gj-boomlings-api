@@ -3,8 +3,7 @@ module.exports = {
         async function(str, page = 1) {
             if(!str || str == "") throw new Error("Please provide a user ID or name!");
             const { decodeAccountPost } = require("../misc/decodeAccountPost.js");
-            const axios = require("axios");
-            const { headers, server } = require("../config.json");
+            const {gjReq} = require("../misc/gjReq.js");
             const { searchUsers } = require("./searchUsers.js");
 
             let user = await searchUsers(str);
@@ -18,13 +17,9 @@ module.exports = {
                 page: page - 1
             };
 
-            let res = await axios.post(server + "getGJAccountComments20.php", ACdata, {
-                headers: headers
-            }).catch(e => {
-                if(e.response.data == -1) throw new Error("-1 Not found.");
-                if(e.response.data.startsWith("#")) throw new Error("Whoops! Couldn't find anything!");
-                throw new Error(e.response.data);
-            })
+            let res = await gjReq("getGJAccountComments20", ACdata);
+            if(res.data == -1) throw new Error("-1 Not found.");
+            if(res.data.startsWith("#")) throw new Error("Whoops! Couldn't find anything!");
             
             let accPosts = res.data.split("|");
             let result = [];

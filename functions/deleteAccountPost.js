@@ -5,8 +5,7 @@ module.exports = {
             if(!str || str == "") throw new Error("Please provide a user ID or name!");
             if(!password || password == "") throw new Error("Please provide a password!");
 
-            const axios = require("axios");
-            const { headers, server } = require("../config.json");
+            const {gjReq} = require("../misc/gjReq.js");
             const { searchUsers } = require("./searchUsers.js");
 
             let user = await searchUsers(str);
@@ -14,7 +13,7 @@ module.exports = {
             const XOR = require("../misc/xor.js");
             const xor = new XOR();
 
-            let dACdata = {
+            let data = {
                 gameVersion: 21,
                 binaryVersion: 35,
                 gdw: 0,
@@ -24,12 +23,7 @@ module.exports = {
                 commentID: id,
             };
 
-            let res = await axios.post(server + "deleteGJAccComment20.php", dACdata, {
-                headers: headers
-            }).catch(e => {
-                throw new Error(e.response.data);
-            })
-
+            let res = await gjReq("deleteGJAccComment20", data);
             if(res.data == -1) throw new Error(-1);
 
             return 1;

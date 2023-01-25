@@ -1,8 +1,7 @@
 module.exports = {
     getGauntlets: 
         async function() {
-            const axios = require('axios');
-            const {headers, server} = require("../config.json");
+            const {gjReq} = require("../misc/gjReq.js");
             const { decodeGJGauntlet } = require("../misc/decodeGJGauntlet.js")
 
             const data = {
@@ -12,11 +11,7 @@ module.exports = {
                 gdw: 0
             }
 
-            let res = await axios.post(server + "getGJGauntlets21.php", data, {
-                headers: headers
-            }).catch(e => {
-                throw new Error(e.response.data);
-            })
+            let res = await gjReq("getGJGauntlets21", data)
 
             let gauntlets = res.data.split("|");
             let result = [];

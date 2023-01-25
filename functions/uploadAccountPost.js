@@ -6,8 +6,7 @@ module.exports = {
             if(!str || str == "") throw new Error("Please provide a user ID or name!");
             if(!password || password == "") throw new Error("Please provide a password!");
             
-            const axios = require("axios");
-            const { headers, server } = require("../config.json");
+            const {gjReq} = require("../misc/gjReq.js");
             const { searchUsers } = require("./searchUsers.js");
 
             let user = await searchUsers(str);
@@ -28,12 +27,8 @@ module.exports = {
                 cType: 1
             };
 
-            let res = await axios.post(server + "uploadGJAccComment20.php", uACdata, {
-                headers: headers
-            }).catch(e => {
-                if(e.response.status == 500) throw new Error("500 Error: couldn't post!");
-                throw new Error(e.response.data);
-            })
+            let res = await gjReq("uploadGJAccComment20", uACdata);
+            if(res.status == 500) throw new Error("500 Error: couldn't post!");
 
             return res.data;
         }

@@ -3,8 +3,8 @@ module.exports = {
         async function(str, page = 1) {
             if(!str || str == "") throw new Error("Please provide a username or player ID!");
 
-            const axios = require("axios");
-            const { headers, secret, server } = require("../config.json");
+            const {gjReq} = require("../misc/gjReq.js");
+            const { secret } = require("../config.json");
             const { decodeLevelRes } = require("../misc/decodeLevelRes.js");
             const { searchUsers } = require("./searchUsers.js");
 
@@ -17,11 +17,7 @@ module.exports = {
                 page: Number(page) - 1
             }
 
-            let res = await axios.post(server + "getGJLevels21.php", data, {
-                headers: headers
-            }).catch(e => {
-                throw new Error(e.response.data);
-            })
+            let res = await gjReq("getGJLevels21", data)
 
             let levels = res.data.split("#")[0].split("|");
             let creators = res.data.split("#")[1].split("|");

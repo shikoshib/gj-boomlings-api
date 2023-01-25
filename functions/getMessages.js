@@ -5,27 +5,22 @@ module.exports = {
             if(!pass || pass == "") throw new Error("Please provide your password!");
             if(Number(page) == NaN) throw new Error("The page should be a number!");
             
-            const axios = require("axios");
-            const {headers, server, secret} = require("../config.json");
+            const {gjReq} = require("../misc/gjReq.js");
+            const {secret} = require("../config.json");
             const {gjp} = require("../misc/gjp.js");
             const {decMsg} = require("../misc/decMsg.js");
             const { searchUsers } = require("./searchUsers.js");
 
             let userObj = await searchUsers(user);
 
-            const msgData = {
+            const data = {
                 accountID: userObj.accountID,
                 gjp: gjp(pass),
                 secret: secret,
-                page: page - 1
+                page: Number(page) - 1
             }
 
-            let res = await axios.post(server + "getGJMessages20.php", msgData, {
-                headers: headers
-            }).catch(e => {
-                throw new Error(e.response.data)
-            })
-
+            let res = await gjReq("getGJMessages20", data);
             if(res.data == -1) throw new Error(-1);
 
             let msgs = res.data.split("|");

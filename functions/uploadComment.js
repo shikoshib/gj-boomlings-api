@@ -9,8 +9,7 @@ module.exports = {
 
             const { gjp } = require("../misc/gjp.js");
             const { encB64 } = require("../misc/encB64.js");
-            const axios = require("axios");
-            const { headers, server } = require("../config.json");
+            const {gjReq} = require("../misc/gjReq.js");
             const crypto = require('crypto')
             const { searchUsers } = require("./searchUsers.js");
 
@@ -37,17 +36,11 @@ module.exports = {
                 secret: "Wmfd2893gb7"
             }
 
-            let res = await axios.post(server + "uploadGJComment21.php", uCdata, {
-                headers: headers
-            }).catch(e => {
-                let edata = e.response.data;
-                if(edata == -10) edata = "You're permanently banned from commenting by RobTop!";
-                if(edata.startsWith("temp_")) edata = `You're temporarily banned from commenting by RobTop or Elder Moderators!\nRemaining duration: ${edata.split("_")[1].split("_")[0]}\nReason: ${edata.split("_")[2]}`;
-                if(edata == '') edata = "Whoops, the servers have rejected your request!";
-                throw new Error(edata)
-            })
+            let res = await gjReq("uploadGJComment21", uCdata);
 
             if(res.data == -1) throw new Error("Whoops, the servers have rejected your request!");
+            if(res.data == -10) throw new Error("You're permanently banned from commenting!");
+            if(res.data.startsWith("temp_")) throw new Error(`You're temporarily banned from commenting!\nRemaining duration: ${edata.split("_")[1]}\nReason: ${edata.split("_")[2]}`);
 
             return res.data;
         }

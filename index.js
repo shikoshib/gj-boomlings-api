@@ -29,8 +29,10 @@ const { getMessages } = require("./functions/getMessages.js");
 const { dlMessage } = require("./functions/dlMessage.js");
 const { uploadMessage } = require("./functions/uploadMessage.js");
 const { searchUsers } = require("./functions/searchUsers.js");
+const { getFriendsList } = require("./functions/getFriendsList.js");
+const { getBlockedList } = require("./functions/getBlockedList.js");
 
-module.exports.dlLevel = dlLevel
+module.exports.dlLevel = dlLevel;
 module.exports.getSongInfo = getSongInfo;
 module.exports.getOfficialSongInfo = getOfficialSongInfo;
 module.exports.getDailyLevel = getDailyLevel;
@@ -58,3 +60,5 @@ module.exports.getMessages = getMessages;
 module.exports.dlMessage = dlMessage;
 module.exports.uploadMessage = uploadMessage;
 module.exports.searchUsers = searchUsers;
+module.exports.getFriendsList = getFriendsList;
+module.exports.getBlockedList = getBlockedList;

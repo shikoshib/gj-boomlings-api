@@ -3,18 +3,14 @@ module.exports = {
         async function(song) {
             if(!song || song == "") throw new Error("Please provide a song ID.");
             if(isNaN(song)) throw new Error("A song ID must be a number.")
-            const axios = require("axios")
-            const {headers, server} = require("../config.json")
+            const {gjReq} = require("../misc/gjReq.js");
 
             const data = {
                 songID: song,
                 secret: "Wmfd2893gb7"
             }
 
-            let res = await axios.post(server + 'getGJSongInfo.php', data, {
-                headers: headers
-            })
-
+            let res = await gjReq('getGJSongInfo', data);
             if(res.data == -2) throw new Error(`-2. Couldn't find a song with ID ${song}.`)
 
             const result = {

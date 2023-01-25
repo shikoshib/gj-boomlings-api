@@ -8,9 +8,9 @@ module.exports = {
             if(!desc) desc = "(No description provided)";
             if(!user || user == "") throw new Error("Please provide a user ID or name!");
             if(!password || password == "") throw new Error("Please provide a password!");
-            
-            const axios = require("axios");
-            const { headers, server, secret } = require("../config.json");
+
+            const {gjReq} = require("../misc/gjReq.js");
+            const { secret } = require("../config.json");
             const { searchUsers } = require("./searchUsers.js");
 
             let userObj = await searchUsers(user);
@@ -26,13 +26,9 @@ module.exports = {
                 secret: secret
             }
 
-            let res = await axios.post(server + "updateGJDesc20.php", uLDdata, {
-                headers: headers
-            }).catch(e => {
-                if(e.response.data == -1) throw new Error("-1 Failed to update the description.")
-                throw new Error(e.response.data);
-            })
-            
+            let res = await gjReq("updateGJDesc20", uLDdata);
+            if(res.data == -1) throw new Error("-1 Failed to update the description.");
+
             return 1;
         }
 }

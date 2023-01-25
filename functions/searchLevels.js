@@ -1,8 +1,8 @@
 module.exports = {
     searchLevels:
         async function(query, page = 1) {
-            const axios = require("axios");
-            const { headers, server, secret } = require("../config.json");
+            const {gjReq} = require("../misc/gjReq.js");
+            const { secret } = require("../config.json");
 
             const { decodeLevelRes } = require("../misc/decodeLevelRes.js");
             
@@ -13,11 +13,7 @@ module.exports = {
                 secret: secret
             }
 
-            let res = await axios.post(server + "getGJLevels21.php", data, {
-                headers: headers
-            }).catch(e => {
-                throw new Error(e.response.data);
-            })
+            let res = await gjReq("getGJLevels21", data)
 
             let levels = res.data.split("#")[0].split("|");
             let creators = res.data.split("#")[1].split("|");
