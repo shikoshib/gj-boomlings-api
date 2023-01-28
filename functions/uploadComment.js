@@ -40,7 +40,7 @@ module.exports = {
 
             if(res.data == -1) throw new Error("Whoops, the servers have rejected your request!");
             if(res.data == -10) throw new Error("You're permanently banned from commenting!");
-            if(res.data.startsWith("temp_")) throw new Error(`You're temporarily banned from commenting!\nRemaining duration: ${edata.split("_")[1]}\nReason: ${edata.split("_")[2]}`);
+            if(res.data.startsWith("temp_")) throw new Error(`You're temporarily banned from commenting!\nRemaining duration: ${edata.split("_")[1]} seconds\nReason: ${edata.split("_")[2]}`);
 
             return res.data;
         }

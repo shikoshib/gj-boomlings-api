@@ -1,6 +1,6 @@
 {
   "name": "gj-boomlings-api",
-  "version": "1.4.0",
+  "version": "1.4.2",
   "description": "A light-weight Geometry Dash API wrapper",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/shikoshib/gj-boomlings-api/issues"
   },
-  "homepage": "https://shikoshib.github.io/gj-boomlings-api/",
+  "homepage": "https://github.com/shikoshib/gj-boomlings-api/wiki",
   "keywords": [
     "geometrydash",
     "gd",

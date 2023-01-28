@@ -8,11 +8,12 @@ module.exports = {
             const { decodeLevelRes } = require("../misc/decodeLevelRes.js");
             const { searchUsers } = require("./searchUsers.js");
 
-            let user = await searchUsers(str);
+            let user = str;
+            if(isNaN(str)) user = await (await searchUsers(str)).playerID;
 
             const data = {
                 type: 5,
-                str: user.playerID,
+                str: user,
                 secret: secret,
                 page: Number(page) - 1
             }

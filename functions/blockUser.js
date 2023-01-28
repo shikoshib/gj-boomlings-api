@@ -24,6 +24,7 @@ module.exports = {
             }
 
             let res = await gjReq("blockGJUser20", data);
+            if(res.data == -1) throw new Error(-1);
 
             return 1;
         }

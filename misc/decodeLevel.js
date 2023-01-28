@@ -129,9 +129,6 @@ module.exports = {
 
                 song = songinfo;
             }
-
-            const { demonlist } = require("./demonlist.js");
-            let dlist = await demonlist(name);
             
             let result = {
                 id: Number(id),
@@ -159,8 +156,10 @@ module.exports = {
                 song: song
             }
 
-            if(dlist != null) {
-                result['pointercrate'] = dlist;
+            if(["Extreme Demon", "Insane Demon"].includes(difficultyDecoding[difficulty])) {
+                const { demonlist } = require("./demonlist.js");
+                const dlist = await demonlist(name.trim());
+                if(dlist != null) result.pointercrate = dlist;
             }
 
             return result;

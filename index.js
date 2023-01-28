@@ -31,6 +31,7 @@ const { uploadMessage } = require("./functions/uploadMessage.js");
 const { searchUsers } = require("./functions/searchUsers.js");
 const { getFriendsList } = require("./functions/getFriendsList.js");
 const { getBlockedList } = require("./functions/getBlockedList.js");
+const { deleteLevel } = require("./functions/deleteLevel.js");
 
 module.exports.dlLevel = dlLevel;
 module.exports.getSongInfo = getSongInfo;
@@ -62,3 +63,4 @@ module.exports.uploadMessage = uploadMessage;
 module.exports.searchUsers = searchUsers;
 module.exports.getFriendsList = getFriendsList;
 module.exports.getBlockedList = getBlockedList;
+module.exports.deleteLevel = deleteLevel;

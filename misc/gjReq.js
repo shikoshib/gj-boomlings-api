@@ -2,15 +2,17 @@ module.exports = {
     gjReq:
         async function(endpoint, data) {
             const { server } = require("../config.json");
+            let headers = new Headers({
+                "Content-Type": "application/x-www-form-urlencoded",
+                "User-Agent": " ",
+                "Accept-Encoding": "*",
+                "Accept": "*/*"
+            })
             
             let r = await fetch(`${server}${endpoint.endsWith(".php") ? endpoint.split(".php")[0] : endpoint}.php`, {
                 method: 'POST',
-                headers: {
-                    "Content-Type":"application/x-www-form-urlencoded",
-                    "user-agent":"",
-                    "Accept-Encoding":"*",
-                    "Accept":"*/*"
-                },
+                mode: "no-cors",
+                headers: headers,
                 body: new URLSearchParams(data)
             })
 
