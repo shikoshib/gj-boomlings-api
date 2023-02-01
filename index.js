@@ -32,6 +32,7 @@ const { searchUsers } = require("./functions/searchUsers.js");
 const { getFriendsList } = require("./functions/getFriendsList.js");
 const { getBlockedList } = require("./functions/getBlockedList.js");
 const { deleteLevel } = require("./functions/deleteLevel.js");
+const { gjReq } = require("./misc/gjReq.js");
 
 module.exports.dlLevel = dlLevel;
 module.exports.getSongInfo = getSongInfo;
@@ -64,3 +65,4 @@ module.exports.searchUsers = searchUsers;
 module.exports.getFriendsList = getFriendsList;
 module.exports.getBlockedList = getBlockedList;
 module.exports.deleteLevel = deleteLevel;
+module.exports.gjReq = gjReq;
