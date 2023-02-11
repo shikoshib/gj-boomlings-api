@@ -3,13 +3,14 @@ module.exports = {
         async function(level, d, user, password) {
             let desc = d;
 
-            if(!level || level == "") throw new Error("Please provide a level ID!");
+            if(!level) throw new Error("Please provide a level ID!");
             if(Number(level) == NaN) throw new Error("A level ID must be a number!");
             if(!desc) desc = "(No description provided)";
-            if(!user || user == "") throw new Error("Please provide a user ID or name!");
-            if(!password || password == "") throw new Error("Please provide a password!");
+            if(!user) throw new Error("Please provide a user ID or name!");
+            if(!password) throw new Error("Please provide a password!");
 
             const {gjReq} = require("../misc/gjReq.js");
+            const {gjWReq} = require("../misc/gjWReq.js");
             const { secret } = require("../config.json");
             const { searchUsers } = require("./searchUsers.js");
 
@@ -29,6 +30,9 @@ module.exports = {
             let res = await gjReq("updateGJDesc20", uLDdata);
             if(res.data == -1) throw new Error("-1 Failed to update the description.");
 
-            return 1;
+            if(res.data.startsWith("error code")) res = await gjWReq("updateLevelDesc", `${level}?content=${encB64(desc)}&user=${user}&password=${password}`);
+            if(res.status == 403) throw new Error(res.data.error);
+
+            return res.data;
         }
 }

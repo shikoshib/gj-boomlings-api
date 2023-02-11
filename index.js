@@ -1,6 +1,3 @@
-console.log('\x1b[32m%s\x1b[40m', 'Thanks for using gj-boomlings-api!\nhttps://github.com/shikoshib/gj-boomlings-api');
-console.log('\x1b[37m%s\x1b[0m', '');
-
 const { dlLevel } = require("./functions/dlLevel.js");
 const { getSongInfo } = require("./functions/getSongInfo.js");
 const { getOfficialSongInfo } = require("./functions/getOfficialSongInfo.js");

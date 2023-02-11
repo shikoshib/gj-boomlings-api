@@ -2,6 +2,7 @@ module.exports = {
     searchLevels:
         async function(query, page = 1) {
             const {gjReq} = require("../misc/gjReq.js");
+            const {gjWReq} = require("../misc/gjWReq.js");
             const { secret } = require("../config.json");
 
             const { decodeLevelRes } = require("../misc/decodeLevelRes.js");
@@ -14,6 +15,12 @@ module.exports = {
             }
 
             let res = await gjReq("getGJLevels21", data)
+
+            if(res.data.startsWith("error code")) {
+                res = await gjWReq("searchLevels", `${query}?page=${page}`);
+                if(res.status == 403) throw new Error(res.data.error);
+                return res.data;
+            }
 
             let levels = res.data.split("#")[0].split("|");
             let creators = res.data.split("#")[1].split("|");

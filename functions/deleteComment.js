@@ -1,12 +1,13 @@
 module.exports = {
     deleteComment:
         async function(id, lvl, str, password) {
-            if(!id || id == "") throw new Error("Please provide a comment ID!");
-            if(!lvl || lvl == "") throw new Error("Please provide a level ID!");
-            if(!str || str == "") throw new Error("Please provide a user ID or name!");
-            if(!password || password == "") throw new Error("Please provide a password!");
+            if(!id) throw new Error("Please provide a comment ID!");
+            if(!lvl) throw new Error("Please provide a level ID!");
+            if(!str) throw new Error("Please provide a user ID or name!");
+            if(!password) throw new Error("Please provide a password!");
 
             const {gjReq} = require("../misc/gjReq.js");
+            const {gjWReq} = require("../misc/gjWReq.js");
             const { searchUsers } = require("./searchUsers.js");
 
             let user = await searchUsers(str);

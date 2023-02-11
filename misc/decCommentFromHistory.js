@@ -19,6 +19,8 @@ module.exports = {
             let age = cmnt[5].split("~")[1];
             let messageID = cmnt[6].split("~")[1].split(":")[0];
             let username = cmnt[7].split("~")[0];
+
+            if(Number(cmnt[7].split("~")[0]) != NaN) username = cmnt[9].split("~")[0];
             
             const res = {
                 username: username,

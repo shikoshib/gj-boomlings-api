@@ -3,25 +3,29 @@ module.exports = {
         async function(level) {
             const {decB64} = require("../misc/decB64.js");
             const zlib = require("zlib");
-            if(!level || level == "") throw new Error("Please provide a level ID.");
+            if(!level) throw new Error("Please provide a level ID.");
             if(isNaN(level)) throw new Error("The level parameter should be a number.");
 
             const {gjReq} = require("../misc/gjReq.js");
+            const {gjWReq} = require("../misc/gjWReq.js");
             const { server } = require("../config.json");
 
             const XOR = require("../misc/xor.js");
             let xor = new XOR()
 
             const data = {
-                gameVersion: 21,
-                binaryVersion: 35,
-                gdw: 0,
                 levelID: level.toString().trim(),
                 secret: "Wmfd2893gb7"
             }
 
             let res = await gjReq('downloadGJLevel22', data);
             if(res.data == -1) throw new Error("-1 This level is not found.");
+
+            if(res.data.startsWith("error code")) {
+                res = await gjWReq("dlLevel", level);
+                if(res.status == 403) throw new Error(res.data.error);
+                return res.data;
+            }
 
             let spl = res.data.split(":");
             let levelInfo = [];
@@ -60,23 +64,7 @@ module.exports = {
 
             let disliked = likes.includes("-") ? true : false;
 
-            if(verifiedCoins == "0") verifiedCoins = false;
-            if(verifiedCoins == "1") verifiedCoins = true;
-
-            let demonBoolDecoding = {
-                '1': true,
-                '': false,
-                '0': false
-            }
-
-            let featuredDecoding = {
-                "0": false,
-                "1": true,
-                undefined: true
-            }
-
-            let featured = featuredDecoding[ftrd];
-            if(featured == undefined) featured = true;
+            let featured = Boolean(Number(ftrd));
 
             let difficultyDecoding = {
                 "-10": "Auto",
@@ -88,7 +76,7 @@ module.exports = {
                 "50": "Insane"
             }
 
-            if(demonBoolDecoding[demonBool] == true) {
+            if(Boolean(Number(demonBool))) {
                 difficultyDecoding = {
                     "10": "Easy Demon",
                     "20": "Medium Demon",
@@ -147,20 +135,20 @@ module.exports = {
                 disliked: disliked,
                 length: lengthDecoding[length],
                 password: password, 
-                demon: demonBoolDecoding[demonBool],
+                demon: Boolean(Number(demonBool)),
                 featured: featured,
-                epic: demonBoolDecoding[epic],
+                epic: Boolean(Number(epic)),
                 objects: objects,
                 uploaded: uploaded,
                 updated: updated,
                 stars_requested: Number(starsRequested),
                 game_version: decodeGameVersion[gameVersion],
-                ldm: demonBoolDecoding[ldm],
+                ldm: Boolean(Number(ldm)),
                 copied: Number(copiedID),
                 large: Number(objs) > 40000 ? true : false,
-                two_p: demonBoolDecoding[twoPlayer],
+                two_p: Boolean(Number(twoPlayer)),
                 coins: Number(coins),
-                verified_coins: verifiedCoins,
+                verified_coins: Boolean(Number(verifiedCoins)),
                 song: getLvl.song,
             }
             

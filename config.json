@@ -5,6 +5,6 @@
         "Accept-Encoding":"*",
         "Accept":"*/*"
     },
-    "server":"https://www.boomlings.com/database/",
+    "server":"http://www.boomlings.com/database/",
     "secret":"Wmfd2893gb7"
 }

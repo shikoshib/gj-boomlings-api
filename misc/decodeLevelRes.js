@@ -2,7 +2,7 @@ module.exports = {
     decodeLevelRes:
         function(level){
             const {decB64} = require("./decB64.js");
-            
+
             let spl = level.split(':');
             let levelInfo = [];
             for(let i =0;i<spl.length;i++) {
@@ -10,7 +10,7 @@ module.exports = {
                 levelInfo.push(spl[i-1]+`:`+spl[i]);
               }
             }
-            
+
             let id = levelInfo[0].split("1:")[1];
             let name = levelInfo[1].split("2:")[1];
             let version = levelInfo[2].split("5:")[1];
@@ -34,29 +34,12 @@ module.exports = {
             let starsRequested = levelInfo[23].split("39:")[1];
             let customSong = levelInfo[26].split("35:")[1].split("#")[0];
 
-            let disliked = false;
-            if(likes.includes("-")) disliked = true;
+            let disliked = likes.includes("-") ? true : false;
 
             if(desc.includes("/")) desc = desc.split("/")[0];
             if(decB64(desc) == '') desc = "KE5vIGRlc2NyaXB0aW9uIHByb3ZpZGVkKQ=="
 
-            if(verifiedCoins == "0") verifiedCoins = false;
-            if(verifiedCoins == "1") verifiedCoins = true;
-
-            let demonBoolDecoding = {
-                '1': true,
-                '': false,
-                '0': false
-            }
-
-            let featuredDecoding = {
-                "0": false,
-                "1": true,
-                undefined: true
-            }
-
-            let featured = featuredDecoding[ftrd];
-            if(featured == undefined) featured = true;
+            let featured = Boolean(Number(ftrd));
 
             let difficultyDecoding = {
                 "-10": "Auto",
@@ -68,7 +51,7 @@ module.exports = {
                 "50": "Insane"
             }
 
-            if(demonBoolDecoding[demonBool] == true) {
+            if(Boolean(Number(demonBool))) {
                 difficultyDecoding = {
                     "10": "Easy Demon",
                     "20": "Medium Demon",
@@ -77,7 +60,7 @@ module.exports = {
                     "50": "Extreme Demon"
                 }
             }
-            
+
             const lengthDecoding = {
                 "0": "Tiny",
                 "1": "Short",
@@ -112,17 +95,17 @@ module.exports = {
                 likes: Number(likes),
                 disliked: disliked,
                 length: lengthDecoding[length],
-                demon: demonBoolDecoding[demonBool],
+                demon: Boolean(Number(demonBool)),
                 featured: featured,
-                epic: demonBoolDecoding[epic],
+                epic: Boolean(Number(epic)),
                 objects: Number(objs),
                 stars_requested: Number(starsRequested),
                 game_version: decodeGameVersion[gameVersion],
                 copied: Number(copiedID),
                 large: Number(objs) > 40000 ? true : false,
-                two_p: demonBoolDecoding[twoPlayer],
+                two_p: Boolean(Number(twoPlayer)),
                 coins: Number(coins),
-                verified_coins: verifiedCoins
+                verified_coins: Boolean(Number(verifiedCoins))
             }
 
             return {

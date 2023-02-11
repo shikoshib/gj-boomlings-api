@@ -2,44 +2,39 @@ module.exports = {
     decodeGJGauntlet:
         function(gauntlet) {
             let spl = gauntlet.split(':');
-            let glInfo = [];
-            for(let i =0;i<spl.length;i++) {
-              if(i%2!=0) {
-                glInfo.push(spl[i-1]+`:`+spl[i]);
-              }
-            }
             
-            let id = glInfo[0].split(":")[1];
-            let levelList = glInfo[1].split(":")[1];
+            let id = spl[1];
+            let lvlList = spl[3];
 
-            let firstLvl = levelList.split(",")[0];
-            let secondLvl = levelList.split(",")[1].split(",")[0];
-            let thirdLvl = levelList.split(",")[2].split(",")[0];
-            let fourthLvl = levelList.split(",")[3].split(",")[0];
-            let fifthLvl = levelList.split(",")[4].split("#")[0];
+            let arr = lvlList.split(",");
+            let Lvl1 = arr[0];
+            let Lvl2 = arr[1]
+            let Lvl3 = arr[2];
+            let Lvl4 = arr[3];
+            let Lvl5 = arr[4].split("#")[0];
 
             const glIDs = {
-                "1": "Fire Gauntlet",
-                "2": "Ice Gauntlet",
-                "3": "Poison Gauntlet",
-                "4": "Shadow Gauntlet",
-                "5": "Lava Gauntlet",
-                "6": "Bonus Gauntlet",
-                "7": "Chaos Gauntlet",
-                "8": "Demon Gauntlet",
-                "9": "Time Gauntlet",
-                "10": "Crystal Gauntlet",
-                "11": "Magic Gauntlet",
-                "12": "spike Gauntlet",
-                "13": "Monster Gauntlet",
-                "14": "Doom Gauntlet",
-                "15": "Death Gauntlet"
+                "1": "Fire",
+                "2": "Ice",
+                "3": "Poison",
+                "4": "Shadow",
+                "5": "Lava",
+                "6": "Bonus",
+                "7": "Chaos",
+                "8": "Demon",
+                "9": "Time",
+                "10": "Crystal",
+                "11": "Magic",
+                "12": "spike",
+                "13": "Monster",
+                "14": "Doom",
+                "15": "Death"
             }
 
-            const list = [firstLvl,secondLvl,thirdLvl,fourthLvl,fifthLvl]
+            let list = [Number(Lvl1),Number(Lvl2),Number(Lvl3),Number(Lvl4),Number(Lvl5)]
 
             const result = {
-                "name": glIDs[id],
+                "name": `${glIDs[id]} Gauntlet`,
                 "levels": list
             }
 

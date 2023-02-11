@@ -38,29 +38,12 @@ module.exports = {
                 author = levelInfo[27].split(":")[0];
             }
 
-            let disliked = false;
-            if(likes.includes("-")) disliked = true;
+            let disliked = likes.includes("-") ? true : false;
 
             if(desc.includes("/")) desc = desc.split("/")[0];
             if(decB64(desc) == '') desc = "KE5vIGRlc2NyaXB0aW9uIHByb3ZpZGVkKQ=="
 
-            if(verifiedCoins == "0") verifiedCoins = false;
-            if(verifiedCoins == "1") verifiedCoins = true;
-
-            let demonBoolDecoding = {
-                '1': true,
-                '': false,
-                '0': false
-            }
-
-            let featuredDecoding = {
-                "0": false,
-                "1": true,
-                undefined: true
-            }
-
-            let featured = featuredDecoding[ftrd];
-            if(featured == undefined) featured = true;
+            let featured = Boolean(Number(ftrd));
 
             let difficultyDecoding = {
                 "-10": "Auto",
@@ -72,7 +55,7 @@ module.exports = {
                 "50": "Insane"
             }
 
-            if(demonBoolDecoding[demonBool] == true) {
+            if(Boolean(Number(demonBool))) {
                 difficultyDecoding = {
                     "10": "Easy Demon",
                     "20": "Medium Demon",
@@ -91,18 +74,12 @@ module.exports = {
             }
 
             const decodeGameVersion = {
-                "1": "Pre-1.7",
-                "2": "Pre-1.7",
-                "3": "Pre-1.7",
-                "4": "Pre-1.7",
-                "5": "Pre-1.7",
-                "6": "Pre-1.7",
-                "7": "Pre-1.7",
                 "10": "1.7",
                 "18": "1.8",
                 "19": "1.9",
                 "20": "2.0",
-                "21": "2.1"
+                "21": "2.1",
+                undefined: "Pre-1.7"
             }
             
             const { getOfficialSongInfo } = require("../functions/getOfficialSongInfo.js");
@@ -142,17 +119,17 @@ module.exports = {
                 likes: Number(likes),
                 disliked: disliked,
                 length: lengthDecoding[length],
-                demon: demonBoolDecoding[demonBool],
+                demon: Boolean(Number(demonBool)),
                 featured: featured,
-                epic: demonBoolDecoding[epic],
+                epic: Boolean(Number(epic)),
                 objects: Number(objs),
                 stars_requested: Number(starsRequested),
                 game_version: decodeGameVersion[gameVersion],
                 copied: Number(copiedID),
                 large: Number(objs) > 40000 ? true : false,
-                two_p: demonBoolDecoding[twoPlayer],
+                two_p: Boolean(Number(twoPlayer)),
                 coins: Number(coins),
-                verified_coins: verifiedCoins,
+                verified_coins: Boolean(Number(verifiedCoins)),
                 song: song
             }
 

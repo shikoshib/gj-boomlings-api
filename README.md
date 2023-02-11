@@ -1,6 +1,6 @@
 <div align="center">
   <h1>
-    <a href="https://www.npmjs.com/package/gj-boomlings-api"><img src="https://shikoshib.github.io/font1.png" width="576"></a>
+    <a href="https://www.npmjs.com/package/gj-boomlings-api"><img src="https://shikoshib.github.io/font1.png" width="500"></a>
   </h1>
   A light-weight Geometry Dash API wrapper<br><br><a href="https://github.com/shikoshib/gj-boomlings-api/wiki"><b>Documentation</b></a><br><br>
   <a href="https://www.npmjs.com/package/gj-boomlings-api"><img src="https://img.shields.io/npm/v/gj-boomlings-api.svg?maxAge=3600" alt="npm version" /></a>

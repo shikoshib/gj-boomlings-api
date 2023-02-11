@@ -2,7 +2,7 @@ module.exports = {
     rgbToHEX:
         function(color) {
             let r = color.split(",")[0];
-            let g = color.split(",")[1].split(",")[0];
+            let g = color.split(",")[1];
             let b = color.split(",")[2];
 
             if(b.includes("#")) b = b.split("#")[0];

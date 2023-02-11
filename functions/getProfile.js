@@ -1,22 +1,26 @@
 module.exports = {
     getProfile:
         async function(str) {
-            if(!str || str == "") throw new Error("Please provide a user ID or name!");
+            if(!str) throw new Error("Please provide a user ID or name!");
             const {gjReq} = require("../misc/gjReq.js");
+            const {gjWReq} = require("../misc/gjWReq.js");
             const { searchUsers } = require("./searchUsers.js");
 
             let user = await searchUsers(str);
 
             let data = {
-                gameVersion: 21,
-                binaryVersion: 35,
-                gdw: 0,
                 targetAccountID: user.accountID,
                 secret: "Wmfd2893gb7"
             };
 
             let res = await gjReq("getGJUserInfo20", data);
             if(res.data == -1) throw new Error("-1 This user is not found.");
+
+            if(res.data.startsWith("error code")) {
+                res = await gjWReq("getProfile", str);
+                if(res.status == 403) throw new Error(res.data.error);
+                return res.data;
+            }
 
             let spl = res.data.split(':');
             let userInfo = [];

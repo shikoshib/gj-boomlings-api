@@ -1,9 +1,10 @@
 module.exports = {
     getUserLevels:
         async function(str, page = 1) {
-            if(!str || str == "") throw new Error("Please provide a username or player ID!");
+            if(!str) throw new Error("Please provide a username or player ID!");
 
             const {gjReq} = require("../misc/gjReq.js");
+            const {gjWReq} = require("../misc/gjWReq.js");
             const { secret } = require("../config.json");
             const { decodeLevelRes } = require("../misc/decodeLevelRes.js");
             const { searchUsers } = require("./searchUsers.js");
@@ -18,7 +19,13 @@ module.exports = {
                 page: Number(page) - 1
             }
 
-            let res = await gjReq("getGJLevels21", data)
+            let res = await gjReq("getGJLevels21", data);
+
+            if(res.data.startsWith("error code")) {
+                res = await gjWReq("getUserLevels", `${str}?page=${page}`);
+                if(res.status == 403) throw new Error(res.data.error);
+                return res.data;
+            }
 
             let levels = res.data.split("#")[0].split("|");
             let creators = res.data.split("#")[1].split("|");
