@@ -8,7 +8,8 @@ module.exports = {
             if(!str) throw new Error("Please provide a query!");
             const {gjReq} = require("../misc/gjReq.js");
             const {gjWReq} = require("../misc/gjWReq.js");
-            const { decodeUserResult } = require("../misc/decodeUserResult.js");
+            let GJDecode = require("../misc/GJDecode.js");
+            const { decodeUserResult } = new GJDecode();
 
             let res = await gjReq("getGJUsers20", {
                 str: str,

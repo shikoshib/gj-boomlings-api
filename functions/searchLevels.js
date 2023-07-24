@@ -10,7 +10,8 @@ module.exports = {
             const {gjWReq} = require("../misc/gjWReq.js");
             const { secret } = require("../config.json");
 
-            const { decodeLevelRes } = require("../misc/decodeLevelRes.js");
+            let GJDecode = require("../misc/GJDecode.js");
+            const { decodeLevelRes } = new GJDecode();
             
             const data = {
                 type: 0,

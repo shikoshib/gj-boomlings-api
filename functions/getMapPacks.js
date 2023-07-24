@@ -5,7 +5,8 @@ module.exports = {
      */
     getMapPacks:
         async function(page = 1) {
-            const { decodeMapPack } = require("../misc/decodeMapPack.js");
+            let GJDecode = require("../misc/GJDecode.js");
+            const { decodeMapPack } = new GJDecode();
 
             const {gjReq} = require("../misc/gjReq.js");
             const {gjWReq} = require("../misc/gjWReq.js");

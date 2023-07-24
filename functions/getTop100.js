@@ -4,7 +4,8 @@ module.exports = {
      */
     getTop100:
         async function() {
-            const { decScoresUser } = require("../misc/decScoresUser.js");
+            let GJDecode = require("../misc/GJDecode.js");
+            const { decScoresUser } = new GJDecode();
             const {gjReq} = require("../misc/gjReq.js");
             const {gjWReq} = require("../misc/gjWReq.js");
             const { secret } = require("../config.json");

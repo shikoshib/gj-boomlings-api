@@ -11,7 +11,8 @@ module.exports = {
             const {gjReq} = require("../misc/gjReq.js");
             const {gjWReq} = require("../misc/gjWReq.js");
             const { secret } = require("../config.json");
-            const { decodeLevelRes } = require("../misc/decodeLevelRes.js");
+            let GJDecode = require("../misc/GJDecode.js");
+            const { decodeLevelRes } = new GJDecode();
             const { searchUsers } = require("./searchUsers.js");
 
             let user = str;
