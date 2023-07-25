@@ -30,7 +30,7 @@ module.exports = {
 
             let levels = res.data.split("#")[0].split("|");
             let creators = res.data.split("#")[1].split("|");
-            let songs = res.data.split("#")[2].split(":");
+            let songs = res.data.split("#")[2].split("~:~");
 
             let result = [];
 
