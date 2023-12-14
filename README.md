@@ -1,4 +1,11 @@
 <div align="center">
+<b>⚠️ WARNING! ⚠️</b>
+<br>
+<br>
+The work on this package is currently suspended indefinitely, as GD 2.2 is just around the corner and I'd have to rewrite basically everything 👍
+
+
+  
   <h1>
     <a href="https://www.npmjs.com/package/gj-boomlings-api"><img src="https://shikoshib.github.io/font1.png" width="500"></a>
   </h1>
