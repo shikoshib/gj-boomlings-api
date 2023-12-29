@@ -1,1 +1,159 @@
-module.exports={getProfile:async function(name,mode="auto"){const{gjReq}=require("../gjReq");const{rgbToHEX}=require("../misc/rgbToHEX");const colors=require("../misc/colors.json");if(!name)throw new Error("Please provide an account name, player ID or account ID!");if(!["name","accountid","playerid","auto"].includes(mode))throw new Error('Please provide a valid search mode! It\'s either "name", "accountid", "playerid", or "auto"');function decodeUser(array){let accName=array[1];let playerID=Number(array[3]);let secretCoins=Number(array[5]);let userCoins=Number(array[7]);let c1=array[9];let c2=array[11];let stars=Number(array[15]);let moons=Number(array[17]);let diamonds=Number(array[19]);let demons=Number(array[21]);let cp=Number(array[23]);let msg=array[25];let friendReqs=array[27];let commentHistory=array[29];let yt=array[31];let cube=Number(array[33]);let ship=Number(array[35]);let ball=Number(array[37]);let ufo=Number(array[39]);let wave=Number(array[41]);let robot=Number(array[43]);let spider=Number(array[47]);let swing=Number(array[51]);let jetpack=Number(array[53]);let glow=Boolean(Number(array[45]));let explosion=Number(array[49]);let rank=Number(array[55]);let accID=Number(array[57]);let twitter=array[61];let twitch=array[63];let mod=array[65];let msgObj={0:"all",1:"friends",2:"none"};let friendReqsObj={0:"all",1:"none"};let modObj={0:"none",1:"mod",2:"elder"};return{username:accName,playerID:playerID,accountID:accID,rank:rank,stars:stars,diamonds:diamonds,secretCoins:secretCoins,userCoins:userCoins,demons:demons,moons:moons,creatorPoints:cp,c1:rgbToHEX(colors[c1]),c2:rgbToHEX(colors[c2]),cubeID:cube,shipID:ship,ballID:ball,ufoID:ufo,waveID:wave,robotID:robot,spiderID:spider,swingID:swing,jetpackID:jetpack,explosionID:explosion,glow:glow,messages:msgObj[msg],friendRequests:friendReqsObj[friendReqs],commentHistory:msgObj[commentHistory],mod:modObj[mod],youtube:yt,twitter:twitter,twitch:twitch}}async function accIDSearch(){let res=await gjReq("getGJUserInfo20",{targetAccountID:name,secret:"Wmfd2893gb7"});if(res.data==-1)return{};let accArray=res.data.split(":");return decodeUser(accArray)}async function nonAccIDSearch(){let search=await gjReq("getGJUsers20",{str:name,secret:"Wmfd2893gb7"});if(search.data==-1)return{};let targetAccID=search.data.split(":")[21];let res=await gjReq("getGJUserInfo20",{targetAccountID:targetAccID,secret:"Wmfd2893gb7"});let accArray=res.data.split(":");return decodeUser(accArray)}let result;if(mode=="accountid"){const user=await new Promise(resolve=>{accIDSearch().then(u=>resolve(u))});return user}if(mode=="name"||mode=="playerid"){const user=await new Promise(resolve=>{nonAccIDSearch().then(u=>resolve(u))});return user}if(isNaN(name)){const user=await new Promise(resolve=>{nonAccIDSearch().then(u=>resolve(u))});return user}else{let user;const accIDUser=await new Promise(resolve=>{accIDSearch().then(u=>resolve(u))});if(!Object.keys(user).length){const nonAccIDUser=await new Promise(resolve=>{nonAccIDSearch().then(u=>resolve(u))});user=nonAccIDUser}else{user=accIDUser}return user}}};
+module.exports = {
+    getProfile: async function (name, mode = "auto") {
+        const { gjReq } = require("../gjReq");
+        const { rgbToHEX } = require("../misc/rgbToHEX");
+        const colors = require("../misc/colors.json");
+        if (!name) throw new Error("Please provide an account name, player ID or account ID!")
+        if (!["name", "accountid", "playerid", "auto"].includes(mode)) throw new Error("Please provide a valid search mode! It's either \"name\", \"accountid\", \"playerid\", or \"auto\"")
+
+        function decodeUser(array) {
+            let accName = array[1];
+            let playerID = Number(array[3]);
+            let secretCoins = Number(array[5]);
+            let userCoins = Number(array[7]);
+            let c1 = array[9];
+            let c2 = array[11];
+            let stars = Number(array[15]);
+            let moons = Number(array[17]);
+            let diamonds = Number(array[19]);
+            let demons = Number(array[21]);
+            let cp = Number(array[23]);
+            let msg = array[25];
+            let friendReqs = array[27];
+            let commentHistory = array[29];
+            let yt = array[31];
+            let cube = Number(array[33]);
+            let ship = Number(array[35]);
+            let ball = Number(array[37]);
+            let ufo = Number(array[39]);
+            let wave = Number(array[41]);
+            let robot = Number(array[43]);
+            let spider = Number(array[47]);
+            let swing = Number(array[51]);
+            let jetpack = Number(array[53]);
+            let glow = Boolean(Number(array[45]));
+            let explosion = Number(array[49]);
+            let rank = Number(array[55]);
+            let accID = Number(array[57]);
+            let twitter = array[61];
+            let twitch = array[63];
+            let mod = array[65];
+
+            let msgObj = {
+                0: "all",
+                1: "friends",
+                2: "none"
+            }
+
+            let friendReqsObj = {
+                0: "all",
+                1: "none"
+            }
+
+            let modObj = {
+                0: "none",
+                1: "mod",
+                2: "elder"
+            }
+
+            return {
+                username: accName,
+                playerID: playerID,
+                accountID: accID,
+                rank: rank,
+                stars: stars,
+                diamonds: diamonds,
+                secretCoins: secretCoins,
+                userCoins: userCoins,
+                demons: demons,
+                moons: moons,
+                creatorPoints: cp,
+                c1: rgbToHEX(colors[c1]),
+                c2: rgbToHEX(colors[c2]),
+                cubeID: cube,
+                shipID: ship,
+                ballID: ball,
+                ufoID: ufo,
+                waveID: wave,
+                robotID: robot,
+                spiderID: spider,
+                swingID: swing,
+                jetpackID: jetpack,
+                explosionID: explosion,
+                glow: glow,
+                messages: msgObj[msg],
+                friendRequests: friendReqsObj[friendReqs],
+                commentHistory: msgObj[commentHistory],
+                mod: modObj[mod],
+                youtube: yt,
+                twitter: twitter,
+                twitch: twitch
+            }
+        }
+
+        async function accIDSearch() {
+            let res = await gjReq("getGJUserInfo20", {
+                targetAccountID: name,
+                secret: "Wmfd2893gb7"
+            });
+            if (res.data == -1) return {};
+            let accArray = res.data.split(":");
+
+            return decodeUser(accArray);
+        }
+
+        async function nonAccIDSearch() {
+            let search = await gjReq("getGJUsers20", {
+                str: name,
+                secret: "Wmfd2893gb7"
+            });
+            if (search.data == -1) return {};
+            let targetAccID = search.data.split(":")[21];
+
+            let res = await gjReq("getGJUserInfo20", {
+                targetAccountID: targetAccID,
+                secret: "Wmfd2893gb7"
+            });
+            let accArray = res.data.split(":");
+
+            return decodeUser(accArray);
+        }
+
+        let result;
+
+        if (mode == "accountid") {
+            const user = await new Promise((resolve) => {
+                accIDSearch().then(u => resolve(u));
+            })
+            return user;
+        }
+
+        if (mode == "name" || mode == "playerid") {
+            const user = await new Promise((resolve) => {
+                nonAccIDSearch().then(u => resolve(u));
+            })
+            return user;
+        }
+
+        if (isNaN(name)) {
+            const user = await new Promise((resolve) => {
+                nonAccIDSearch().then(u => resolve(u));
+            })
+            return user;
+        } else {
+            let user;
+            const accIDUser = await new Promise((resolve) => {
+                accIDSearch().then(u => resolve(u));
+            })
+            if (!Object.keys(user).length) {
+                const nonAccIDUser = await new Promise((resolve) => {
+                    nonAccIDSearch().then(u => resolve(u));
+                })
+                user = nonAccIDUser;
+            } else {
+                user = accIDUser;
+            }
+            return user;
+        }
+    }
+}
