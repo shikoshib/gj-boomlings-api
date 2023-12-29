@@ -1,0 +1,1 @@
+module.exports=class XOR{xor(r,t){return String.fromCodePoint(...r.split("").map((r,e)=>r.charCodeAt(0)^t.toString().charCodeAt(e%t.toString().length)))}encrypt(r,e=37526){return Buffer.from(this.xor(r,e)).toString("base64").replace(/\//g,"_").replace(/\+/g,"-")}decrypt(r,e=37526){return this.xor(Buffer.from(r.replace(/\//g,"_").replace(/\+/g,"-"),"base64").toString(),e)}};

@@ -1,11 +1,4 @@
 <div align="center">
-<b>⚠️ WARNING! ⚠️</b>
-<br>
-<br>
-The work on this package is currently suspended indefinitely, as GD 2.2 is just around the corner and I'd have to rewrite basically everything 👍
-
-
-  
   <h1>
     <a href="https://www.npmjs.com/package/gj-boomlings-api"><img src="https://shikoshib.github.io/font1.png" width="500"></a>
   </h1>
@@ -21,16 +14,39 @@ The work on this package is currently suspended indefinitely, as GD 2.2 is just 
 # About
 **gj-boomlings-api** is a light-weight Node.js module that allows you to easily interact with Geometry Dash API.
 # Installation
-**Node.js 18.0.0 or newer is required.**
+## Node.js
 ```
 npm i gj-boomlings-api
 yarn add gj-boomlings-api
 ```
-## In browser...
-```html
-<script src="https://shikoshib.github.io/gba-max.min.js"></script>
+## In browser
+Not yet, coming soon
+# Examples
+## Download a level
+```js
+const gd = require("gj-boomlings-api");
+gd.dlLevel("95540029").then(console.log);
 ```
-
----
-
-Inspired by [GDBrowser](https://github.com/GDColon/GDBrowser/). Thanks to [Wireshark](https://www.wireshark.org/) and [GD Docs](https://github.com/gd-programming/gd.docs/) for helping me in creating this package.
+## View a profile
+```js
+const gd = require("gj-boomlings-api");
+gd.getProfile("shikoshib").then(console.log);
+```
+## Get gauntlets
+```js
+const gd = require("gj-boomlings-api");
+gd.getGauntlets().then(console.log);
+```
+## Post a message on a profile
+```js
+const gd = require("gj-boomlings-api");
+gd.uploadAccountPost("I love gj-boomlings-api!","shikoshib","your password here");
+```
+## Send a message
+```js
+// This code sends a message from shikoshib to Mipper6
+const gd = require("gj-boomlings-api");
+gd.uploadMessage("Mipper6", "message subject", "message content", "shikoshib", "your password here");
+```
+# License
+[ISC](https://github.com/shikoshib/gj-boomlings-api/blob/main/LICENSE)

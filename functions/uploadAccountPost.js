@@ -1,42 +1,29 @@
 module.exports = {
-    /**
-     * Uploads an account post.
-     * @param {*} content - The account post comment.
-     * @param {*} str - The posting person's player ID or username.
-     * @param {*} password - The posting person's password.
-     */
-    uploadAccountPost:
-        async function(content, str, password) {
-            const {encB64} = require("../misc/encB64.js");
-            if(!content) throw new Error("Please provide an account post content!");
-            if(!str) throw new Error("Please provide a user ID or name!");
-            if(!password) throw new Error("Please provide a password!");
-            
-            const {gjReq} = require("../misc/gjReq.js");
-            const {gjWReq} = require("../misc/gjWReq.js");
-            const { searchUsers } = require("./searchUsers.js");
+    uploadAccountPost: async function (content, str, password) {
+        if (!content) throw new Error("Please provide an account post content!");
+        if (!str) throw new Error("Please provide a user ID or name!");
+        if (!password) throw new Error("Please provide a password!");
 
-            let user = await searchUsers(str);
+        const { gjReq } = require("../gjReq");
+        const XOR = require("../xor");
+        const xor = new XOR;
 
-            const XOR = require("../misc/xor.js");
-            const xor = new XOR();
-            
-            const comment = encB64(content);
+        let search = await gjReq("getGJUsers20", {
+            str: str,
+            secret: "Wmfd2893gb7"
+        });
+        if (search.data == -1) throw new Error(-1);
+        let accID = search.data.split(":")[21];
 
-            let uACdata = {
-                accountID: user.accountID,
-                secret: "Wmfd2893gb7",
-                gjp: xor.encrypt(password, 37526),
-                comment: comment,
-                cType: 1
-            };
+        let res = await gjReq("uploadGJAccComment20", {
+            accountID: accID,
+            secret: "Wmfd2893gb7",
+            gjp: xor.encrypt(password, 37526),
+            comment: Buffer.from(content).toString("base64"),
+            cType: 1
+        });
+        if (res.status == 500) throw new Error("500 Error: couldn't post!");
 
-            let res = await gjReq("uploadGJAccComment20", uACdata);
-            if(res.status == 500) throw new Error("500 Error: couldn't post!");
-
-            if(res.data == "error code: 1005") res = await gjWReq("uploadAccountPost", `?content=${encB64(content)}&user=${str}&password=${password}`);
-            if(res.status == 403) throw new Error(res.data.error);
-
-            return res.data;
-        }
+        return res.data;
+    }
 }

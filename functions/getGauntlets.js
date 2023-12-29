@@ -1,30 +1,24 @@
 module.exports = {
-    /**
-     * Gets the gauntlets.
-     */
-    getGauntlets: 
-        async function() {
-            const {gjReq} = require("../misc/gjReq.js");
-            const {gjWReq} = require("../misc/gjWReq.js");
-            let GJDecode = require("../misc/GJDecode.js");
-            const { decodeGJGauntlet } = new GJDecode();
+    getGauntlets: async function () {
+        const glIDs = require("../misc/gauntlets.json");
+        const { gjReq } = require("../gjReq");
 
-            const data = {
-                secret: "Wmfd2893gb7"
+        let res = await gjReq("getGJGauntlets21", { secret: "Wmfd2893gb7", special: 1 })
+
+        let gauntlets = res.data.split("#")[0].split("|");
+        let result = [];
+        gauntlets.forEach(g => {
+            let arr = g.split(":")[3].split(",");
+            let list = [];
+            for (let level of arr) {
+                list.push(Number(level));
             }
+            result.push({
+                name: `${glIDs[g.split(":")[1]]} Gauntlet`,
+                levels: list
+            });
+        })
 
-            let res = await gjReq("getGJGauntlets21", data)
-            if(res.data == "error code: 1005") {
-                res = await gjWReq("getGauntlets");
-                return res.data;
-            }
-
-            let gauntlets = res.data.split("|");
-            let result = [];
-            gauntlets.forEach(g => {
-                result.push(decodeGJGauntlet(g));
-            })
-
-            return result;
-        }
+        return result;
+    }
 }

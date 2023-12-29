@@ -1,68 +1,52 @@
 module.exports = {
-    /**
-     * Gets the list of people blocked by a specified user.
-     * @param {*} str - The user's name or player ID.
-     * @param {*} pass - The user's pass.
-     */
-    getBlockedList:
-        async function(str, pass) {
-            if(!str) throw new Error("Please provide your player ID or username!");
-            if(!pass) throw new Error("Please provide your password!");
+    getBlockedList: async function (user, pass) {
+        if (!user) throw new Error("Please provide a player ID or username!");
+        if (!pass) throw new Error("Please provide a password!");
 
-            const {gjReq} = require("../misc/gjReq.js");
-            const {gjWReq} = require("../misc/gjWReq.js");
-            const {gjp} = require("../misc/gjp.js");
-            const { searchUsers } = require("./searchUsers.js");
+        const { gjReq } = require("../gjReq");
+        const XOR = require("../xor");
+        const xor = new XOR;
 
-            let user = await searchUsers(str);
+        let search = await gjReq("getGJUsers20", {
+            str: user,
+            secret: "Wmfd2893gb7"
+        });
+        if (search.data == -1) return [];
+        let accID = search.data.split(":")[21];
 
-            const data = {
-                accountID: user.accountID,
-                gjp: gjp(pass),
-                secret: "Wmfd2893gb7",
-                type: 1
-            }
-
-            let res = await gjReq("getGJUserList20", data);
-            if(res.data == -1) throw new Error(-1);
-            if(res.data == -2) throw new Error("No players have been found in the blocklist.");
-
-            if(res.data == "error code: 1005") {
-                res = await gjWReq("getBlockedList", `${str}?password=${pass}`);
-                if(res.status == 403) throw new Error(res.data.error);
-                return res.data;
-            }
-            
-            let players = res.data.split("|");
-            let result = [];
-
-            let colors = require("../misc/colors.json");
-            const { rgbToHEX } = require("../misc/rgbToHEX.js");
-
-            players.forEach(p => {
-                let username = p.split(":")[1];
-                let playerID = p.split(":")[3];
-                let p1 = p.split(":")[7];
-                let p2 = p.split(":")[9];
-                let accID = p.split(":")[15];
-                let msg = p.split(":")[17];
-
-                let msgState = {
-                    "0": "all",
-                    "1": "friends",
-                    "2": "none"
-                }
-
-                result.push({
-                    username: username,
-                    playerID: Number(playerID),
-                    accountID: Number(accID),
-                    color1: rgbToHEX(colors[p1]),
-                    color2: rgbToHEX(colors[p2]),
-                    messages: msgState[msg]
-                })
-            })
-
-            return result;
+        const data = {
+            accountID: accID,
+            gjp: xor.encrypt(pass, 37526),
+            secret: "Wmfd2893gb7",
+            type: 1
         }
+
+        let res = await gjReq("getGJUserList20", data);
+        if (res.data == -1 || res.data == -2) return [];
+
+        let players = res.data.split("|");
+        let result = [];
+
+        let colors = require("../misc/colors.json");
+        const { rgbToHEX } = require("../misc/rgbToHEX");
+
+        players.forEach(p => {
+            let s=p.split(":");
+            let username = s[1];
+            let playerID = s[3];
+            let p1 = s[7];
+            let p2 = s[9];
+            let accID = s[15];
+
+            result.push({
+                username: username,
+                playerID: Number(playerID),
+                accountID: Number(accID),
+                color1: rgbToHEX(colors[p1]),
+                color2: rgbToHEX(colors[p2])
+            })
+        })
+
+        return result;
+    }
 }

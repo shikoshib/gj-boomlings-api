@@ -1,48 +1,43 @@
 module.exports = {
-    /**
-     * Gets user's messages.
-     * @param {*} user - The player ID or username.
-     * @param {*} pass - The password.
-     * @param {*} page - The page.
-     */
-    getMessages: 
-        async function(user, pass, page = 1) {
-            if(!user) throw new Error("Please provide your player ID or username!");
-            if(!pass) throw new Error("Please provide your password!");
-            if(Number(page) == NaN) throw new Error("The page should be a number!");
-            
-            const {gjReq} = require("../misc/gjReq.js");
-            const {gjWReq} = require("../misc/gjWReq.js");
-            const {secret} = require("../config.json");
-            const {gjp} = require("../misc/gjp.js");
-            let GJDecode = require("../misc/GJDecode.js");
-            const {decMsg} = new GJDecode();
-            const { searchUsers } = require("./searchUsers.js");
+    getMessages: async function (user, pass, page = 1) {
+        if (!user) throw new Error("Please provide a player ID or username!");
+        if (!pass) throw new Error("Please provide a password!");
+        if (isNaN(page)) throw new Error("The page should be a number!");
 
-            let userObj = await searchUsers(user);
+        const { gjReq } = require("../gjReq");
+        const XOR = require("../xor");
+        const xor = new XOR;
 
-            const data = {
-                accountID: userObj.accountID,
-                gjp: gjp(pass),
-                secret: secret,
-                page: Number(page) - 1
-            }
+        let search = await gjReq("getGJUsers20", {
+            str: user,
+            secret: "Wmfd2893gb7"
+        });
+        if (search.data == -1) return [];
+        let accID = search.data.split(":")[21];
 
-            let res = await gjReq("getGJMessages20", data);
-            if(res.data == -1) throw new Error(-1);
+        let res = await gjReq("getGJMessages20", {
+            accountID: accID,
+            gjp: xor.encrypt(pass, 37526),
+            secret: "Wmfd2893gb7",
+            page: page - 1
+        });
+        if (res.data == -1 || res.data.startsWith("#")) return [];
 
-            if(res.data == "error code: 1005") {
-                res = await gjWReq("getMessages", `${user}?password=${pass}&page=${page}`);
-                if(res.status == 403) throw new Error(res.data.error);
-                return res.data;
-            }
+        let msgs = res.data.split("#")[0].split("|");
+        let result = [];
+        msgs.forEach(m => {
+            let s = m.split(":");
+            result.push({
+                username: s[1],
+                title: Buffer.from(s[9], "base64").toString(),
+                playerID: Number(s[3]),
+                accountID: Number(s[5]),
+                messageID: Number(s[7]),
+                age: s[15],
+                read: Boolean(Number(s[11]))
+            });
+        })
 
-            let msgs = res.data.split("|");
-            let result = [];
-            msgs.forEach(m => {
-                result.push(decMsg(m));
-            })
-
-            return result;
-        }
+        return result;
+    }
 }

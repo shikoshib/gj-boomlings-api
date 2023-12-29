@@ -1,38 +1,29 @@
 module.exports = {
-    /**
-     * Gets a song info from Newgrounds.
-     * @param {*} song - The song ID on Newgrounds.
-     */
-    getSongInfo:
-        async function(song) {
-            if(!song) throw new Error("Please provide a song ID.");
-            if(isNaN(song)) throw new Error("A song ID must be a number.")
-            const {gjReq} = require("../misc/gjReq.js");
-            const {gjWReq} = require("../misc/gjWReq.js");
+    getSongInfo: async function (song) {
+        if (isNaN(song)) throw new Error("Please provide a valid song ID.");
+        const { gjReq } = require("../gjReq");
 
-            const data = {
-                songID: song,
-                secret: "Wmfd2893gb7"
-            }
-
-            let res = await gjReq('getGJSongInfo', data);
-            if(res.data == -2) throw new Error(`-2. Couldn't find a song with ID ${song}.`)
-
-            if(res.data == "error code: 1005") {
-                res = await gjWReq("getSongInfo", song);
-                if(res.status == 403) throw new Error(res.data.error);
-                return res.data;
-            }
-
-            const result = {
-                "name": res.data.split("|~2~|~")[1].split("~|~3~|~")[0],
-                "id": Number(res.data.split("1~|~")[1].split("~|~2~|")[0]),
-                "artist": res.data.split("~|~4~|~")[1].split("~|~5~|~")[0],
-                "artistId": Number(res.data.split("~|~3~|~")[1].split("~|~4~|~")[0]),
-                "fileSize": `${res.data.split("~|~5~|~")[1].split("~|~6~|~")[0]} MB`,
-                "link": decodeURIComponent(res.data.split("~|~10~|~")[1].split("~|~7~|~")[0])
-            }
-
-            return result;
+        const data = {
+            songID: song,
+            secret: "Wmfd2893gb7"
         }
+
+        let res = await gjReq('getGJSongInfo', data);
+        if (res.data == -2) throw new Error(`-2. Couldn't find a song with ID ${song}.`)
+        let rawSong = res.data.split("~|~");
+
+        let link = decodeURIComponent(rawSong[13]);
+        if (link == "CUSTOMURL") link = `https://geometrydashfiles.b-cdn.net/music/${song.toString().trim()}.ogg`;
+
+        const result = {
+            "name": rawSong[3],
+            "id": Number(rawSong[1]),
+            "artist": rawSong[7],
+            "artistId": Number(rawSong[5]),
+            "fileSize": `${rawSong[9]} MB`,
+            "link": link
+        }
+
+        return result;
+    }
 }
