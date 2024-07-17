@@ -98,6 +98,13 @@ module.exports = {
         const objs = rawData.split(";");
         objs.shift();
 
+        const epicObj = {
+            0: false, // Not good, but I can't think of a string value for levels not rated Epic.
+            1: "Epic",
+            2: "Legendary",
+            3: "Mythic"
+        }
+
         let song;
         const { getOfficialSongInfo } = require("./getOfficialSongInfo");
         const { getSongInfo } = require("./getSongInfo");
@@ -125,7 +132,7 @@ module.exports = {
             password: password,
             demon: Boolean(Number(isDemon)),
             featured: Boolean(Number(isFeatured)),
-            epic: Boolean(Number(isEpic)),
+            epic: epicObj[Number(isEpic)],
             objects: objs.length - 1,
             uploaded: uploaded,
             updated: updated,
