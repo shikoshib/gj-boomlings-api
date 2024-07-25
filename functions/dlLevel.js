@@ -144,7 +144,7 @@ module.exports = {
             twoPlayer: Boolean(Number(is2P)),
             coins: coins,
             verifiedCoins: Boolean(Number(coinsVerified)),
-            song: song
+            song: song,
 
             get epic() {
                 return Boolean(this.rating);
