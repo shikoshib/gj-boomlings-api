@@ -132,7 +132,7 @@ module.exports = {
             password: password,
             demon: Boolean(Number(isDemon)),
             featured: Boolean(Number(isFeatured)),
-            epic: epicObj[Number(isEpic)],
+            rating: epicObj[Number(isEpic)],
             objects: objs.length - 1,
             uploaded: uploaded,
             updated: updated,
@@ -145,6 +145,10 @@ module.exports = {
             coins: coins,
             verifiedCoins: Boolean(Number(coinsVerified)),
             song: song
+
+            get epic() {
+                return Boolean(this.rating);
+            }
         }
 
         if (s[69] && s[68] != "41") {
