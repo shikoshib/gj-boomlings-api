@@ -1,7 +1,24 @@
+/**
+ * @typedef {Object} Message
+ * @property {string} username - The message sender's username.
+ * @property {string} title - The message's title.
+ * @property {number} playerID - The message sender's player ID.
+ * @property {number} accountID - The message sender's account ID.
+ * @property {number} messageID - The message ID.
+ * @property {string} age - How long ago the message was sent.
+ * @property {boolean} read - Whether the message was already read.
+ */
 module.exports = {
-    getMessages: async function (user, pass, page = 1) {
-        if (!user) throw new Error("Please provide a player ID or username!");
-        if (!pass) throw new Error("Please provide a password!");
+    /**
+     * Gets the list of messages received by a user.
+     * @param {string} username - The user's username or player ID.
+     * @param {string} password - The user's password.
+     * @param {number} page - The page to search through. Defaults to 1.
+     * @returns {Message[]}
+     */
+    getMessages: async function (username, password, page = 1) {
+        if (!username) throw new Error("Please provide a player ID or username!");
+        if (!password) throw new Error("Please provide a password!");
         if (isNaN(page)) throw new Error("The page should be a number!");
 
         const { gjReq } = require("../gjReq");
@@ -9,7 +26,7 @@ module.exports = {
         const xor = new XOR;
 
         let search = await gjReq("getGJUsers20", {
-            str: user,
+            str: username,
             secret: "Wmfd2893gb7"
         });
         if (search.data == -1) return [];
@@ -17,7 +34,7 @@ module.exports = {
 
         let res = await gjReq("getGJMessages20", {
             accountID: accID,
-            gjp: xor.encrypt(pass, 37526),
+            gjp: xor.encrypt(password, 37526),
             secret: "Wmfd2893gb7",
             page: page - 1
         });

@@ -1,7 +1,14 @@
 module.exports = {
-    uploadAccountPost: async function (content, str, password) {
+    /**
+     * Uploads a post to an account.
+     * @param {string} content - The account post content.
+     * @param {string} username - The poster's username or player ID.
+     * @param {string} password - The poster's password.
+     * @returns {number} Returns 1 if everything's OK, and -1 if something went wrong.
+     */
+    uploadAccountPost: async function (content, username, password) {
         if (!content) throw new Error("Please provide an account post content!");
-        if (!str) throw new Error("Please provide a user ID or name!");
+        if (!username) throw new Error("Please provide a user ID or name!");
         if (!password) throw new Error("Please provide a password!");
 
         const { gjReq } = require("../gjReq");
@@ -9,7 +16,7 @@ module.exports = {
         const xor = new XOR;
 
         let search = await gjReq("getGJUsers20", {
-            str: str,
+            str: username,
             secret: "Wmfd2893gb7"
         });
         if (search.data == -1) throw new Error(-1);

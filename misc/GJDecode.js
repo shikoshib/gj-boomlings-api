@@ -108,9 +108,19 @@ module.exports = class GJDecode {
                 22: "2.2"
             }
 
+            const epicObj = {
+                0: null,
+                1: "epic",
+                2: "legendary",
+                3: "mythic"
+            }
+
+            let description = Buffer.from(s[35], "base64url").toString();
+
             let lvl = {
                 id: Number(s[1]),
                 name: s[3],
+                description: description ? description : "(No description provided)",
                 levelVersion: Number(s[5]),
                 playerID: Number(s[7]),
                 difficulty: diffObj[s[11]],
@@ -121,7 +131,8 @@ module.exports = class GJDecode {
                 length: lengthObj[s[37]],
                 demon: Boolean(Number(s[21])),
                 featured: Boolean(Number(s[29])),
-                epic: Boolean(Number(s[31])),
+                epic: Number(s[31]) >= 1,
+                rating: epicObj[Number(s[31])],
                 objects: Number(s[33]),
                 starsRequested: Number(s[47]),
                 gameVersion: versionObj[s[17]] ? versionObj[s[17]] : "Pre-1.7",
@@ -141,8 +152,8 @@ module.exports = class GJDecode {
             if (officialSongID != 0 && songID == 0) song = getOfficialSongInfo(officialSongID + 1);
             if (officialSongID == 0 && songID == 0) song = getOfficialSongInfo(1);
 
-            lvl['creator'] = encCreators[playerId] ? encCreators[playerId] : "-";
-            lvl['song'] = song;
+            lvl.creator = encCreators[playerId] ? encCreators[playerId] : "-";
+            lvl.song = song;
 
             result.push(lvl);
         }

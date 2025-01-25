@@ -1,10 +1,24 @@
+/**
+ * @typedef {Object} AccountPost
+ * @property {string} content - The account post's content.
+ * @property {number} likes - The amount of likes the account post has.
+ * @property {string} age - How long ago the account post was published.
+ * @property {number} id - The account post's ID.
+ */
+
 module.exports = {
-    getAccountPosts: async function (str, page = 1) {
-        if (!str) throw new Error("Please provide a player ID or name!");
+    /**
+     * Get the list of a user's account posts.
+     * @param {string} target - The targeted user's username or player ID.
+     * @param {number} page - The page to look through. Defaults to 1.
+     * @returns {AccountPost[]}
+     */
+    getAccountPosts: async function (target, page = 1) {
+        if (!target) throw new Error("Please provide a player ID or username!");
         const { gjReq } = require("../gjReq");
 
         let search = await gjReq("getGJUsers20", {
-            str: str,
+            str: target,
             secret: "Wmfd2893gb7"
         });
         if (search.data == -1) return [];
@@ -21,7 +35,12 @@ module.exports = {
         let accPosts = res.data.split("#")[0].split("|");
         let result = [];
         accPosts.forEach(p => {
-            result.push({ content: Buffer.from(p.split("~")[1], "base64").toString(), likes: Number(p.split("~")[3]), age: p.split("~")[5], id: Number(p.split("~")[7]) });
+            result.push({
+                content: Buffer.from(p.split("~")[1], "base64").toString(),
+                likes: Number(p.split("~")[3]),
+                age: p.split("~")[5],
+                id: Number(p.split("~")[7])
+            });
         })
 
         return result;

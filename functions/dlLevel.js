@@ -1,4 +1,54 @@
+/**
+ * @typedef {Object} Song
+ * @property {string} name - The song's name.
+ * @property {number} id - The song's ID.
+ * @property {string} artist - The song artist.
+ * @property {number} artistId - The song artist's ID on Newgrounds.
+ * @property {number} fileSize - The song's file size in megabytes.
+ * @property {string} link - The direct link to download the song file.
+ */
+
+/**
+ * A playable Geometry Dash online level.
+ * @typedef {Object} Level
+ * @property {number} id - The level's ID.
+ * @property {string} name - The level's name.
+ * @property {string} description - The level's description.
+ * @property {string} levelVersion - The level's current version number.
+ * @property {number} playerID - The level uploader's player ID.
+ * @property {string} difficulty - The level's difficulty.
+ * @property {number} stars - The amount of stars given when completing the level.
+ * @property {number} downloads - The amount of times the level has been downloaded.
+ * @property {number} likes - The amount of likes the level has.
+ * @property {boolean} disliked - Whether the level is disliked (i.e. if the likes count is less than 0).
+ * @property {string} length - The level's length.
+ * @property {string} password - The level's password. Otherwise, returns "" (an empty string) if the level isn't copyable, and "1" if the level is copyable without a password.
+ * @property {boolean} demon - Whether the level is a demon.
+ * @property {boolean} featured - Whether the level is featured.
+ * @property {boolean} epic - Whether the level is epic-rated.
+ * @property {string|boolean} rating - Primarily used for new 2.2 ratings. Returns either "epic", "legendary", "mythic", or `false` if the level's rating is lower than epic.
+ * @property {number} objects - The amount of objects the level has, based on the level data.
+ * @property {string} uploaded - How long ago the level was uploaded.
+ * @property {string} updated - How long ago the level was last updated.
+ * @property {number} starsRequested - The amount of stars the uploader requested for this level.
+ * @property {string} gameVersion - The version of the game used to upload the current version of the level. Returns "Pre-1.7" if the level was last updated in 1.6 or earlier.
+ * @property {boolean} ldm - Whether the level has a "Low Detail Mode" option.
+ * @property {number} copiedID - The original level's ID if this level was copied. Returns 0 if the level is original on itself.
+ * @property {boolean} large - Whether the level is considered "large" (i.e. has more than 40k objects).
+ * @property {boolean} twoPlayer - Whether the level can be played by two people.
+ * @property {number} coins - The amount of coins the level has.
+ * @property {boolean} verifiedCoins - Whether the coins are verified.
+ * @property {Song} song - The main song used in the level.
+ * @property {Array} additionalSongs - The array containing additional songs' IDs.
+ * @property {Array} sfx - The array containing sound effects' IDs.
+ */
+
 module.exports = {
+    /**
+     * Downloads a level.
+     * @param {number} level - The level ID.
+     * @returns {Level}
+     */
     dlLevel: async function (level) {
         const zlib = require("zlib");
         if (!level) throw new Error("Please provide a level ID.");
@@ -99,10 +149,10 @@ module.exports = {
         objs.shift();
 
         const epicObj = {
-            0: false, // Not good, but I can't think of a string value for levels not rated Epic.
-            1: "Epic",
-            2: "Legendary",
-            3: "Mythic"
+            0: null,
+            1: "epic",
+            2: "legendary",
+            3: "mythic"
         }
 
         let song;
@@ -113,7 +163,7 @@ module.exports = {
         } else if (NGSongID && !officialSongID) {
             let findSong = await getSongInfo(NGSongID);
             song = findSong;
-        }else if(!officialSongID&&!NGSongID){
+        } else if (!officialSongID && !NGSongID) {
             song = getOfficialSongInfo(1);
         }
 
@@ -132,6 +182,7 @@ module.exports = {
             password: password,
             demon: Boolean(Number(isDemon)),
             featured: Boolean(Number(isFeatured)),
+            epic: Number(isEpic) >= 1,
             rating: epicObj[Number(isEpic)],
             objects: objs.length - 1,
             uploaded: uploaded,
@@ -145,10 +196,8 @@ module.exports = {
             coins: coins,
             verifiedCoins: Boolean(Number(coinsVerified)),
             song: song,
-
-            get epic() {
-                return Boolean(this.rating);
-            }
+            additionalSongs: [],
+            sfx: []
         }
 
         if (s[69] && s[68] != "41") {

@@ -1,6 +1,6 @@
 {
   "name": "gj-boomlings-api",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "description": "A light-weight Geometry Dash API wrapper",
   "main": "index.js",
   "scripts": {

@@ -1,14 +1,20 @@
 module.exports = {
-    getUserLevels: async function (str, page = 1) {
-        if (!str) throw new Error("Please provide a username or player ID!");
+    /**
+     * Fetches levels by a user.
+     * @param {string} username - The search query (username or player ID).
+     * @param {number} page - The page to search through. Defaults to 1.
+     * @returns {import("./getLevelByID").Level[]}
+     */
+    getUserLevels: async function (username, page = 1) {
+        if (!username) throw new Error("Please provide a username or player ID!");
 
         const { gjReq } = require("../gjReq.js");
         let GJDecode = require("../misc/GJDecode.js");
         const { decodeSearchResults } = new GJDecode;
-        let playerID=str;
-        if (isNaN(str)) {
+        let playerID=username;
+        if (isNaN(username)) {
             let search = await gjReq("getGJUsers20", {
-                str: str,
+                str: username,
                 secret: "Wmfd2893gb7"
             });
             if (search.data == -1) return [];

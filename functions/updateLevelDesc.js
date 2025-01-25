@@ -1,7 +1,15 @@
 module.exports = {
-    updateLevelDesc: async function (level, desc, user, password) {
+    /**
+     * Updates the description on a level.
+     * @param {number} level - The level ID.
+     * @param {string} desc - The new description.
+     * @param {string} username - The level uploader's username or player ID.
+     * @param {string} password - The level uploader's password.
+     * @returns {number} Returns 1 if everything's OK, and -1 if something went wrong.
+     */
+    updateLevelDesc: async function (level, desc, username, password) {
         if (isNaN(level)) throw new Error("Please provide a valid level ID!");
-        if (!user) throw new Error("Please provide a player ID or name!");
+        if (!username) throw new Error("Please provide a player ID or username!");
         if (!password) throw new Error("Please provide a password!");
 
         const { gjReq } = require("../gjReq");
@@ -9,7 +17,7 @@ module.exports = {
         const xor = new XOR;
 
         let search = await gjReq("getGJUsers20", {
-            str: user,
+            str: username,
             secret: "Wmfd2893gb7"
         });
         if (search.data == -1) throw new Error(-1);
@@ -22,7 +30,6 @@ module.exports = {
             levelDesc: Buffer.from(desc).toString("base64"),
             secret: "Wmfd2893gb7"
         });
-        if (res.data == -1) throw new Error("-1: Failed to update the description.");
 
         return res.data;
     }

@@ -1,4 +1,9 @@
 module.exports = {
+    /**
+     * Fetches the list of top lists.
+     * @param {number} page - The page to search through. Defaults to 1.
+     * @returns {import("./searchLists").List[]}
+     */
     getTopLists: async function (page = 1) {
         const { gjReq } = require("../gjReq");
         const GJDecode = require("../misc/GJDecode");

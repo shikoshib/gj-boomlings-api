@@ -1,4 +1,8 @@
 module.exports = {
+    /**
+     * Fetches the player leaderboard based on the amount of stars.
+     * @returns {import("./getCreatorScores").ScoresUser[]}
+     */
     getTop100: async function () {
         let GJDecode = require("../misc/GJDecode");
         const { decodeScoresUser } = new GJDecode;

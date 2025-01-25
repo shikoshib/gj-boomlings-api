@@ -1,4 +1,32 @@
+/**
+ * @typedef {Object} Artist
+ * @property {number} id - The artist's ID.
+ * @property {string} name - The artist's name.
+ * @property {string} website - The artist's website.
+ * @property {string} youtube - The artist's YouTube channel ID.
+ */
+
+/**
+ * @typedef {Object} Song
+ * @property {number} id - The song ID.
+ * @property {string} name - The song name.
+ * @property {Artist} artist - The song artist.
+ * @property {number} size - The song file size in megabytes.
+ * @property {number} duration - The song duration in seconds.
+ * @property {Array<String>} genres - The song genres.
+ */
+
+/**
+ * @typedef {Object} Library
+ * @property {number} version - The songs library's version.
+ * @property {Array<Song>} songs - The songs included in the internal Geometry Dash song library.
+ */
+
 module.exports = {
+    /**
+     * Gets the list of songs from the internal Geometry Dash song library.
+     * @returns {Library}
+     */
     getSongsLibrary: async function () {
         const zlib = require("zlib");
         const fetch = require("node-fetch");
@@ -34,7 +62,7 @@ module.exports = {
         rawArtists.pop();
         rawArtists.forEach(artist => {
             let obj = {};
-            obj.id = artist.split(",")[0];
+            obj.id = Number(artist.split(",")[0]);
             obj.name = artist.split(",")[1];
             if (artist.split(",")[2].trim() != "") obj.website = decodeURIComponent(artist.split(",")[2]);
             if (artist.split(",")[3].trim() != "") obj.youtube = artist.split(",")[3];
@@ -55,10 +83,9 @@ module.exports = {
 
             let size = song.split(",")[3];
             size = size / 1048576;
-            size = size.toFixed(1);
-            obj.size = `${size} MB`;
+            obj.size = size.toFixed(1);
 
-            obj.duration = `${song.split(",")[4]}s`;
+            obj.duration = Number(song.split(",")[4]);
 
             let songGenres = [];
             let rawSongGenres = song.split(",")[5].split(".");

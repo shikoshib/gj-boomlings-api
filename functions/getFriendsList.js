@@ -1,14 +1,29 @@
+/**
+ * @typedef {Object} Friend
+ * @property {string} username - The friend's username.
+ * @property {number} playerID - The friend's player ID.
+ * @property {number} accountID - The friend's account ID.
+ * @property {string} color1 - The HEX code of the friend's primary color.
+ * @property {string} color2 - The HEX code of the friend's secondary color.
+ * @property {string} messages - The current state of messaging the friend. Returns "all" if anyone can message the person, "friends" if it's limited to friends, and "none" if no one can.
+ */
 module.exports = {
-    getFriendsList: async function (user, pass) {
-        if (!user) throw new Error("Please provide a player ID or username!");
-        if (!pass) throw new Error("Please provide a password!");
+    /**
+     * Gets the list of a user's friends.
+     * @param {string} username - The user's username or player ID.
+     * @param {string} password - The user's password.
+     * @returns {Friend[]}
+     */
+    getFriendsList: async function (username, password) {
+        if (!username) throw new Error("Please provide a player ID or username!");
+        if (!password) throw new Error("Please provide a password!");
 
         const { gjReq } = require("../gjReq");
         const XOR = require("../xor");
         const xor = new XOR;
 
         let search = await gjReq("getGJUsers20", {
-            str: user,
+            str: username,
             secret: "Wmfd2893gb7"
         });
         if (search.data == -1) return [];
@@ -16,7 +31,7 @@ module.exports = {
 
         const data = {
             accountID: accID,
-            gjp: xor.encrypt(pass, 37526),
+            gjp: xor.encrypt(password, 37526),
             secret: "Wmfd2893gb7"
         }
 
@@ -30,7 +45,7 @@ module.exports = {
         const { rgbToHEX } = require("../misc/rgbToHEX");
 
         players.forEach(p => {
-            let s=p.split(":");
+            let s = p.split(":");
             let username = s[1];
             let playerID = s[3];
             let p1 = s[7];

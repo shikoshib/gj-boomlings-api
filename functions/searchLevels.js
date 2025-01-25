@@ -1,4 +1,10 @@
 module.exports = {
+    /**
+     * Searches for levels.
+     * @param {string} query - The search query.
+     * @param {number} page - The page to search through. Defaults to 1.
+     * @returns {import("./getLevelByID").Level[]}
+     */
     searchLevels: async function (query, page = 1) {
         const { gjReq } = require("../gjReq");
         let GJDecode = require("../misc/GJDecode");

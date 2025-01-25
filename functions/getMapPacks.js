@@ -1,4 +1,20 @@
+/**
+ * @typedef {Object} MapPack
+ * @property {string} name - The map pack's name.
+ * @property {number} id - The map pack's ID.
+ * @property {Array<Number>} levels - The list of level IDs in the map pack.
+ * @property {Number} stars - The amount of stars received from completing the map pack.
+ * @property {number} coins - The amount of secret coins received from completing the map pack.
+ * @property {string} difficulty - The map pack's difficulty.
+ * @property {string} textColor - The map pack's title color.
+ * @property {string} barColor - The map pack's progress bar color.
+ */
 module.exports = {
+    /**
+     * Gets the map packs from a specified page.
+     * @param {number} page - The page to search through. Defaults to 1.
+     * @returns {MapPack[]}
+     */
     getMapPacks: async function (page = 1) {
         const { gjReq } = require("../gjReq");
         const data = {

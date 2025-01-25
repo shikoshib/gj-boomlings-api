@@ -1,4 +1,11 @@
 module.exports = {
+    /**
+     * Unblocks a specified user.
+     * @param {string} target - The player that needs to be unblocked.
+     * @param {string} username - The unblocking person's username or player ID.
+     * @param {string} password - The unblocking person's password.
+     * @returns {number} Returns 1 if everything's OK, and -1 if something went wrong.
+     */
     unblockUser: async function (target, username, password) {
         if (!target) throw new Error("Please provide a target's player ID or username!");
         if (!username) throw new Error("Please provide a player ID or username!");
@@ -30,7 +37,6 @@ module.exports = {
         }
 
         let res = await gjReq("unblockGJUser20", data);
-        if (res.data == -1) throw new Error(-1);
 
         return res.data;
     }

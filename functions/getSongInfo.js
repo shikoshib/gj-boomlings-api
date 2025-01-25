@@ -1,4 +1,19 @@
+/**
+ * @typedef {Object} Song
+ * @property {string} name - The song's name.
+ * @property {number} id - The song's ID.
+ * @property {string} artist - The song artist.
+ * @property {number} artistId - The song artist's ID on Newgrounds.
+ * @property {number} fileSize - The song's file size in megabytes.
+ * @property {string} link - The direct link to download the song file.
+ */
+
 module.exports = {
+    /**
+     * Searches for a song on Newgrounds or in the internal Geometry Dash song library.
+     * @param {number} song - The song ID.
+     * @returns {Song}
+     */
     getSongInfo: async function (song) {
         if (isNaN(song)) throw new Error("Please provide a valid song ID.");
         const { gjReq } = require("../gjReq");
@@ -16,12 +31,12 @@ module.exports = {
         if (link == "CUSTOMURL") link = `https://geometrydashfiles.b-cdn.net/music/${song.toString().trim()}.ogg`;
 
         const result = {
-            "name": rawSong[3],
-            "id": Number(rawSong[1]),
-            "artist": rawSong[7],
-            "artistId": Number(rawSong[5]),
-            "fileSize": `${rawSong[9]} MB`,
-            "link": link
+            name: rawSong[3],
+            id: Number(rawSong[1]),
+            artist: rawSong[7],
+            artistId: Number(rawSong[5]),
+            fileSize: Number(rawSong[9]),
+            link: link
         }
 
         return result;
