@@ -25,19 +25,19 @@ module.exports = {
             secret: "Wmfd2893gb7"
         });
         if (search.data == -1) throw new Error(-1);
-        let username = search.data.split(":")[1];
+        let name = search.data.split(":")[1];
         let accID = search.data.split(":")[21];
 
         const XOR = require("../xor.js");
         const xor = new XOR;
 
-        let chkStr = username.toLowerCase() + Buffer.from(comment).toString("base64") + level + percent + "0xPT6iUrtws0J";
+        let chkStr = name.toLowerCase() + Buffer.from(comment).toString("base64") + level + percent + "0xPT6iUrtws0J";
         let chk = xor.encrypt(sha1(chkStr), 29481);
 
         let res = await gjReq("uploadGJComment21", {
             accountID: accID,
             gjp: xor.encrypt(password, 37526),
-            userName: username.toLowerCase(),
+            userName: name.toLowerCase(),
             comment: Buffer.from(comment).toString("base64"),
             levelID: level,
             percent: percent,
