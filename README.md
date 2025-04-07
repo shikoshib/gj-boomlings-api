@@ -1,3 +1,5 @@
+**⚠ WARNING**: I quit Geometry Dash due to a loss of interest towards it. Consequently, it also includes `gj-boomlings-api`. This package will no longer be maintained. If you wish to continue maintaining it, feel free to fork this repository and work on your own copy.
+
 <div align="center">
   <h1>gj-boomlings-api</h1>
   A light-weight Geometry Dash API wrapper<br><br><a href="https://github.com/shikoshib/gj-boomlings-api/wiki"><b>Documentation</b></a><br><br>
